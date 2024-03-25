@@ -16,8 +16,8 @@ import { FaPencil } from "react-icons/fa6";
 
 
 const Mainpage = () => {
-  
-    //  //PopUp box Delete
+
+    //  PopUp box Delete
     //  const [isPopupDelete, setPopupDelete] = useState(false);
 
     //  const handleDelete = () => {
