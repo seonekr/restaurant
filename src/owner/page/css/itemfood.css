@@ -1,0 +1,126 @@
+.food_container_box {
+    width: 65%;
+    margin: 3rem auto 4rem auto;
+    padding: 25px;
+    position: relative;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+.dropdown-container {
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown-select {
+    width: 150px;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  } 
+  .dropdown-select:focus {
+    border-color: #007bff; /* Change border color on focus */
+  }
+.poster_food {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.filter{
+    display: flex;
+    justify-content: space-between;
+}
+.filter h3{
+    font-size: 20px;
+    margin: 5px 10px; 
+    display: flex;
+    justify-content: space-between;
+}
+.filter div {
+    width: 13px;
+    height: 30px;
+    background-color: #0E64D2;
+    border-radius: 3px;
+}
+.box_addTocart_content {
+    position: fixed;
+    bottom: 5rem;
+    background-color: #0E64D2;
+    color: #fff;
+    text-align: center;
+    list-style: none;
+    padding: 12px 0;
+    width: 500px;
+    border-radius: 10px;
+}
+
+.box_itemFood {
+    padding: 10px 0;
+    position: relative;
+}
+
+.box_itemFood:hover .icon_addcartTo {
+    transition: all 0.3s ease;
+    display: flex;
+}
+
+.box_itemFood_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.box_itemFood_item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.hoverAddcart_box {
+    transition: 300ms;
+    display: block;
+}
+
+.icon_addcartTo {
+    position: absolute;
+    gap: 3rem;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 30px;
+    border: 1px solid #fff;
+    padding: 0 10px;
+    display: none;
+    justify-content: center;
+    border-radius: 5px;
+    transition: 300ms;
+}
+
+.txt_boxDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 17px;
+}
+
+.icon_addcartToIN {
+    font-size: 30px;
+}
+.boxAdd_food_btn{
+        width: 120px;
+        height: 43px;
+        border: 2px solid #0E64D2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        gap: 10px;
+        text-decoration: none;
+        color: #0E64D2;   
+} 
