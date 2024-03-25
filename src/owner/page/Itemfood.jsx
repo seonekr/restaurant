@@ -7,6 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { IoCartOutline } from "react-icons/io5";
 import iconshoppin1 from "../../img/iconshoppin1.png";
+import { FaPencil } from "react-icons/fa6";
 
 function Itemfood() {
   const products = [
@@ -81,14 +82,25 @@ function Itemfood() {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+  const togglePopup2 = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
-      <div className="food_container_box">
+      <div className="food_container_box-main">
         <div className="poster_food">
           <div className="filter">
             <div></div>
+
             <h3>Food</h3>
           </div>
+
           <div>
             <Link to="/addfood" className="boxAdd_food_btn">
               <img src={iconshoppin1} alt="" />
@@ -102,12 +114,26 @@ function Itemfood() {
             <Link to="#" className="box_itemFood" key={product.id}>
               <div className="box_itemFood_item" onClick={toggleisPopupfood}>
                 <img src={product.image} alt="" />
+
                 <div className="txt_boxDescription">
-                  <p>{product.name}</p>
+                  <div>
+                    <p>
+                      {product.name}
+                      <FaPencil
+                        className="iconnEdit-food-name"
+                        onClick={togglePopup}
+                      />
+                    </p>
+                  </div>
+
                   {/* <p>{product.description}</p> */}
-                  <p>Price: ${product.price}</p>
+                  <p>
+                    Price: ${product.price}
+                    <FaPencil className="iconnEdit-food-price" onClick={togglePopup}/>
+                  </p>
                 </div>
               </div>
+
               <Link
                 to="#"
                 className="icon_addcartTo"
@@ -118,12 +144,44 @@ function Itemfood() {
             </Link>
           ))}
         </div>
+
         {cart.map((item) => (
           <div className="box_addTocart_content">
             <div> 1 View cart {item.price}</div>
           </div>
         ))}
       </div>
+
+      {isOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <div className="">
+            <h2>Add product name</h2>
+            <input type="text" placeholder="Name..." className="text-input-name"/>
+            <div className="btn-popup">
+            <button onClick={togglePopup} className="btn-cancel">Cancel</button>
+            <button className="btn-ok">OK</button>
+            </div>
+            </div>                       
+          </div>
+        </div>
+      )}
+
+      
+{isOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <div className="">
+            <h2>Add Price name</h2>
+            <input type="text" placeholder="Name..." className="text-input-name"/>
+            <div className="btn-popup">
+            <button onClick={togglePopup2} className="btn-cancel">Cancel</button>
+            <button className="btn-ok">OK</button>
+            </div>
+            </div>                       
+          </div>
+        </div>
+      )}
 
       {isPopupfood && (
         <div className="background_popup_box">
