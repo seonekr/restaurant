@@ -8,6 +8,8 @@ import { FaPlus, FaMinus } from "react-icons/fa6";
 import { IoCartOutline } from "react-icons/io5";
 import iconshoppin1 from "../../img/iconshoppin1.png";
 import { FaPencil } from "react-icons/fa6";
+import { IoCamera } from "react-icons/io5";
+import { IoImageOutline } from "react-icons/io5";
 
 function Itemfood() {
   const products = [
@@ -84,12 +86,19 @@ function Itemfood() {
   };
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+
   const togglePopup2 = () => {
-    setIsOpen(!isOpen);
+    setIsOpen2(!isOpen2);
+  };
+  // Popup Edit Image
+  const [isOpenimage, setIsOpenimage] = useState(false);
+  const togglePopupimage = () => {
+    setIsOpenimage(!isOpenimage);
   };
   return (
     <>
@@ -102,7 +111,7 @@ function Itemfood() {
           </div>
 
           <div>
-            <Link to="/addfood" className="boxAdd_food_btn">
+            <Link to="/addfood" className="add_food_btn">
               <img src={iconshoppin1} alt="" />
               <p>Add food</p>
             </Link>
@@ -112,25 +121,26 @@ function Itemfood() {
         <div className="box_itemFood_container">
           {products.map((product) => (
             <Link to="#" className="box_itemFood" key={product.id}>
-              <div className="box_itemFood_item" onClick={toggleisPopupfood}>
-                <img src={product.image} alt="" />
+              <div className="box_itemFood_item">
+                <img src={product.image} alt="" onClick={toggleisPopupfood} />
+                <div className="icon_cameraDp22">
+                  <IoCamera onClick={togglePopupimage} />
+                </div>
 
                 <div className="txt_boxDescription">
-                  <div>
-                    <p>
-                      {product.name}
-                      <FaPencil
-                        className="iconnEdit-food-name"
-                        onClick={togglePopup}
-                      />
-                    </p>
+                  <div className="product-info">
+                    <p className="product-name">{product.name}</p>
+                    <div className="edit-icon1">
+                      <FaPencil onClick={togglePopup} />
+                    </div>
                   </div>
 
-                  {/* <p>{product.description}</p> */}
-                  <p>
-                    Price: ${product.price}
-                    <FaPencil className="iconnEdit-food-price" onClick={togglePopup}/>
-                  </p>
+                  <div className="product-info">
+                    <p className="product-price">Price: ${product.price}</p>
+                    <div className="edit-icon2">
+                      <FaPencil onClick={togglePopup2} />
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -151,39 +161,81 @@ function Itemfood() {
           </div>
         ))}
       </div>
+      {/* Popup Edit Logo */}
+      {isOpenimage && (
+        <div className="popup">
+          <div className="popup-content">
+            <div className="">
+              <h2>Add Product image</h2>
 
+              <div className="input-container2">
+                <label htmlFor="file-upload" className="file-upload-label">
+                  <input
+                    id="file-upload"
+                    type="file"
+                    className="text-input-name2 visually-hidden"
+                    accept="image/*"
+                    onChange={(e) => handleFileChange(e)}
+                  />
+                  <IoImageOutline className="icon_cameraDp2" />
+                  <span className="file-upload-text">Choose Image...</span>
+                </label>
+              </div>
+
+              <div className="btn-popup2">
+                <button onClick={togglePopupimage} className="btn-cancel">
+                  Cancel
+                </button>
+                <button className="btn-ok">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/*  */}
       {isOpen && (
         <div className="popup">
           <div className="popup-content">
             <div className="">
-            <h2>Add product name</h2>
-            <input type="text" placeholder="Name..." className="text-input-name"/>
-            <div className="btn-popup">
-            <button onClick={togglePopup} className="btn-cancel">Cancel</button>
-            <button className="btn-ok">OK</button>
+              <h2>Add Product name</h2>
+              <input
+                type="text"
+                placeholder="Name..."
+                className="text-input-name"
+              />
+              <div className="btn-popup">
+                <button onClick={togglePopup} className="btn-cancel">
+                  Cancel
+                </button>
+                <button className="btn-ok">OK</button>
+              </div>
             </div>
-            </div>                       
           </div>
         </div>
       )}
 
-      
-{isOpen && (
+      {isOpen2 && (
         <div className="popup">
           <div className="popup-content">
             <div className="">
-            <h2>Add Price name</h2>
-            <input type="text" placeholder="Name..." className="text-input-name"/>
-            <div className="btn-popup">
-            <button onClick={togglePopup2} className="btn-cancel">Cancel</button>
-            <button className="btn-ok">OK</button>
+              <h2>Add Product price</h2>
+              <input
+                type="text"
+                placeholder="Price..."
+                className="text-input-name"
+              />
+              <div className="btn-popup">
+                <button onClick={togglePopup2} className="btn-cancel">
+                  Cancel
+                </button>
+                <button className="btn-ok">OK</button>
+              </div>
             </div>
-            </div>                       
           </div>
         </div>
       )}
-
-      {isPopupfood && (
+      {/* Popup detail food */}
+      {/* {isPopupfood && (
         <div className="background_popup_box">
           <div className="foodDetails_container">
             <div className="goBack_foodDetails" onClick={toggleisPopupfood}>
@@ -228,7 +280,7 @@ function Itemfood() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

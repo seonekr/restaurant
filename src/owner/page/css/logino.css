@@ -2,22 +2,24 @@ a {
     text-decoration: none;
     color: #000;
   }
-  
   .box_container_logino {
+    display: flex;
     width: 100%;
-    height: 110vh;
+    height: 100vh;
     margin: 0;
     position: absolute;
-    top: 53%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
     padding: 1rem;
-  }
+}
+
+
   
   .cover-login {
     margin: auto;
-    width: 50%;
+    width: 40%;
     background-color: #fff;
     border-radius: 10px;
     padding: 5rem 5rem;
