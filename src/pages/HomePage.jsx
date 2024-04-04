@@ -15,9 +15,9 @@ const HomePage = () => {
   return (
     <div className="container_boxhomepage">
       <div className="container_boxHeaderAt_store2">
-        <div className="logo_box_homepage">
-          <img src={logo2} alt="" />
-        </div>
+        <>
+          <img src={logo2} className="logo_box_homepage" />
+        </>
         <div className="box_heardOfGrooup">
           <div className="header_box_of_header">
             <div className="description_header">
@@ -77,7 +77,7 @@ const HomePage = () => {
             <Link className="link_categor_l activeCategory" to="#">Pizza</Link>
             <Link className="link_categor_l" to="#">Pizza</Link>
             <Link className="link_categor_l" to="#">Pizza</Link>
-            <Link className="link_categor_l" to="#">PizzaPizza</Link>
+            <Link className="link_categor_l" to="#">Pizza</Link>
             <Link className="link_categor_l" to="#">Pizza</Link>
             <Link className="link_categor_l" to="#">Pizza</Link>
           </div>

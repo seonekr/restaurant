@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./css/itemfood.css";
 import foodImage from "../../img/foodImage.png";
 import { Link } from "react-router-dom";
+import imageicon from "../../img/imageicon.jpg";
+
 import foodImage2 from "../../img/foodImage2.jpg";
 import { IoClose } from "react-icons/io5";
 import { FaPlus, FaMinus } from "react-icons/fa6";
@@ -10,9 +12,18 @@ import iconshoppin1 from "../../img/iconshoppin1.png";
 import { FaPencil } from "react-icons/fa6";
 import { IoCamera } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
+import { AiOutlineDelete } from "react-icons/ai";
+
+import axios from "axios";
 
 function Itemfood() {
-  const products = [
+  const handleDelete = (index) => {
+    const updatedProducts = [...products];
+    updatedProducts.splice(index, 1);
+    setProducts(updatedProducts);
+  };
+
+  const [products, setProducts] = useState([
     {
       id: 1,
       image: foodImage,
@@ -62,7 +73,8 @@ function Itemfood() {
       name: "Product 8",
       price: 49.99,
     },
-  ];
+  ]);
+  // const products = ;
 
   //PopUp box food item
   const [isPopupfood, setisPopupfood] = useState(false);
@@ -88,18 +100,41 @@ function Itemfood() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
-  const togglePopup = () => {
+  const [pro, setPro] = useState("");
+
+  const togglePopup = (id) => {
     setIsOpen(!isOpen);
+    setPro(id);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefualt();
+  };
   const togglePopup2 = () => {
     setIsOpen2(!isOpen2);
   };
+  const [mainImageBanner, setMainImageBanner] = useState(null);
+
   // Popup Edit Image
   const [isOpenimage, setIsOpenimage] = useState(false);
   const togglePopupimage = () => {
     setIsOpenimage(!isOpenimage);
   };
+    ///Choose image handleImage
+    const handleImage = (e) => {
+      const file = e.target.files[0];
+  
+      if (file) {
+        const reader = new FileReader();
+  
+        reader.onloadend = () => {
+          setMainImage([file]);
+        };
+  
+        reader.readAsDataURL(file);
+      }
+    };
+  
   return (
     <>
       <div className="food_container_box-main">
@@ -111,7 +146,7 @@ function Itemfood() {
           </div>
 
           <div>
-            <Link to="/addfood" className="add_food_btn">
+            <Link to="/addproduct" className="add_food_btn">
               <img src={iconshoppin1} alt="" />
               <p>Add food</p>
             </Link>
@@ -119,31 +154,34 @@ function Itemfood() {
         </div>
 
         <div className="box_itemFood_container">
-          {products.map((product) => (
-            <Link to="#" className="box_itemFood" key={product.id}>
+          {products.map((product, id) => (
+            <Link to="#" className="box_itemFood" key={id}>
               <div className="box_itemFood_item">
                 <img src={product.image} alt="" onClick={toggleisPopupfood} />
+                <div
+                  className="deleteBox_productcontent"
+                  onClick={() => handleDelete(id)}
+                >
+                  <AiOutlineDelete />
+                </div>
                 <div className="icon_cameraDp22">
                   <IoCamera onClick={togglePopupimage} />
                 </div>
-
-                <div className="txt_boxDescription">
+                <div className="txt_boxDescription3">
                   <div className="product-info">
                     <p className="product-name">{product.name}</p>
-                    <div className="edit-icon1">
-                      <FaPencil onClick={togglePopup} />
+                    <div className="edit-icon-name">
+                      <FaPencil onClick={() => togglePopup(product.id)} />
                     </div>
                   </div>
-
                   <div className="product-info">
                     <p className="product-price">Price: ${product.price}</p>
-                    <div className="edit-icon2">
+                    <div className="edit-icon-price">
                       <FaPencil onClick={togglePopup2} />
                     </div>
                   </div>
                 </div>
               </div>
-
               <Link
                 to="#"
                 className="icon_addcartTo"
@@ -163,37 +201,74 @@ function Itemfood() {
       </div>
       {/* Popup Edit Logo */}
       {isOpenimage && (
-        <div className="popup">
-          <div className="popup-content">
-            <div className="">
-              <h2>Add Product image</h2>
+       <form className="popup-image">
+       <div className="popup-content-image">
+         <div className="box_input_image">
+           <h2>Add banner mage</h2>
 
-              <div className="input-container2">
-                <label htmlFor="file-upload" className="file-upload-label">
-                  <input
-                    id="file-upload"
-                    type="file"
-                    className="text-input-name2 visually-hidden"
-                    accept="image/*"
-                    onChange={(e) => handleFileChange(e)}
-                  />
-                  <IoImageOutline className="icon_cameraDp2" />
-                  <span className="file-upload-text">Choose Image...</span>
-                </label>
-              </div>
+           <div className="input-container2">
+             {mainImageBanner && mainImageBanner.length > 0 ? (
+               <img
+                 src={URL.createObjectURL(mainImageBanner[0])}
+                 alt="Banner"
+               />
+             ) : (
+               <img src={imageicon} alt="Banner" />
+             )}
+           </div>
 
-              <div className="btn-popup2">
-                <button onClick={togglePopupimage} className="btn-cancel">
-                  Cancel
-                </button>
-                <button className="btn-ok">OK</button>
-              </div>
+           <label className="popup_Border_Boximagae">
+             <input
+               type="file"
+               id="img"
+               onChange={handleImage}
+               required
+             />
+             <IoImageOutline className="icon_cameraDp2" />
+             <span className="file-upload-text">Choose Image...</span>
+           </label>
+         </div>
+         <div className="btn_foasdf">
+           <button
+             className="btn_cancel btn_addproducttxt_popup"
+             onClick={togglePopupimage}
+           >
+             CANCEL
+           </button>
+           <button className="btn_confirm btn_addproducttxt_popup">
+             OK
+           </button>
+         </div>
+       </div>
+     </form>
+      )}
+      {/*  */}
+      {isOpen && (
+        <div className="background_addproductpopup_box2">
+          <div className="hover_addproductpopup_box2">
+            <div className="box_input2">
+              <p>Add product name</p>
+              <input
+                type="text"
+                placeholder="Name..."
+                className="input_of_txtAddproduct"
+              />
+            </div>
+            <div className="btn_foasdf">
+              <button
+                className="btn_cancel btn_addproducttxt_popup"
+                onClick={togglePopup}
+              >
+                CANCEL
+              </button>
+              <button className="btn_confirm btn_addproducttxt_popup">
+                OK
+              </button>
             </div>
           </div>
         </div>
       )}
-      {/*  */}
-      {isOpen && (
+      {/* {isOpen && (
         <div className="popup">
           <div className="popup-content">
             <div className="">
@@ -212,24 +287,29 @@ function Itemfood() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {isOpen2 && (
-        <div className="popup">
-          <div className="popup-content">
-            <div className="">
-              <h2>Add Product price</h2>
+        <div className="background_addproductpopup_box2">
+          <div className="hover_addproductpopup_box2">
+            <div className="box_input2">
+              <p>Add product price</p>
               <input
                 type="text"
                 placeholder="Price..."
-                className="text-input-name"
+                className="input_of_txtAddproduct"
               />
-              <div className="btn-popup">
-                <button onClick={togglePopup2} className="btn-cancel">
-                  Cancel
-                </button>
-                <button className="btn-ok">OK</button>
-              </div>
+            </div>
+            <div className="btn_foasdf">
+              <button
+                className="btn_cancel btn_addproducttxt_popup"
+                onClick={togglePopup2}
+              >
+                CANCEL
+              </button>
+              <button className="btn_confirm btn_addproducttxt_popup">
+                OK
+              </button>
             </div>
           </div>
         </div>

@@ -56,6 +56,17 @@
     background-color: #0E64D2;
     color: #fff;
 }
+.box_border_haeaderMain {
+    width: 50px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxcart_header .boxmainpage {
+    color: #000000;
+}
 
 .icon_cart_header {
     font-size: 25px;

@@ -18,6 +18,11 @@ import Login from "./seller/Login";
 //------ Owner Page ------//
 import LoginO from "./owner/page/LoginO";
 import Mainpage from "./owner/page/Mainpage"; 
+import Addproduct from "./owner/page/Addproduct";
+import Manageorder from "./owner/page/Manageorder";
+import Detailorder from "./owner/page/Detailorder";
+import Dashborardpc from "./owner/page/Dashboardpc";
+
 
 
 function App() {
@@ -44,6 +49,10 @@ function App() {
           {/* --------- Owner Page ---------- */}
           <Route path="/logino" exact Component={LoginO} />
           <Route path="/mainpage" exact Component={Mainpage}/>
+          <Route path="/addproduct" exact Component={Addproduct}/>
+          <Route path="/manageorder" exact Component={Manageorder} />
+          <Route path="/detailorder" exact Component={Detailorder} />
+          <Route path="/dashboardpc" exact Component={Dashborardpc} />
 
         </Routes>
       </Router>

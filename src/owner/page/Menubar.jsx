@@ -13,8 +13,8 @@ function Menubar() {
           <h3>Name Restaurant</h3>
           <div className='menu_header_box2'>
             <Link to="/" className='linkTomenu active'>Home</Link>
-            <Link to="/orderList" className='linkTomenu'>Order</Link>
-            <Link to="/dashboard" className='linkTomenu'>Dashboard</Link>
+            <Link to="/manageorder" className='linkTomenu'>Order</Link>
+            <Link to="/dashboardpc" className='linkTomenu'>Dashboard</Link>
           </div>
         </div>
       </div>
