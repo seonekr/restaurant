@@ -119,7 +119,10 @@ function Dashborardpc() {
                   </div>
                   <h4>History</h4>
                   <h3>4</h3>
+                  <Link to="/history">
                   <p>View More</p>
+          </Link>
+                 
                 </div>
               </div>
           </div>

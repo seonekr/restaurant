@@ -7,43 +7,50 @@
     background-color: #fff;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
+
 .dropdown-container {
     font-family: Arial, sans-serif;
     margin-bottom: 20px;
-  }
-  
-  .dropdown-select {
+}
+
+.dropdown-select {
     width: 150px;
     padding: 8px;
     font-size: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
-  } 
-  .dropdown-select:focus {
+}
+
+.dropdown-select:focus {
     border-color: #007bff; /* Change border color on focus */
-  }
+}
+
 .poster_food {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
 }
-.filter{
+
+.filter {
     display: flex;
     justify-content: space-between;
 }
-.filter h3{
+
+.filter h3 {
     font-size: 20px;
-    margin: 5px 10px; 
+    margin: 5px 10px;
     display: flex;
     justify-content: space-between;
 }
+
 .filter div {
     width: 13px;
     height: 30px;
     background-color: #0E64D2;
     border-radius: 3px;
 }
+
 .box_addTocart_content {
     position: fixed;
     bottom: 5rem;
@@ -113,17 +120,21 @@
     font-size: 30px;
 }
 
+/* Media Query for screens with maximum width of 431px */
 @media screen and (max-width: 431px) {
     .food_container_box {
-        width: 100%;
-        margin: 2rem auto 7rem auto;
-        padding: 10px;
+        width: 100%; /* Adjusted width for smaller screens */
+        margin: 1rem auto 2rem auto;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
     }
 
     .box_itemFood_container {
-        grid-template-columns: 1fr 1fr ;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
+        position: relative;
+        grid-template-columns: 1fr 1fr; /* Single column layout for smaller screens */
     }
 }
+
+

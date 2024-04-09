@@ -5,28 +5,27 @@
   font-family: sans-serif;
 }
 
-.container_boxHeaderAt_store2 {
+.container_boxHeaderAt_mainpage {
   display: flex;
   justify-content: space-between;
   width: 70%;
   gap: 3rem;
   margin: 7rem auto auto auto;
 }
-.box_logo {
+.box_logo_main {
   justify-content: center;
   align-items: center;
   display: flex;
   margin-bottom: 20px;
   margin-left: 15px;
 }
-.box_logo img {
-  border-radius: 100%;
+.box_logo_main img {
   margin-top: -40px;
   height: 220px;
   width: 220px;
   margin-right: -20px;
 }
-.box_heardOfGrooup2 {
+.box_heardOfGrooup_main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   left: -2rem;

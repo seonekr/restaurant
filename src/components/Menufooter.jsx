@@ -11,7 +11,9 @@ function Menufooter() {
     <div className="menufooter_container_box">
       <div className="menufooter_contentHeader">
         <div className="box_content_header">
-          <h3>Name Restaurant</h3>
+          <Link to="/" className="linkTomenu ">
+            <h3>Name Restaurant</h3>
+          </Link>
           <div className="menu_header_box">
             <Link to="/" className="linkTomenu active">
               Home
@@ -19,8 +21,13 @@ function Menufooter() {
             <Link to="/orderList" className="linkTomenu">
               Order
             </Link>
+            <Link to="/mainpage" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <IoRestaurantOutline className="icon_cart_header" />
+              </div>
+            </Link>
           </div>
-          <Link to="/cart" className="boxcart_header_container">
+          {/* <Link to="/cart" className="boxcart_header_container">
             <p className="linkTomenu">Cart</p>
             <div className="boxcart_header">
               <div className="box_border_haeaderCart boxfirstbg">
@@ -30,15 +37,7 @@ function Menufooter() {
                 <p>2</p>
               </div>
             </div>
-          </Link>
-          <Link to="/mainpage" className="boxcart_header_container">
-            <div className="boxcart_header">
-              <div className="box_border_haeaderMain boxmainpage">
-                <IoRestaurantOutline className="icon_cart_header" />
-              </div>
-            
-            </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
@@ -52,17 +51,10 @@ function Menufooter() {
           <LuClipboardCheck className="iconMenu_foot" />
           Order
         </Link>
-
-        <Link className="link_menu" to="/cart">
-          <IoCartOutline className="iconMenu_foot" />
-          Cart
-        </Link>
         <Link className="link_menu" to="/mainpage">
           <IoRestaurantOutline className="iconMenu_foot" />
           Owner
         </Link>
-        
-        
       </div>
     </div>
   );

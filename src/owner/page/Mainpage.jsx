@@ -88,9 +88,9 @@ const Mainpage = () => {
 
   return (
     <>
-      <div className="container_boxhomepage">
-        <div className="container_boxHeaderAt_store2">
-          <div className="box_logo">
+      <div >
+        <div className="container_boxHeaderAt_mainpage">
+          <div className="box_logo_main">
             {mainImageLogo && mainImageLogo.length > 0 ? (
               <img src={URL.createObjectURL(mainImageLogo[0])} alt="logo" />
             ) : (
@@ -101,7 +101,7 @@ const Mainpage = () => {
               <IoCamera onClick={togglePopuplogo} />
             </div>
           </div>
-          <div className="box_heardOfGrooup2">
+          <div className="box_heardOfGrooup_main">
             <div className="header_box_of_header-main">
               <div className="description_header-main">
                 <h3>Name Restaurant</h3>

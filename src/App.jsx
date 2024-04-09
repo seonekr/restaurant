@@ -22,6 +22,8 @@ import Addproduct from "./owner/page/Addproduct";
 import Manageorder from "./owner/page/Manageorder";
 import Detailorder from "./owner/page/Detailorder";
 import Dashborardpc from "./owner/page/Dashboardpc";
+import History from "./owner/page/History";
+import Orderhistory from "./owner/page/Orderhistory";
 
 
 
@@ -53,6 +55,8 @@ function App() {
           <Route path="/manageorder" exact Component={Manageorder} />
           <Route path="/detailorder" exact Component={Detailorder} />
           <Route path="/dashboardpc" exact Component={Dashborardpc} />
+          <Route path="/history" exact Component={History} />
+          <Route path="/orderhistory" exact Component={Orderhistory} />
 
         </Routes>
       </Router>

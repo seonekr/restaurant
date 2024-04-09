@@ -3,10 +3,6 @@ import "./css/itemfood.css";
 import foodImage from "../../img/foodImage.png";
 import { Link } from "react-router-dom";
 import imageicon from "../../img/imageicon.jpg";
-
-import foodImage2 from "../../img/foodImage2.jpg";
-import { IoClose } from "react-icons/io5";
-import { FaPlus, FaMinus } from "react-icons/fa6";
 import { IoCartOutline } from "react-icons/io5";
 import iconshoppin1 from "../../img/iconshoppin1.png";
 import { FaPencil } from "react-icons/fa6";
@@ -138,8 +134,8 @@ function Itemfood() {
   return (
     <>
       <div className="food_container_box-main">
-        <div className="poster_food">
-          <div className="filter">
+        <div className="poster_food-mainpage">
+          <div className="filter2">
             <div></div>
 
             <h3>Food</h3>
@@ -153,10 +149,10 @@ function Itemfood() {
           </div>
         </div>
 
-        <div className="box_itemFood_container">
+        <div className="box_itemFood_container_main">
           {products.map((product, id) => (
-            <Link to="#" className="box_itemFood" key={id}>
-              <div className="box_itemFood_item">
+            <Link to="#" className="box_itemFood-main" key={id}>
+              <div className="box_itemFood_item_main">
                 <img src={product.image} alt="" onClick={toggleisPopupfood} />
                 <div
                   className="deleteBox_productcontent"

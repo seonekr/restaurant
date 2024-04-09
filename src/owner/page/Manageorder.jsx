@@ -6,7 +6,6 @@ import { IoIosArrowBack } from "react-icons/io";
 
 const Manageorder = () => {
   return (
-    <div>
       <div className="manageorder_box_container">
         <div className="title_header_orderBox">
           <Link to="/mainpage" className="back_orderBox">
@@ -56,10 +55,8 @@ const Manageorder = () => {
             </div>
           </div>
         </div>
+        <Menufooter />
       </div>
-
-      <Menufooter />
-    </div>
   );
 };
 

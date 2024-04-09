@@ -14,12 +14,13 @@
   text-align: center;
   margin-bottom: 30px;
 }
+
 /* .box_container_addproduct {
   padding: 10px 0;
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   width: 90%;
-  background-color: #ffffff;
+  background-color: #9c2323;
   margin: auto;
 } */
 .box_container_product h3 {
@@ -31,7 +32,7 @@
 }
 .filter {
   position: relative;
-  left: 30px;
+  left: 5px;
   display: flex;
   justify-content: start;
 }
@@ -82,7 +83,6 @@
 /* input text */
 .boxcontainerSpan_Box {
   width: 20%;
-  
 }
 .box_container_product {
   position: relative;
@@ -93,7 +93,6 @@
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
 }
 .group_container_product {
-  
   display: grid;
   gap: 1rem;
   width: 100%;
@@ -105,7 +104,6 @@
 }
 
 .deleteBox_productconotent {
-  
   background-color: red;
   font-size: 20px;
   color: #fff;
@@ -128,22 +126,22 @@
 }
 .box_container_image {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   padding: 2px;
   position: relative;
 }
 .addProduct_box_content_afterThat {
-  padding: 5px 5px;
+  padding: 6px 5px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  position: relative;  border: 1px solid #ccc;
+  position: relative;
+  border: 1px solid #ccc;
   border-radius: 2px;
-  background: #ffffff;
+  background: #863c3c;
 }
 
 .addProduct_box_content_afterThat .input-box {
-  
   display: grid;
   justify-content: center;
   width: 100%;
@@ -157,7 +155,7 @@
 .addProduct_box_content_afterThat .input-box .box input {
   margin-right: 4rem;
   width: 100%;
-  height: 2.3rem;
+  height: 2.1rem;
   margin-top: 0.5rem;
   font-size: 16px;
   border: solid 1px #ccc;
@@ -202,7 +200,7 @@
 
 /* box_popular */
 
-.box_popular {
+/* .box_popular {
   display: flex;
   align-items: center;
   margin-top: 1rem;
@@ -212,7 +210,7 @@
 
 .box_popular input {
   width: 20%;
-}
+} */
 
 /* Submit button */
 .btn_submit {
@@ -286,7 +284,7 @@
 
 .iconimage {
   width: 100%;
-  height: 57.5vh;
+  height: 57.7vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -319,8 +317,7 @@
   align-self: center;
   position: relative;
   cursor: pointer;
-  width: 280px;
-  height: 35vh;
+
   overflow: hidden;
 }
 .box_input-img img {
@@ -337,7 +334,6 @@
 
 /* =========== onClick icon edit ===============*/
 
-
 .box_input_image {
   display: flex;
   flex-direction: column;
@@ -347,31 +343,30 @@
   width: 100%;
   height: 45vh;
   margin-bottom: 15px;
-  background-color: #FFF;
+  background-color: #fff;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-.box_input_image input{
+.box_input_image input {
   display: none;
 }
-.box_input_image img{
+.box_input_image img {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   width: 150px;
   height: 180px;
   padding: 16px 0;
   margin-top: 10px;
-  
 }
 
 .btn_cancel {
-  background-color: #F2F3F7;
+  background-color: #f2f3f7;
   color: #000;
   font-size: 18px;
 }
 
 .btn_confirm {
-  background-color: #347FFF;
-  color: #FFF;
+  background-color: #347fff;
+  color: #fff;
   font-size: 18px;
 }
 
