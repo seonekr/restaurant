@@ -1,3 +1,6 @@
+* {
+  font-family: Arial, sans-serif;
+}
 .food_container_box {
     width: 65%;
     margin: 1rem auto 4rem auto;
@@ -5,56 +8,55 @@
     position: relative;
     border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 6px rgba(202, 17, 17, 0.2);
 }
 
 .dropdown-container {
-    font-family: Arial, sans-serif;
-    margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 20px;
 }
 
 .dropdown-select {
-    width: 150px;
-    padding: 8px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
+  width: 150px;
+  padding: 8px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
 }
 
 .dropdown-select:focus {
-    border-color: #007bff; /* Change border color on focus */
+  border-color: #007bff; /* Change border color on focus */
 }
-
+/* Poster and Filter Styles */
 .poster_food {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .filter {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .filter h3 {
-    font-size: 20px;
-    margin: 5px 10px;
-    display: flex;
-    justify-content: space-between;
+  font-size: 20px;
+  margin: 5px 10px;
 }
 
 .filter div {
-    width: 13px;
-    height: 30px;
-    background-color: #0E64D2;
-    border-radius: 3px;
+  width: 13px;
+  height: 30px;
+  background-color: #0e64d2;
+  border-radius: 3px;
 }
-
-.box_addTocart_content {
+/* Cart Content Styles */
+.box_addTocart_content-food {
+  
     position: fixed;
     bottom: 5rem;
-    background-color: #0E64D2;
+    background-color: #0e64d2;
     color: #fff;
     text-align: center;
     list-style: none;
@@ -64,77 +66,100 @@
 }
 
 .box_itemFood {
-    padding: 10px 0;
-    position: relative;
+  padding: 10px 0;
+  position: relative;
 }
 
 .box_itemFood:hover .icon_addcartTo {
-    transition: all 0.3s ease;
-    display: flex;
+  transition: all 0.3s ease;
+  display: flex;
 }
 
 .box_itemFood_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 .box_itemFood_item {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.5rem;
 }
 
 .hoverAddcart_box {
-    transition: 300ms;
-    display: block;
+  transition: 300ms;
+  display: block;
 }
 
 .icon_addcartTo {
-    position: absolute;
-    gap: 3rem;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    font-size: 30px;
-    border: 1px solid #fff;
-    padding: 0 10px;
-    display: none;
-    justify-content: center;
-    border-radius: 5px;
-    transition: 300ms;
+  position: absolute;
+  gap: 3rem;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 30px;
+  border: 1px solid #fff;
+  padding: 0 10px;
+  display: none;
+  justify-content: center;
+  border-radius: 5px;
+  transition: 300ms;
 }
 
 .txt_boxDescription {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;      
+  font-size: 17px;
 }
-
+.product-info-hp {
+  display: flex;
+  align-items: center;
+}
+.product-name-hp {
+  margin: 0;
+  font-size: 16px;
+  flex: 1;
+  font-weight: bold;
+}
+.product-price-hp {
+  margin-top: -10px;
+  font-size: 16px;
+  flex: 1;
+}
 .icon_addcartToIN {
-    font-size: 30px;
+  font-size: 30px;
 }
-
 /* Media Query for screens with maximum width of 431px */
 @media screen and (max-width: 431px) {
-    .food_container_box {
-        width: 100%; /* Adjusted width for smaller screens */
-        margin: 1rem auto 2rem auto;
-        padding: 20px;
-        border-radius: 10px;
-        background-color: #ffffff;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    }
+  .food_container_box {
+    position: relative;
+    width: 100%; /* Adjusted width for smaller screens */
+    margin: 1rem auto 2rem auto;
+    /* padding: 20px; */
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  }
 
-    .box_itemFood_container {
-        position: relative;
-        grid-template-columns: 1fr 1fr; /* Single column layout for smaller screens */
-    }
+  .box_itemFood_container {
+    position: relative;
+    grid-template-columns: 1fr 1fr; /* Single column layout for smaller screens */
+  }
+  .box_addTocart_content-food {
+    position: fixed;
+    bottom: 5rem;
+    background-color: #0e64d2;
+    color: #fff;
+    text-align: center;
+    list-style: none;
+    padding: 12px 0;
+    width: 320px;
+    border-radius: 10px;
+  }
 }
-
-

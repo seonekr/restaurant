@@ -9,7 +9,9 @@ import { IoIosArrowBack } from "react-icons/io";
    
 function Order() {
     return (
-        <div className='order_box_container'>
+        <>
+
+    
             <div className='order_box_container'>
                 <div className="title_header_orderBox">
                     <Link to="/orderList" className='back_orderBox'>
@@ -39,7 +41,7 @@ function Order() {
                             <div className="spanBoxInline"></div>
                             <div className="spanBoxInline2"></div>
                         </div>
-                        <p className='ssdasdsa'>Your order has been received</p>
+                        <p className='ssdasdsa-1'>Your order has been received</p>
                     </div>
                 </div>
                 <div className="order_content">
@@ -79,9 +81,10 @@ function Order() {
                         <p>Payment method: MasterCard</p>
                     </div>
                 </div>
-            </div>
-            <Menufooter />
-        </div>
+                </div>
+                <Menufooter />
+            </>
+   
     )
 }
 

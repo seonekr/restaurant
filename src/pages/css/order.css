@@ -1,5 +1,5 @@
 .order_box_container {
-    width: 60%;
+    width: 45%;
     margin: 6rem auto auto auto;
     background-color: #fff;
 }
@@ -10,6 +10,7 @@
 }
 
 .title_header_orderBox h3 {
+    font-size: 18px;
     text-align: center;
 }
 
@@ -26,6 +27,7 @@
 }
 
 .icon_status {
+    
     display: flex;
     align-items: center;
     font-size: 25px;
@@ -94,9 +96,10 @@
 }
 
 .order_contentItem {
+    justify-content: center;
     display: grid;
     padding: 2cqh 30px;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
     margin: auto;
     border-bottom: 1px solid #ddd;
 }
@@ -109,7 +112,7 @@
 }
 
 .boxofnamefood {
-    width: 350px;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -127,8 +130,8 @@
     padding: 20px 2rem 10px 2rem;
 }
 
-.ssdasdsa {
-    text-align: center;
+.ssdasdsa-1 {
+    text-align: start;
 }
 
 /* **************** Order List ******************** */
@@ -185,10 +188,12 @@
 
 @media screen and (max-width: 431px) {
     .order_box_container {
+        
         width: 100%;
-        margin: 1rem 0 0 0;
+        margin: 0;
         overflow: hidden;
         padding: 10px;
+      
     }
 
     .box_firstOrder_content {

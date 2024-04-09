@@ -1,11 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
+.container_box_homepage {
+  display: 100%;
 }
-
-.container_boxHeaderAt_store2 {
+.container_boxHeaderAt_store2-hp {
   display: flex;
   justify-content: space-between;
   width: 70%;
@@ -184,46 +180,12 @@
 }
 
 @media screen and (max-width: 431px) {
-  * {
-    background-color: #e0e8f3;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-    width: 100%;
-  }
-
-  .container_boxhomepage {
-    width: 100%;
-  
-  }
-
-  .container_boxHeaderAt_store2 {
-
-    display: auto;
+  .container_boxHeaderAt_store2-hp {
+    display: flex;
     margin: 0;
     width: 100%;
     align-items: center;
-    
-
   }
-  /* .box_logo {
-    background-color: transparent;
-    height: 143px;
-    left: 5px;
-    object-fit: cover;
-    position: absolute;
-    top: 7px;
-    width: 145px;
-  } */
-
-  /* .box_logo img {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    margin: 0;
-  } */
   .box_logo {
     bottom: 5px;
     margin: 0;
@@ -234,7 +196,6 @@
     width: 130px; /* Adjust width relative to viewport width */
   }
   .box_logo img {
-    position: absolute;
     margin: 0;
     width: 100%;
     height: 100%;
@@ -242,19 +203,17 @@
   }
   .box_heardOfGrooup {
     background-color: transparent;
-    height: 20%;
-    left: 120px;
-    position: absolute;
     top: 15px;
-    width: 100%;
+    position: absolute;
+    margin: 0;
+    left: 35%;
     display: grid;
     grid-template-columns: 1fr;
   }
 
   .header_box_of_header {
- 
-    width: 60%;
-    top: 0;
+    
+    width: 100%;
   }
 
   .header_box_of_header p {
@@ -295,7 +254,7 @@
     font-size: 8px;
   }
   .switch_btn2-hp {
-    margin-right: 3rem;
+    margin-right: 0.2rem;
     background-color: #0e64d2;
     color: #fff;
     padding: 2px 12px;
@@ -311,88 +270,83 @@
     color: gold;
   }
 
-  
   .contact_head_Boxdetails-map-hp p {
     margin-left: -15px;
     font-size: 10px;
   }
   .header_contact_details_box {
-  
-    position: absolute;
-    width: 70%;
-    top: 50%;
+    position: relative;
+    width: 85%;
+    top: -15px;
     align-items: center;
   }
   .iconnDetails_head-map {
     width: 10px;
-    
   }
-
-
 
   /* Banner */
   .box_banner_content {
     margin-top: -15px;
     position: relative;
   }
-  
+
   .box_banner_content img {
     width: 100%;
     height: 20vh;
     object-fit: cover;
   }
-/* Category */
+  /* Category */
 
-.container_boxcategory {
-  margin: 0;
-  max-width: 80%;
-  min-width: 20%;
-  overflow: hidden;
-  padding: 8px 8rem;
-  display: flex;
-  align-items: center;
-  position: relative;
-  gap: 1rem;
-  justify-content: center;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 5px;
-  background-color: #0e64d2;
-}
-.container_boxcategory .link_categor_l{
-  font-size: 12px;
-}
-.link_categor_l {
-  text-decoration: none;
-  color: #000;
-  transition: all 0.3s ease;
-  font-size: 17px;
-}
+  .container_boxcategory {
+    margin: 0;
+    max-width: 80%;
+    min-width: 20%;
+    overflow: hidden;
+    padding: 8px 8rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 1rem;
+    justify-content: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    background-color: #0e64d2;
+  }
+  .container_boxcategory .link_categor_l {
+    font-size: 12px;
+  }
+  .link_categor_l {
+    text-decoration: none;
+    color: #000;
+    transition: all 0.3s ease;
+    font-size: 10px;
+  }
 
-.link_categor_l:hover {
-  color: #fff;
-}
+  .link_categor_l:hover {
+    color: #fff;
+  }
 
-.activeCategory {
-  color: #fff;
-}
+  .activeCategory {
+    color: #fff;
+  }
 
-.link_categor_l::before {
-  transition: 300ms;
-  height: 5px;
-  content: "";
-  position: absolute;
-  background-color: #fff;
-}
+  .link_categor_l::before {
+    transition: 300ms;
+    height: 5px;
+    content: "";
+    position: absolute;
+    background-color: #fff;
+  }
 
-.link_categor_l::before {
-  width: 0%;
-  bottom: 10px;
-}
+  .link_categor_l::before {
+    width: 0%;
+    bottom: 10px;
+  }
 
-.link_categor_l:hover::before {
-  width: 6%;
-}
+  .link_categor_l:hover::before {
+    width: 5%;
+  }
   /* 
   .container_boxHeaderAt_store2 {
     display: grid;

@@ -51,8 +51,8 @@ function Detailorder() {
                 </div>
                 <h4>Done</h4>
               </div>
-              <div className="spanboxinline"></div>
-              <div className="spanboxinline2"></div>
+              <div className="spanboxinline-1"></div>
+              <div className="spanboxinline-2"></div>
             </div>
             <p className="ssdasdsa">Your order has been received</p>
           </div>

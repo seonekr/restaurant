@@ -12,8 +12,8 @@ import { IoIosStar } from "react-icons/io";
 
 const HomePage = () => {
   return (
-    <div className="container_boxhomepage">
-      <div className="container_boxHeaderAt_store2">
+    <div className="container_box_homepage">
+      <div className="container_boxHeaderAt_store2-hp">
         <div className="box_logo">
           <img src={logo1} alt="logo" />
         </div>

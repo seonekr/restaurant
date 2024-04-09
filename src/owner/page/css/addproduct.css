@@ -131,14 +131,14 @@
   position: relative;
 }
 .addProduct_box_content_afterThat {
-  padding: 6px 5px;
+  padding: 5px 5px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   position: relative;
   border: 1px solid #ccc;
   border-radius: 2px;
-  background: #863c3c;
+  background: #ffffff;
 }
 
 .addProduct_box_content_afterThat .input-box {
@@ -153,21 +153,17 @@
 }
 
 .addProduct_box_content_afterThat .input-box .box input {
-  margin-right: 4rem;
-  width: 100%;
-  height: 2.1rem;
-  margin-top: 0.5rem;
-  font-size: 16px;
-  border: solid 1px #ccc;
-  border-radius: 4px;
-  padding: 0 8px;
+  width: 15rem;
+    height: 2.3rem;
+    margin-top: 0.5rem;
+    font-size: 18px;
 }
 
 .addProduct_box_content_afterThat img {
   cursor: pointer;
 }
 
-/* .image {
+.image {
  
   width: 60%;
   display: grid;
@@ -178,13 +174,13 @@
   align-items: center;
   overflow: hidden;
   color: #af6363;
-} */
+}
 
 .edit_images {
   position: absolute;
   top: 5px;
   right: 10px;
-  background-color: #fff;
+  background-color: #FFF;
   border-radius: 5px;
   padding: 4px 4px 0 4px;
   font-size: 25px;
@@ -314,13 +310,14 @@
 }
 
 .box_input-img {
-  align-self: center;
   position: relative;
   cursor: pointer;
-
+  width: 260px;
+  height: 36vh;
   overflow: hidden;
 }
 .box_input-img img {
+ 
   position: relative;
   cursor: pointer;
   width: 100%;

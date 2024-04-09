@@ -73,7 +73,7 @@
   background-color: #55c639;
 }
 
-.spanboxinline {
+.spanboxinline-1 {
   margin: auto !important;
   position: absolute;
   top: 50%;
@@ -85,7 +85,7 @@
   z-index: -1;
 }
 
-.spanboxinline2 {
+.spanboxinline-2 {
   margin: 0;
   position: absolute;
   top: 50%;

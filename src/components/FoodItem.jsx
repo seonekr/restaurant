@@ -111,10 +111,14 @@ function FoodItem() {
             <Link to="#" className="box_itemFood" key={product.id}>
               <div className="box_itemFood_item" onClick={toggleisPopupfood}>
                 <img src={product.image} alt="" />
+
                 <div className="txt_boxDescription">
-                  <p>{product.name}</p>
-                  {/* <p>{product.description}</p> */}
-                  <p>Price: ${product.price}</p>
+                  <div className="product-info-hp">
+                    <p className="product-name-hp">{product.name}</p>
+                  </div>
+                  <div className="product-info-hp">
+                    <p className="product-price-hp">Price: ${product.price}</p>
+                  </div>
                 </div>
               </div>
               <Link
@@ -128,7 +132,7 @@ function FoodItem() {
           ))}
         </div>
         {cart.map((item) => (
-          <div className="box_addTocart_content">
+          <div className="box_addTocart_content-food">
             <div> 1 View cart {item.price}</div>
           </div>
         ))}
