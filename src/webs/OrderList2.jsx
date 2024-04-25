@@ -1,13 +1,13 @@
 import React from 'react'
-import "./css/order.css";
-import Menufooter from "../components/Menufooter";
+import "./css/order2.css";
+import Menufooter2 from "../webs/Menufooter2";
 import { Link } from 'react-router-dom';
 
-function OrderList() {
+function OrderList2() {
     
     return (
         <>
-        <Menufooter />
+        <Menufooter2 />
             <div className='orderList_container_box'>
                 <h4 className='txttitle_orderlsit'>Your order</h4>
                 <div className="box_content_orderlist">
@@ -16,7 +16,7 @@ function OrderList() {
                             <p className='txtname_orderlist'>Order name...</p>
                             <p className='txtDate_orderlist'>2024.09.4.13:00</p>
                         </div>
-                        <Link to="/order" className="btnViewMoew_order">
+                        <Link to="/order2" className="btnViewMoew_order">
                             View
                         </Link>
                     </div>
@@ -29,4 +29,4 @@ function OrderList() {
     )
 }
 
-export default OrderList
+export default OrderList2;

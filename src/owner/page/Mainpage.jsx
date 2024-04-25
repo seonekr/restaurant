@@ -14,7 +14,12 @@ import { IoCamera } from "react-icons/io5";
 import { FaPencil } from "react-icons/fa6";
 import { IoImageOutline } from "react-icons/io5";
 import imageicon from "../../img/imageicon.jpg";
-
+//
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 const Mainpage = () => {
   // Popup Edit Name an Description
   const [isOpen, setIsOpen] = useState(false);
@@ -74,21 +79,106 @@ const Mainpage = () => {
       reader.readAsDataURL(file);
     }
   };
+  // Alert Name restaurant
+  const [inputValues, setInputValues] = useState({
+    input1: "",
+    input2: "",
+    input3: "",
+    input4: "",
+    input5: "",
+    input6: "",
+  });
 
-  //// onClick icon edit product name
-  const openConfirmationPopup = (productID) => {
-    setUpdateProductId(productID.productName);
-    setConfirmationPopupOpen(true);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState("");
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setInputValues({ ...inputValues, [name]: value });
   };
 
-  const closeConfirmationPopup = () => {
-    setUpdateProductId(null);
-    setConfirmationPopupOpen(false);
+  const handleConfirmClick = () => {
+    const { input1, input2 } = inputValues;
+    if (!input1.trim() && !input2.trim()) {
+      setDialogContent("Please enter data.");
+      setOpenDialog(true); // Display dialog only when there are validation errors
+    } else if (!input1.trim()) {
+      setDialogContent("Please enter store name.");
+      setOpenDialog(true);
+    } else if (!input2.trim()) {
+      setDialogContent("Please enter store description.");
+      setOpenDialog(true);
+    } else {
+      setInputValues({
+        ...inputValues,
+        input1: "",
+        input2: "",
+      });
+      togglePopup();
+    }
+    
+  };
+  //Time
+  const handleConfirmClickTime = () => {
+    const { input3, input4 } = inputValues;
+    if (!input3.trim() && !input4.trim()) {
+      setDialogContent("Please enter data.");
+      setOpenDialog(true); // Display dialog only when there are validation errors
+    } else if (!input3.trim()) {
+      setDialogContent("Please enter start time.");
+      setOpenDialog(true);
+    } else if (!input4.trim()) {
+      setDialogContent("Please enter end time.");
+      setOpenDialog(true);
+    } else{
+      setInputValues({
+        ...inputValues,
+        input3: "",
+        input4: "",
+      });
+      togglePopuptime();
+    }
+  };
+  //
+  //Logo
+  const handleConfirmClickLogo = () => {
+    const { input5 } = inputValues;
+    if (!input5.trim() ) {
+      setDialogContent("Please choose an image.");
+      setOpenDialog(true);
+    }
+    else{
+      setInputValues({
+        ...inputValues,
+        input5: "",
+      });
+      togglePopuplogo();
+    }
+  };
+    //Banner
+    const handleConfirmClickLBanner = () => {
+      const { input6 } = inputValues;
+      if (!input6.trim() ) {
+        setDialogContent("Please choose an image.");
+        setOpenDialog(true);
+      }
+      else{
+        setInputValues({
+          ...inputValues,
+          input6: "",
+        });
+        togglePopupbanner();
+      }
+    };
+  
+  //
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
 
   return (
     <>
-      <div >
+      <div>
         <div className="container_boxHeaderAt_mainpage">
           <div className="box_logo_main">
             {mainImageLogo && mainImageLogo.length > 0 ? (
@@ -205,34 +295,41 @@ const Mainpage = () => {
         <div className="background_popup_box">
           <div className="hover_popup_box">
             <div className="box_input-editname">
-              <div className="box-store-name">
-                <p>Store name</p>
-                <input
-                  type="text"
-                  placeholder="Store name..."
-                  className="input_of_txtAddproduct"
-                />
-              </div>
-              <div className="box-store-des">
-                <p>Store description</p>
-                <input
-                  type="text"
-                  placeholder="Store description..."
-                  className="input_of_txtAddproduct"
-                />
-              </div>
+              <p>Store name</p>
+              <input
+                name="input1"
+                value={inputValues.input1}
+                onChange={handleInputChange}
+                placeholder="Store name..."
+                className="input_of_txtAddproduct"
+              />
+
+              <p>Store description</p>
+              <input
+                className="input_of_txtAddproduct"
+                name="input2"
+                placeholder="Store description"
+                value={inputValues.input2}
+                onChange={handleInputChange}
+              />
             </div>
             <div className="btn_foasdf">
-              <button
-                className="btn_cancel btn_addproducttxt_popup"
-                onClick={togglePopup}
-              >
+              <button className="btn_cancel2 " onClick={togglePopup}>
                 CANCEL
               </button>
-              <button className="btn_confirm btn_addproducttxt_popup">
+              <button className="btn_ok_alert" onClick={handleConfirmClick}>
                 OK
               </button>
             </div>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+              <DialogTitle>Error</DialogTitle>
+              <DialogContent>
+                <p>{dialogContent}</p>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog>
           </div>
         </div>
       )}
@@ -280,10 +377,12 @@ const Mainpage = () => {
               </div>
               <label className="popup_Border_Boximagae">
                 <input
-                  type="file"
-                  id="img"
-                  onChange={handleImageLogo}
-                  required
+                 type="file"
+                 id="img"
+                 onChange={handleImageLogo}
+                 required
+                 name="input5"
+                 accept="image/*" // Specify accepted file types, e.g., images
                 />
                 <IoImageOutline className="icon_cameraDp2" />
                 <span className="file-upload-text">Choose Image...</span>
@@ -296,10 +395,19 @@ const Mainpage = () => {
               >
                 CANCEL
               </button>
-              <button className="btn_confirm btn_addproducttxt_popup">
+              <button className="btn_confirm btn_addproducttxt_popup" onClick={handleConfirmClickLogo}>
                 OK
               </button>
             </div>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+              <DialogTitle>Error</DialogTitle>
+              <DialogContent>
+                <p>{dialogContent}</p>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog>
           </div>
         </form>
       )}
@@ -327,6 +435,8 @@ const Mainpage = () => {
                   id="img"
                   onChange={handleImageBanner}
                   required
+                  name="input6"
+                  accept="image/*" // Specify accepted file types, e.g., images
                 />
                 <IoImageOutline className="icon_cameraDp2" />
                 <span className="file-upload-text">Choose Image...</span>
@@ -339,10 +449,19 @@ const Mainpage = () => {
               >
                 CANCEL
               </button>
-              <button className="btn_confirm btn_addproducttxt_popup">
+              <button className="btn_confirm btn_addproducttxt_popup" onClick={handleConfirmClickLBanner}>
                 OK
               </button>
             </div>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+              <DialogTitle>Error</DialogTitle>
+              <DialogContent>
+                <p>{dialogContent}</p>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog>
           </div>
         </form>
       )}
@@ -351,21 +470,28 @@ const Mainpage = () => {
         <div className="background_popup_box-time">
           <div className="hover_popup_box-time">
             <div className="box_input-edittime">
-              <h3>Enter your time open <br/>restaurant</h3>
+              <h3>
+                Enter your time open <br />
+                restaurant
+              </h3>
               <div className="box-time">
                 <div className="box-store-time">
                   <input
-                    type="Time"
-                    placeholder="Time..."
+                    name="input3"
+                    type="time"
                     className="input_of_txtAddproduct"
+                    value={inputValues.input3}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <h4>To</h4>
                 <div className="box-store-time">
                   <input
-                    type="Time"
-                    placeholder="Time..."
+                    name="input4"
+                    type="time"
                     className="input_of_txtAddproduct"
+                    value={inputValues.input4}
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -377,10 +503,22 @@ const Mainpage = () => {
               >
                 CANCEL
               </button>
-              <button className="btn_confirm btn_addproducttxt_popup">
+              <button
+                className="btn_confirm btn_addproducttxt_popup"
+                onClick={handleConfirmClickTime}
+              >
                 OK
               </button>
             </div>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+              <DialogTitle>Error</DialogTitle>
+              <DialogContent>
+                <p>{dialogContent}</p>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog>
           </div>
         </div>
       )}

@@ -9,67 +9,124 @@ import { FaPencil } from "react-icons/fa6";
 import { IoCamera } from "react-icons/io5";
 import { IoImageOutline } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
+import Alert2 from "../../img/alert2.png";
 
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import { green } from "@mui/material/colors";
+import Fab from "@mui/material/Fab";
+import CheckIcon from "@mui/icons-material/Check";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axios from "axios";
-
+//
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 function Itemfood() {
-  const handleDelete = (index) => {
-    const updatedProducts = [...products];
-    updatedProducts.splice(index, 1);
-    setProducts(updatedProducts);
+ 
+  const [loading] = React.useState(false);
+  const [success] = React.useState(false);
+  const timer = React.useRef();
+
+  const buttonSx = {
+    ...(success && {
+      bgcolor: green[500],
+      "&:hover": {
+        bgcolor: green[700],
+      },
+    }),
   };
 
+  React.useEffect(() => {
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, []);
+  
   const [products, setProducts] = useState([
     {
       id: 1,
       image: foodImage,
-      name: "Product 1",
-      // description: "1 description.",
-      price: 29.99,
+      name: "Margherita Pizza",
+      price: 10.99,
+      count: 1, // Initial count for product 1
     },
     {
       id: 2,
       image: foodImage,
-      name: "Product 2",
-      price: 39.99,
+      name: "Pepperoni Pizza",
+      price: 11.99,
+      count: 1, // Initial count for product 2
     },
     {
       id: 3,
       image: foodImage,
-      name: "Product 3",
-      price: 49.99,
+      name: "Hawaiian Pizza",
+      price: 12.99,
+      count: 1, // Initial count for product 2
     },
     {
       id: 4,
       image: foodImage,
-      name: "Product 4",
-      price: 49.99,
+      name: "Vegetarian Pizza",
+      price: 11.49,
+      count: 1, // Initial count for product 2
     },
     {
-      id: 4,
+      id: 5,
       image: foodImage,
-      name: "Product 5",
-      price: 49.99,
+      name: "Meat Lover's Pizza",
+      price: 13.99,
+      count: 1, // Initial count for product 2
     },
     {
-      id: 4,
+      id: 6,
       image: foodImage,
-      name: "Product 6",
-      price: 49.99,
+      name: "BBQ Chicken Pizza",
+      price: 12.99,
+      count: 1, // Initial count for product 2
     },
     {
-      id: 4,
+      id: 7,
       image: foodImage,
-      name: "Product 7",
-      price: 49.99,
+      name: "Buffalo Chicken Pizza",
+      price: 13.49,
+      count: 1, // Initial count for product 2
     },
     {
-      id: 4,
+      id: 8,
       image: foodImage,
-      name: "Product 8",
-      price: 49.99,
+      name: "Four Cheese Pizza",
+      price: 11.99,
+      count: 1, // Initial count for product 2
     },
   ]);
+  const [showPopupOkDelete, setShowPopupOkDelete] = useState(false);
+  const [productToDeleteId, setProductToDeleteId] = useState(null);
+//  const handleDelete = (index) => {
+//     const updatedProducts = [...products];
+//     updatedProducts.splice(index, 1);
+//     setProducts(updatedProducts);
+    
+//   };
+  const handleDelete = (productId) => {
+    setProductToDeleteId(productId); // Set the ID of the product to delete
+    setShowPopupOkDelete(true); // Show the delete confirmation popup
+  };
+
+  const togglePopupdialogokdelete = () => {
+    setShowPopupOkDelete(!showPopupOkDelete);
+  };
+
+  const confirmDelete = () => {
+    // Filter out the product to delete from the products list
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.id !== productToDeleteId)
+    );
+    setShowPopupOkDelete(false); // Close the delete confirmation popup after deletion
+  };
   // const products = ;
 
   //PopUp box food item
@@ -130,7 +187,69 @@ function Itemfood() {
         reader.readAsDataURL(file);
       }
     };
-  
+  //
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+  // Alert Name restaurant
+  const [inputValues, setInputValues] = useState({
+    input1: "",
+    input2: "",
+    input3: "",
+  });
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState("");
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setInputValues({ ...inputValues, [name]: value });
+  };
+// Name
+  const handleConfirmClickName = () => {
+    const { input1 } = inputValues;
+    if (!input1.trim() ) {
+      setDialogContent("Please enter name.");
+      setOpenDialog(true); // Display dialog only when there are validation errors
+    } else {
+      
+      setInputValues({
+        ...inputValues,
+        input1: "",
+      });
+      togglePopup();
+    }
+};
+// Price
+const handleConfirmClickPrice = () => {
+  const { input2 } = inputValues;
+  if (!input2.trim() ) {
+    setDialogContent("Please enter price.");
+    setOpenDialog(true); // Display dialog only when there are validation errors
+  } else {
+    
+    setInputValues({
+      ...inputValues,
+      input2: "",
+    });
+    togglePopup2();
+  }
+};
+// Image food
+const handleConfirmClickImage = () => {
+  const { input3 } = inputValues;
+  if (!input3.trim() ) {
+    setDialogContent("Please choose an image.");
+    setOpenDialog(true);
+  }
+  else{
+    setInputValues({
+      ...inputValues,
+      input3: "",
+    });
+    togglePopupimage();
+  }
+};
   return (
     <>
       <div className="food_container_box-main">
@@ -156,7 +275,8 @@ function Itemfood() {
                 <img src={product.image} alt="" onClick={toggleisPopupfood} />
                 <div
                   className="deleteBox_productcontent"
-                  onClick={() => handleDelete(id)}
+                  // onClick={() => handleDelete(id)}
+                  onClick={() => handleDelete(product.id)}
                 >
                   <AiOutlineDelete />
                 </div>
@@ -219,6 +339,8 @@ function Itemfood() {
                id="img"
                onChange={handleImage}
                required
+               name="input3"
+               accept="image/*" // Specify accepted file types, e.g., images
              />
              <IoImageOutline className="icon_cameraDp2" />
              <span className="file-upload-text">Choose Image...</span>
@@ -231,10 +353,19 @@ function Itemfood() {
            >
              CANCEL
            </button>
-           <button className="btn_confirm btn_addproducttxt_popup">
+           <button className="btn_confirm btn_addproducttxt_popup" onClick={handleConfirmClickImage}>
              OK
            </button>
          </div>
+         <Dialog open={openDialog} onClose={handleCloseDialog}>
+              <DialogTitle>Error</DialogTitle>
+              <DialogContent>
+                <p>{dialogContent}</p>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog>
        </div>
      </form>
       )}
@@ -245,6 +376,9 @@ function Itemfood() {
             <div className="box_input2">
               <p>Add product name</p>
               <input
+                name="input1"
+                value={inputValues.input1}
+                onChange={handleInputChange}
                 type="text"
                 placeholder="Name..."
                 className="input_of_txtAddproduct"
@@ -257,10 +391,19 @@ function Itemfood() {
               >
                 CANCEL
               </button>
-              <button className="btn_confirm btn_addproducttxt_popup">
+              <button className="btn_confirm btn_addproducttxt_popup" onClick={handleConfirmClickName}>
                 OK
               </button>
             </div>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+              <DialogTitle>Error</DialogTitle>
+              <DialogContent>
+                <p>{dialogContent}</p>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog>
           </div>
         </div>
       )}
@@ -291,6 +434,9 @@ function Itemfood() {
             <div className="box_input2">
               <p>Add product price</p>
               <input
+               name="input2"
+               value={inputValues.input2}
+               onChange={handleInputChange}
                 type="text"
                 placeholder="Price..."
                 className="input_of_txtAddproduct"
@@ -303,7 +449,82 @@ function Itemfood() {
               >
                 CANCEL
               </button>
-              <button className="btn_confirm btn_addproducttxt_popup">
+              <button className="btn_confirm btn_addproducttxt_popup" onClick={handleConfirmClickPrice}>
+                OK
+              </button>
+            </div>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+              <DialogTitle>Error</DialogTitle>
+              <DialogContent>
+                <p>{dialogContent}</p>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseDialog}>OK</Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        </div>
+      )}
+      {/* Delete */}
+      {showPopupOkDelete && (
+        <div className="background_popup_dialog2">
+          <div className="hover_popup_dialog2">
+            <div className="box_input_dialog2">
+              <Box
+                sx={{
+                  m: 2.5,
+                  position: "relative",
+                  display: "inline-flex", // Use inline-flex to keep Fab and CircularProgress on the same line
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Fab
+                  aria-label="save"
+                  color="error"
+                  sx={{
+                    ...buttonSx,
+                    width: "70px",
+                    height: "70px",
+                    transition: "transform 0.2s ease-in-out", // Add smooth transition
+                    "&:hover": {
+                      transform: "scale(1.1)", // Scale up on hover
+                    },
+                  }}
+                >
+                  {success ? (
+                    <CheckIcon fontSize="large" />
+                  ) : (
+                    <DeleteOutlineIcon fontSize="large" />
+                  )}
+                </Fab>
+                {loading && (
+                  <CircularProgress
+                    size={80}
+                    sx={{
+                      color: green[500],
+                      position: "absolute",
+                      transform: "translate(-50%, -50%)",
+                      zIndex: 1,
+                    }}
+                  />
+                )}
+              </Box>
+
+              <h3>Are you sure?</h3>
+              <p>You want to delete item</p>
+            </div>
+            <div className="btn_foasdf">
+              <button
+                className="btn_cancel btn_addproducttxt_popup"
+                onClick={togglePopupdialogokdelete}
+              >
+                CANCEL
+              </button>
+              <button
+                className="btn-delete"
+                onClick={confirmDelete}
+              >
                 OK
               </button>
             </div>

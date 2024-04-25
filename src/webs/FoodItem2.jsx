@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import "./css/foodItem.css";
+import "./css/foodItem2.css";
 import foodImage from "../img/foodImage.png";
 import { Link } from "react-router-dom";
-
 import { IoCartOutline } from "react-icons/io5";
-import "../pages/css/homePage.css";
+import "./css/homepage2.css";
 
-function FoodItem() {
+function FoodItem2() {
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -77,7 +76,6 @@ function FoodItem() {
     );
   };
 
-  
   //PopUp box food item
   const [isPopupfood, setisPopupfood] = useState(false);
 
@@ -98,21 +96,20 @@ function FoodItem() {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
   return (
     <>
-      <div className="food_container_box">
-        <div className="poster_food">
-          <div className="filter2">
+      <div className="container_box_delivery">
+        <div className="food_2_delivery">
+          <div className="filter_2">
             <div></div>
             <h3>Food</h3>
           </div>
           <div>
-            <div className="dropdown-container">
+            <div className="dropdown_2_delivery">
               <select
                 value={selectedOption}
                 onChange={handleOptionChange}
-                className="dropdown-select"
+                className="dropdown-select-2-delivery2 "
               >
                 <option value="">FILTER FOODS</option>
                 <option value="newest">NEWEST</option>
@@ -124,13 +121,16 @@ function FoodItem() {
           </div>
         </div>
 
-        <div className="box_itemFood_container">
+        <div className="box_itemFood_delivery2">
           {products.map((product) => (
-            <Link to="#" className="box_itemFood" key={product.id}>
-              <div className="box_itemFood_item" onClick={toggleisPopupfood}>
+            <Link to="#" className="box_itemFood2" key={product.id}>
+              <div
+                className="Food_item_2_delivery_2"
+                onClick={toggleisPopupfood}
+              >
                 <img src={product.image} alt="" />
 
-                <div className="txt_boxDescription">
+                <div className="txt_boxDescription_delivery">
                   <div className="product-info-hp">
                     <p className="product-name-hp">{product.name}</p>
                   </div>
@@ -141,11 +141,11 @@ function FoodItem() {
               </div>
               <Link
                 to="#"
-                className="icon_addcartTo"
+                className="icon_addcartTo_2"
                 onClick={() => addToCart(product)}
               >
                 <IoCartOutline
-                  className="icon_addcartToIN"
+                  className="icon_addcartToIN-2"
                   onClick={() => incrementCount(product.id)}
                 />
               </Link>
@@ -153,9 +153,9 @@ function FoodItem() {
           ))}
         </div>
         {cart.map((item) => (
-          <Link to="/cart">
-            <div className="box_addTocart_content-food">
-              <div className="count_footmenu_box_item_22">
+          <Link to="/cart2">
+            <div className="box_addTocart_content-food-2">
+            <div className="count_footmenu_box_item22">
                 <p>
                   {products.reduce(
                     (total, product) => total + product.count,
@@ -183,4 +183,4 @@ function FoodItem() {
   );
 }
 
-export default FoodItem;
+export default FoodItem2;

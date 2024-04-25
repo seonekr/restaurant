@@ -1,7 +1,7 @@
 * {
   font-family: Arial, sans-serif;
 }
-.food_container_box {
+.container_box_delivery {
   width: 65%;
   margin: 1rem auto 5rem auto; /* Adjust margin properties */
   padding: 25px;
@@ -10,12 +10,12 @@
   box-shadow: 0 0 6px rgba(202, 17, 17, 0.2);
 }
 
-.dropdown-container {
+.dropdown_2_delivery {
   font-family: Arial, sans-serif;
   margin-bottom: 20px;
 }
 
-.dropdown-select {
+.dropdown-select-2-delivery2 {
   width: 150px;
   padding: 8px;
   font-size: 15px;
@@ -24,34 +24,34 @@
   outline: none;
 }
 
-.dropdown-select:focus {
+.dropdown-select-2-delivery2 :focus {
   border-color: #007bff; /* Change border color on focus */
 }
 /* Poster and Filter Styles */
-.poster_food {
+.food_2_delivery {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.filter2 {
+.filter_2 {
   display: flex;
   justify-content: space-between;
 }
 
-.filter2 h3 {
+.filter_2 h3 {
   font-size: 20px;
   margin: 5px 10px;
 }
 
-.filter2 div {
+.filter_2 div {
   width: 13px;
   height: 30px;
   background-color: #0e64d2;
   border-radius: 3px;
 }
 /* Cart Content Styles */
-.box_addTocart_content-food {
+.box_addTocart_content-food-2 {
   position: fixed;
   bottom: 5rem;
   left: 50%; /* Position it at the horizontal center */
@@ -64,10 +64,8 @@
   width: 500px;
   border-radius: 10px;
   justify-content: center;
- 
 }
-
-.count_footmenu_box_item_22{
+.count_footmenu_box_item22{
   display: grid;
   grid-template-columns: 1fr 2fr 0fr 0fr 0.1fr;
   gap: 0.3rem;
@@ -77,25 +75,24 @@
   justify-content: center; /* Center align horizontally */
   align-content: center; /
 }
-.box_itemFood {
+.box_itemFood2 {
   padding: 10px 0;
   position: relative;
 }
 
-.box_itemFood:hover .icon_addcartTo {
+.box_itemFood2:hover .icon_addcartTo_2 {
   transition: all 0.3s ease;
   display: flex;
 }
 
-.box_itemFood_container {
+.box_itemFood_delivery2 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: center;
   align-items: center;
   gap: 2rem;
 }
-
-.box_itemFood_item {
+.Food_item_2_delivery_2 {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -106,8 +103,7 @@
   transition: 300ms;
   display: block;
 }
-
-.icon_addcartTo {
+.icon_addcartTo_2 {
   position: absolute;
   gap: 3rem;
   top: 35%;
@@ -122,14 +118,13 @@
   border-radius: 5px;
   transition: 300ms;
 }
-
-.txt_boxDescription {
+.txt_boxDescription_delivery {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 1.1rem;
   font-size: 17px;
 }
-.product-info-hp {
+.product-info-hp  {
   display: flex;
   align-items: center;
 }
@@ -144,12 +139,12 @@
   font-size: 16px;
   flex: 1;
 }
-.icon_addcartToIN {
+.icon_addcartToIN-2 {
   font-size: 30px;
 }
 /* Media Query for screens with maximum width of 431px */
 @media screen and (max-width: 431px) {
-  .food_container_box {
+  .container_box_delivery {
     margin-top: 6rem;
     position: relative;
     width: 90%; /* Adjusted width for smaller screens */
@@ -160,14 +155,12 @@
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   }
 
-  .box_itemFood_container {
- 
- 
+  .box_itemFood_delivery2 {
     gap: 1rem;
     position: relative;
     grid-template-columns: 1fr 1fr; /* Single column layout for smaller screens */
   }
-  .box_addTocart_content-food {
+  .box_addTocart_content-food-2 {
     position: fixed;
     bottom: 5.5rem;
     background-color: #0e64d2;
@@ -175,7 +168,7 @@
     text-align: center;
     list-style: none;
     width: 320px;
-    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+
     border-radius: 10px;
   }
 }

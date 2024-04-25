@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./css/menufooter.css";
+import "./css/menufooter2.css";
 import { Link } from "react-router-dom";
 import { IoStorefrontOutline } from "react-icons/io5";
 import { LuClipboardCheck } from "react-icons/lu";
@@ -22,13 +22,13 @@ function Menufooter() {
           <div className="menu_header_box">
             
 
-            <Link to="/" className="linkTomenu active">
+            <Link to="/homepage2" className="linkTomenu active">
               Home
             </Link>
-            <Link to="/orderList" className="linkTomenu">
+            <Link to="/orderList2" className="linkTomenu">
               Order
             </Link>
-            <Link to="/cart" className="boxcart_header_container">
+            <Link to="/cart2" className="boxcart_header_container">
               <p className="linkTomenu">Cart</p>
               <div className="boxcart_header">
                 <div className="box_border_haeaderCart boxfirstbg">
@@ -53,16 +53,16 @@ function Menufooter() {
       </div>
 
       <div className="menufooter_content_app">
-        <Link className="link_menu active" to="/">
+        <Link className="link_menu active" to="/homepage2">
           <IoStorefrontOutline className="iconMenu_foot" />
           Home
         </Link>
 
-        <Link className="link_menu" to="/orderList">
+        <Link className="link_menu" to="/orderList2">
           <LuClipboardCheck className="iconMenu_foot" />
           Order
         </Link>
-        <Link className="link_menu" to="/cart">
+        <Link className="link_menu" to="/cart2">
           <IoCartOutline className="iconMenu_foot" />
           Cart
         </Link>

@@ -1,9 +1,12 @@
 .detailorder_box_container {
-  width: 65%;
+  width: 70%;
   margin: 6rem auto auto auto;
   background-color: #fff;
 }
-
+.continer-box{
+  width: 60%;
+  margin: auto;
+}
 .back_orderBox {
   display: flex;
   align-items: center;
@@ -73,7 +76,7 @@
   background-color: #55c639;
 }
 
-.spanboxinline-1 {
+.spanboxinline1 {
   margin: auto !important;
   position: absolute;
   top: 50%;
@@ -85,7 +88,7 @@
   z-index: -1;
 }
 
-.spanboxinline-2 {
+.spanboxinline2 {
   margin: 0;
   position: absolute;
   top: 50%;
@@ -181,6 +184,7 @@
   width: 25%;
   height: 40px;
   border-radius: 7px;
+  font-weight: bold;
 }
 .btn-done {
   background-color: #0e64d2;
@@ -191,6 +195,7 @@
   width: 25%;
   height: 40px;
   border-radius: 7px;
+  font-weight: bold;
 }
 .btn-active {
   background-color: #40f086;
@@ -201,4 +206,5 @@
   width: 25%;
   height: 40px;
   border-radius: 7px;
+  font-weight: bold;
 }

@@ -1,165 +1,515 @@
 .cart_box_container {
-    width: 65%;
-    margin: 6rem auto auto auto;
-    background-color: #fff;
+  width: 65%;
+  margin: 2rem auto auto auto;
+  background-color: #fff;
 }
 
 .box_groupaCart_item {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 3rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1.2fr;
+  gap: 1.5rem;
 }
 
 .box_content_cart {
-    display: grid;
-    gap: 1rem;
+  display: grid;
+  gap: 1rem;
 }
-
+.box_cart_item_head h4{
+  font-size: 18px;
+}
+/* Ensure alignment and spacing */
 .foodDetails_box,
-.boxCount_numfood,
-.count_footmenu_box_item {
-    align-items: center;
-    justify-content: space-between;
-
+.boxCount_numfood {
+  align-items: center;
+  justify-content: space-between;
+  
 }
-
+.count_footmenu_box_item_1{
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+.count_footmenu_box_item_2{
+  display: grid;
+  grid-template-columns: 1fr 0fr 0fr;
+  gap: 0.3rem;
+  
+}
+/* Apply flex layout to various elements */
 .foodDetails_box,
 .box_ofDetails_food,
 .boxCount_numfood,
 .count_footmenu_box_item {
-    display: flex;
+  display: flex;
 }
 
+/* Style for each food item */
 .foodDetails_box {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
 }
 
+/* Adjust spacing between elements within the food box */
 .box_ofDetails_food {
-    gap: 2rem;
+  gap: 2rem;
 }
 
+/* Center-align titles in the cart */
 .titleCart {
-    text-align: center;
+  text-align: center;
 }
-
+.txt_ofDetails_food{
+  margin: 0 ;
+}
+/* Add padding to paragraphs within food details */
 .txt_ofDetails_food p {
-    padding: 5px 0;
+  margin: 5px 0;
 }
 
+/* Position icons relative to their parent container */
 .right_oflastDetailsFood {
-    position: relative;
+  margin: 0 30px;
+  position: relative;
+}
+
+/* Ensure consistent vertical alignment for icons and counts */
+.icon_DetailsFood,
+.boxCount_numfood {
+  display: flex;
+  align-items: center;
+}
+
+/* Add margin to the delete icon */
+.icon_DetailsFood {
+  margin-right: 0px; /* Adjust as needed */
 }
 
 .icon_DetailsFood {
-    font-size: 20px;
-    top: 0;
-    right: 0;
-    position: absolute;
-    cursor: pointer;
+  border-radius: 5px;
+  color: #000000;
+
+  font-size: 20px;
+  top: 0;
+  right: 0;
+  position: absolute;
+  cursor: pointer;
 }
 
 .box_cart_item_head {
-    padding: 10px;
+  padding: 10px;
 }
 
 .boxCount_numfood {
-    margin-top: 3rem;
-    gap: 1rem;
+  margin-top: 3rem;
+  gap: 1.5rem;
 }
 
 .countBtn_numberCount {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .addIconCount,
 .deleteIconCount {
-    background-color: #EBEEFB;
-    border-radius: 100px;
-    padding: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+  background-color: #ebeefb;
+  border-radius: 100px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .count_footmenu_box {
-    position: sticky;
-    width: 100%;
-    top: 30%;
-    height: 45vh;
-    margin: 3rem auto;
-    background-color: #fff;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    padding: 30px;
+  position: sticky;
+  width: 100%;
+  top: 30%;
+  height: 45vh;
+  margin: 3rem auto;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  padding: 30px;
 }
 
-.count_footmenu_box_item {
-    border-bottom: #ddd 1px solid;
-    padding-bottom: 5px;
+.count_footmenu_box_item_1,
+.count_footmenu_box_item_2 {
+  border-bottom: #ddd 1px solid;
+  padding-bottom: 5px;
 }
 
 .count_footmenu_box_content {
-    padding: 30px;
-    display: grid;
-    gap: 2rem;
+  padding: 30px;
+  display: grid;
+  gap: 2rem;
 }
+.btn-cart {
+  display: flex;
+  justify-content: space-between;
 
+}
 .btn_confirmCart {
-    text-decoration: none;
-    text-align: center;
-    background-color: #0E64D2;
-    color: #fff;
-    padding: 13px;
-    border-radius: 30px;
-    transition: 200ms;
+  text-decoration: none;
+  text-align: center;
+  background-color: #0e64d2;
+  color: #fff;
+  padding: 13px;
+  border-radius: 10px;
+  transition: 200ms;
 }
-
+.btn_Continues {
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid #0e64d2;
+  background-color: #ffffff;
+  color: #0e64d2;
+  padding: 13px;
+  border-radius: 10px;
+  transition: 200ms;
+}
 .btn_confirmCart:hover {
-    background-color: #0e5ac4;
+  background-color: #0e5ac4;
+}
+/* Popup dialog */
+.background_popup_dialog2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #00000036;
+  z-index: 9999;
+}
+.hover_popup_dialog2 {
+  width: 25%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box_input_dialog2 {
+  align-items: center;
+  width: 100%;
+  height: 23vh;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.box_input_dialog2 h3 {
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+  display: auto;
 }
 
+.box_input_dialog2 {
+  text-align: center;
+}
+.box_input_dialog2 p {
+  margin: 5px 0;
+  text-align: center;
+  font-size: 18px;
+}
+.hover_popup_dialog2 img {
+  margin-top: 10px;
+  width: 12vh;
+}
+/* Popup dialog 3*/
+.background_popup_dialog3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #00000036;
+  z-index: 9999;
+}
+.hover_popup_dialog3 {
+  width: 18%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box_input_dialog3 {
+  align-items: center;
+  width: 100%;
+  height: 35vh;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.box_input_dialog3 h3 {
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+  display: auto;
+}
+
+.box_input_dialog3 {
+  text-align: center;
+}
+.box_input_dialog3 p {
+  margin: 5px 0;
+  text-align: center;
+  font-size: 18px;
+}
+.btn-ok {
+  background-color: #0a8834;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 20px;
+}
+/* Popup Alert*/
+.background_popup_alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #00000036;
+  z-index: 9999;
+}
+.hover_popup_alert {
+  width: 18%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box_input_alert {
+  align-items: center;
+  width: 100%;
+  height: 30vh;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.box_input_alert h3 {
+  margin: 10px 0;
+  align-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  display: auto;
+}
+
+.box_input_alert {
+  text-align: center;
+}
+.hover_popup_alert img {
+  margin-top: 28px;
+  width: 12vh;
+}
+
+.btn_alert {
+  background-color: #f83740;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 20px;
+}
+.btn_addproducttxt_popup {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 15px;
+}
+.btn-delete {
+  background-color: #f83740;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 20px;
+}
 @media screen and (max-width: 431px) {
-    .cart_box_container {
-        width: 100%;
-        margin: 0;
-        padding-top: 1rem;
-    }
+  .cart_box_container {
+    width: 100%;
+    margin: 0;
+    padding-top: 1rem;
+  }
 
-    .box_groupaCart_item {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
+  .box_groupaCart_item {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 
-    .box_content_cart {
-        width: 100%;
-        overflow: hidden;
-        padding: 10px;
-        gap: 0;
-        margin-bottom: 4rem;
-    }
+  .box_content_cart {
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+    gap: 0;
+    margin-bottom: 4rem;
+  }
 
-    .box_ofDetails_food {
-        gap: 1rem;
-    }
+  .box_ofDetails_food {
+    gap: 1rem;
+  }
 
-    .count_footmenu_box {
-        position: sticky;
-        height: auto;
-        bottom: 7%;
-        width: 100%;
-        margin: 0;
-        padding: 20px 20px 30px 20px;
-    }
+  .count_footmenu_box {
+    position: sticky;
+    height: auto;
+    bottom: 7%;
+    width: 100%;
+    margin: 0;
+    padding: 20px 20px 30px 20px;
+  }
 
-    .count_footmenu_box_content {
-        padding: 20px 10px;
-        padding: 0.7rem;
-    }
+  .count_footmenu_box_content {
+    padding: 20px 10px;
+    padding: 0.7rem;
+  }
 
-    .count_footmenu_box_item {
-        padding-bottom: 10px;
-    }
+  .count_footmenu_box_item {
+    padding-bottom: 10px;
+  }
+  /* Popup dialog */
+  .background_popup_dialog2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #00000036;
+    z-index: 9999;
+  }
+  .hover_popup_dialog2 {
+    width: 85%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .box_input_dialog2 {
+    align-items: center;
+    width: 100%;
+    height: 20vh;
+    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .box_input_dialog2 h3 {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    display: auto;
+  }
 
+  .box_input_dialog2 {
+    text-align: center;
+  }
+  .box_input_dialog2 p {
+    margin: 5px 0;
+    text-align: center;
+    font-size: 18px;
+  }
+  /* Popup dialog 3*/
+.background_popup_dialog3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #00000036;
+  z-index: 9999;
+}
+.hover_popup_dialog3 {
+  width: 70%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box_input_dialog3 {
+  align-items: center;
+  width: 100%;
+  height: 30vh;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.box_input_dialog3 h3 {
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+  display: auto;
+}
+
+.box_input_dialog3 {
+  text-align: center;
+}
+.box_input_dialog3 p {
+  margin: 5px 0;
+  text-align: center;
+  font-size: 18px;
+}
+.hover_popup_dialog3 img {
+  margin-top: 10px;
+  width: 12vh;
+}
+/* Popup Alert*/
+.background_popup_alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #00000036;
+  z-index: 9999;
+}
+.hover_popup_alert {
+  width: 70%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box_input_alert {
+  align-items: center;
+  width: 100%;
+  height: 30vh;
+  background-color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.box_input_alert h3 {
+  margin: 10px 0;
+  align-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  display: auto;
+}
+
+.box_input_alert {
+  text-align: center;
+}
+.hover_popup_alert img {
+  margin-top: 28px;
+  width: 12vh;
+}
+
+.btn_ok {
+  background-color: #f83740;
+  color: #fff;
+ 
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 20px;
+}
 }

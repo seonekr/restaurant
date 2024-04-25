@@ -13,6 +13,7 @@
   margin: 7rem auto auto auto;
 }
 .box_logo_main {
+ 
   justify-content: center;
   align-items: center;
   display: flex;
@@ -20,7 +21,8 @@
   margin-left: 15px;
 }
 .box_logo_main img {
-  margin-top: -40px;
+  border-radius: 100%;
+  margin-top: -30px;
   height: 220px;
   width: 220px;
   margin-right: -20px;
@@ -503,7 +505,30 @@
   width: 100%;
   height: 100vh;
   background-color: #00000036;
-  z-index: 9999;
+}
+.btn_cancel2 {
+  background-color: #CCCCCC;
+  color: #000000;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 20px;
+  /* cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 15px; */
+
+}
+.btn_ok_alert {
+  background-color: #347FFF;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  font-size: 20px;
 }
 .hover_popup_box {
   width: 30%;
@@ -521,26 +546,19 @@
   gap: 10px;
   width: 100%;
   height: 25vh;
-
   background-color: #fff;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 .box-store-name p {
+
+
   font-size: 15px;
 }
-.box-store-name input {
-  width: 120%;
-  height: 50px;
-  border-radius: 15px;
-}
-.box-store-des p {
-  font-size: 15px;
-}
-.box-store-des input {
-  width: 120%;
-  height: 50px;
-  border-radius: 15px;
+.box_input-editname input {
+  width: 80%;
+  height: 45px;
+  border-radius: 5px;
 }
 /* popup edit time */
 .background_popup_box-time {
@@ -550,7 +568,7 @@
   width: 100%;
   height: 100vh;
   background-color: #00000036;
-  z-index: 9999;
+  
 }
 .hover_popup_box-time {
   width: 25%;

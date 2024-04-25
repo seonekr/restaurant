@@ -165,7 +165,7 @@ const Addproduct = () => {
                   <AiOutlineDelete />
                 </div>
 
-                <div className="box_input-img">
+                <div className="box_input-img-add">
                   {product.mainImage ? (
                     <img src={product.mainImage} alt="product" />
                   ) : (
@@ -189,37 +189,36 @@ const Addproduct = () => {
                 </div>
 
                 <div className="box_container_image">
-                    <div className="input-box">
-                      <div className="box">
-                        <input
-                          type="text"
-                          placeholder="Name"
-                          value={product.productName}
-                          onChange={(e) => handleProductName(e, index)}
-                          required
-                        />
-                      </div>
-                      <div className="box">
-                        <input
-                          type="text"
-
-                          placeholder="Price"
-                          value={product.price}
-                          onChange={(e) => handleProductPrice(e, index)}
-                          required
-                        />
-                      </div>
-                      <div className="box">
-                        <input
-                          type="text"
-                          placeholder="Category"
-                          value={product.category}
-                          onChange={(e) => handleProductCategory(e, index)}
-                          required
-                        />
-                      </div>
+                  <div className="input-box">
+                    <div className="box">
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        value={product.productName}
+                        onChange={(e) => handleProductName(e, index)}
+                        required
+                      />
+                    </div>
+                    <div className="box">
+                      <input
+                        type="text"
+                        placeholder="Price"
+                        value={product.price}
+                        onChange={(e) => handleProductPrice(e, index)}
+                        required
+                      />
+                    </div>
+                    <div className="box">
+                      <input
+                        type="text"
+                        placeholder="Category"
+                        value={product.category}
+                        onChange={(e) => handleProductCategory(e, index)}
+                        required
+                      />
                     </div>
                   </div>
+                </div>
               </div>
             </div>
           ))}
@@ -300,53 +299,10 @@ const Addproduct = () => {
               </div>
             </div>
           )}
-          {/* Popup Edit Banner */}
-          {/* {isOpenban && (
-            <form className="popup-edit-image">
-              <div className="popup-content-edit">
-                <div className="box_input_image">
-                  <h2>Add banner mage</h2>
-                  {products.map((product, index) => (
-                     <div key={index}>
-                    <div className="input-container2">
-                      {product.mainImage ? (
-                        <img src={product.mainImage} alt="product" />
-                        ) : (
-                          <img src={imageicon} alt="default" />
-                          )}
-                    </div>
-                  <label className="popup_Border_Boximagae">
-                    <input
-                      type="file"
-                      id={`img-${index}`}
-                      onChange={(e) => handleImage(e, index)}
-                      required
-                      />
-                    <IoImageOutline className="icon_cameraDp2" />
-                    <span className="file-upload-text">Choose Image...</span>
-                  </label>
-                 </div>
-                  ))}
-
-                </div>
-                <div className="btn_foasdf">
-                  <button
-                    className="btn_cancel btn_addproducttxt_popup"
-                    onClick={togglePopupbanner}
-                  >
-                    CANCEL
-                  </button>
-                  <button className="btn_confirm btn_addproducttxt_popup">
-                    OK
-                  </button>
-                </div>
-              </div>
-            </form>
-          )} */}
         </div>
       </div>
-      <div className="btn_submit">
-        <button type="submit" onClick={handleSubmit}>
+      <div className="btn_submit_add">
+        <button className="button" type="submit" onClick={handleSubmit}>
           Save
         </button>
       </div>

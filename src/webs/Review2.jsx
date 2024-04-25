@@ -1,14 +1,14 @@
 import React from "react";
-import "./css/review.css";
+import "./css/review2.css";
 import { Link } from "react-router-dom";
-import Menufooter from "../components/Menufooter";
+import Menufooter2 from "../webs/Menufooter2";
 import { BsPersonCircle } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 import { Progress } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
 import Rating from '@mui/material/Rating';
 
-const Review = () => {
+const Review2 = () => {
   const [value, setValue] = React.useState(3);
   const rating = 3.9;
   const reviews = 29;
@@ -60,7 +60,7 @@ const Review = () => {
 
   return (
     <>
-        <Menufooter />
+        <Menufooter2 />
     <div className="review_box_container">
       <div className="title_header_orderBox">
         <Link to="/" className="back_orderBox">
@@ -244,4 +244,4 @@ const Review = () => {
   );
 };
 
-export default Review;
+export default Review2;

@@ -1,4 +1,4 @@
-.container_boxHeaderAt_store2-hp {
+.container_boxHeaderAt_store2-delivery {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -53,7 +53,6 @@
   font-size: 18px;
   margin-left: -20px;
   margin-top: 2px;
-  color: #000;
 }
 .iconnDetails_head-time {
   font-size: 23px;
@@ -63,13 +62,13 @@
   align-items: center;
   gap: 1rem;
 }
-.contact_head_Boxdetails-star {
+.contact_head_Boxdetails-star-2 {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.switch_btn_view_hp2 {
+.switch_btn_view_hp_2 {
   background-color: #0e64d2;
   color: #fff;
   padding: 6px 30px;
@@ -86,21 +85,27 @@
 }
 
 .contact_head_Boxdetails p {
-  color: #000000;
+  color: #666;
 }
 
 .iconnDetails_head {
-  color: #000000;
+  color: #444;
   font-size: 23px;
 }
-
-.header_contact_details_box {
+.iconnDetails_head-map2 {
+  display: flex;
+  left: -2rem;
+  position: absolute;
+  color: #444;
+  font-size: 23px;
+}
+.header_contact_details_box_2 {
   margin-top: 1rem;
   display: grid;
   gap: 0.4rem;
   margin-bottom: 2rem;
 }
-.contact_head_Boxdetails-map-hp {
+.contact_head_Boxdetails-map-hp_2 {
   left: 2rem;
   position: relative;
   display: flex;
@@ -108,7 +113,7 @@
   align-items: center;
   gap: 1rem;
 }
-.switch_btn2-hp2 {
+.switch_btn2-hp-2 {
   position: relative;
   display: flex;
   background-color: #0e64d2;
@@ -122,6 +127,7 @@
 /*  */
 .box_banner_content {
   margin-top: -15px;
+  position: relative;
 }
 
 .box_banner_content img {
@@ -132,7 +138,7 @@
 
 /* Category */
 
-.container_boxcategory_hp {
+.container_boxcategory_delivery {
   margin: 0;
   max-width: 60%;
   min-width: 40%;
@@ -182,7 +188,7 @@
 }
 
 @media screen and (max-width: 431px) {
-  .container_boxHeaderAt_store2-hp {
+  .container_boxHeaderAt_store2-delivery {
     display: flex;
     margin: 0;
     width: 100%;
@@ -236,39 +242,36 @@
   }
 
   .contact_head_Boxdetails,
-  .contact_head_Boxdetails-star {
+  .contact_head_Boxdetails-star-2 {
     display: flex;
     align-items: center;
     gap: 0.5rem; /* Adjust gap between elements */
   }
-  .contact_head_Boxdetails-star .text-review {
-    margin-top: -6px;
+  .contact_head_Boxdetails-star-2 p{
+    margin-top: -12px;
   }
-  .star-icon .MuiRating-icon {
-    margin-top: -6px;
-    font-size: 12px;
+  .all_star_box {
+    margin-top: -10px;
   }
 
-  .switch_btn_view_hp2 {
-    align-items: center;
-    justify-content: center;
-    margin-top: -6px;
+  .switch_btn_view_hp_2 {
+    margin-top: -12px;
     background-color: #0e64d2;
     color: #fff;
     padding: 2px 12px;
     border-radius: 5px;
     font-size: 8px;
   }
-  .switch_btn2-hp2 {
+  .switch_btn2-hp-2 {
     align-items: center;
     justify-content: center;
     background-color: #0e64d2;
     color: #fff;
     margin-right: 0.2rem;
-    width: 7vh;
-    padding: 2px;
+    padding: 2px 0;
     border-radius: 5px;
     font-size: 8px;
+    width: 7vh;
   }
   .iconstar_review {
     width: 12px;
@@ -279,23 +282,34 @@
     color: gold;
   }
 
-  .contact_head_Boxdetails-map-hp p {
+  .contact_head_Boxdetails-map-hp_2 p {
     margin-left: -15px;
     font-size: 9px;
   }
-  .header_contact_details_box {
+  .header_contact_details_box_2 {
     position: relative;
     width: 85%;
-    top: -10px;
+    top: -15px;
     align-items: center;
   }
-  .iconnDetails_head-map {
+  .iconnDetails_head-map2 {
     width: 10px;
   }
 
+  /* Banner */
+  .box_banner_content {
+    margin-top: -15px;
+    position: relative;
+  }
+
+  .box_banner_content img {
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+  }
   /* Category */
 
-  .container_boxcategory_hp {
+  .container_boxcategory_delivery {
     margin: 0;
     max-width: 80%;
     min-width: 20%;
@@ -311,10 +325,9 @@
     border-radius: 5px;
     background-color: #0e64d2;
   }
-  .container_boxcategory_hp .link_categor_l {
+  .container_boxcategory_delivery .link_categor_l {
     font-size: 12px;
   }
-
   .link_categor_l {
     text-decoration: none;
     color: #000;
@@ -347,71 +360,71 @@
     width: 5%;
   }
   /* 
-  .container_boxHeaderAt_store2 {
-    display: grid;
-    width: 100%;
-    gap: 3rem;
-    margin: 7rem auto auto auto;
-  } */
+    .container_boxHeaderAt_store2 {
+      display: grid;
+      width: 100%;
+      gap: 3rem;
+      margin: 7rem auto auto auto;
+    } */
 
   /* .container_boxhomepage {
-    width: 100%;
-    padding: 0;
-  }
-
-  .logo_box_homepage {
-    display: none;
-  }
-
-  .menufooter_content {
-    display: block;
-  }
-
-  .container_boxHeaderAt_store2 {
-    width: 100%;
-    margin: 0;
-    gap: 0;
-    overflow: hidden;
-    padding: 10px;
-  }
-
-  .box_heardOfGrooup {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .description_header h3 {
-    font-size: 23px;
-  }
-
-  .description_header p {
-    font-size: 17px;
-  }
-
-  .header_contact_details {
-    justify-content: space-between;
-  }
-
-  .header_box_of_header,
-  .description_header {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .switch_btn {
-    padding: 5px 23px;
-  }
-
-  .iconstar_review {
-    font-size: 20px;
-  }
-
-  .container_boxcategory {
-    max-width: 100%;
-    overflow: hidden;
-    padding: 15px 1rem;
-    gap: 2rem;
-    bottom: -10%;
-    border-radius: 7px;
-  } */
+      width: 100%;
+      padding: 0;
+    }
+  
+    .logo_box_homepage {
+      display: none;
+    }
+  
+    .menufooter_content {
+      display: block;
+    }
+  
+    .container_boxHeaderAt_store2 {
+      width: 100%;
+      margin: 0;
+      gap: 0;
+      overflow: hidden;
+      padding: 10px;
+    }
+  
+    .box_heardOfGrooup {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+  
+    .description_header h3 {
+      font-size: 23px;
+    }
+  
+    .description_header p {
+      font-size: 17px;
+    }
+  
+    .header_contact_details {
+      justify-content: space-between;
+    }
+  
+    .header_box_of_header,
+    .description_header {
+      width: 100%;
+      overflow: hidden;
+    }
+  
+    .switch_btn {
+      padding: 5px 23px;
+    }
+  
+    .iconstar_review {
+      font-size: 20px;
+    }
+  
+    .container_boxcategory {
+      max-width: 100%;
+      overflow: hidden;
+      padding: 15px 1rem;
+      gap: 2rem;
+      bottom: -10%;
+      border-radius: 7px;
+    } */
 }

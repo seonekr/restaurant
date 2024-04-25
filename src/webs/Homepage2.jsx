@@ -1,21 +1,22 @@
-import "./css/homePage.css";
+import "./css/homepage2.css";
 import React, { useState } from "react";
-import Menufooter from "../components/Menufooter";
+import Menufooter2 from "../webs/Menufooter2";
 import FoodItem from "../components/FoodItem";
+import FoodItem2 from "../webs/FoodItem2";
 import logo1 from "../img/Logo1.png";
 import banner from "../img/banner.png";
 import { Link } from "react-router-dom";
 import { FiPhone } from "react-icons/fi";
 import { IoMdTime } from "react-icons/io";
 import { FiMapPin } from "react-icons/fi";
-import Rating from "@mui/material/Rating";
-const HomePage = () => {
-  const [value, setValue] = React.useState(3);
+import { IoIosStar } from "react-icons/io";
+
+function Homepage2() {
   return (
     <>
-      <Menufooter />
+    <Menufooter2 />
 
-      <div className="container_boxHeaderAt_store2-hp">
+      <div className="container_boxHeaderAt_store2-delivery">
         <div className="box_logo">
           <img src={logo1} alt="logo" />
         </div>
@@ -34,27 +35,26 @@ const HomePage = () => {
               <p className="text">8:00 - 20:00</p>
             </div>
 
-            <div className="contact_head_Boxdetails-star">
-              <Rating
-                className="star-icon"
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              />
-              <p className="text-review">29 Review</p>
-              <Link to="/reviews" className="switch_btn_view_hp2">
+            <div className="contact_head_Boxdetails-star-2">
+              <div className="all_star_box">
+                <IoIosStar className="iconstar_review adtiveStar" />
+                <IoIosStar className="iconstar_review adtiveStar" />
+                <IoIosStar className="iconstar_review adtiveStar" />
+                <IoIosStar className="iconstar_review" />
+                <IoIosStar className="iconstar_review" />
+              </div>
+              <p>29 Review</p>
+              <Link to="/reviews2" className="switch_btn_view_hp_2">
                 View
               </Link>
             </div>
           </div>
-          <div className="header_contact_details_box">
-            <div className="contact_head_Boxdetails-map-hp">
-              <FiMapPin className="iconnDetails_head-map" />
+          <div className="header_contact_details_box_2">
+            <div className="contact_head_Boxdetails-map-hp_2">
+              <FiMapPin className="iconnDetails_head-map2" />
               <p>131 Sapang Sisangvvone Road, Ban Naxay, Vientiane 0100 ลาว</p>
 
-              <Link to="/addressMap" className="switch_btn2-hp2">
+              <Link to="/addressMap" className="switch_btn2-hp-2">
                 View
               </Link>
             </div>
@@ -65,7 +65,7 @@ const HomePage = () => {
       <div className="container_boxHeaderAt_store">
         <div className="box_banner_content">
           <img src={banner} alt="" />
-          <div className="container_boxcategory_hp">
+          <div className="container_boxcategory_delivery">
             <Link className="link_categor_l activeCategory" to="#">
               Pizza
             </Link>
@@ -87,10 +87,11 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-
-      <FoodItem />
+      
+      <FoodItem2 />
+    
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default Homepage2

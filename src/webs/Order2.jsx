@@ -1,6 +1,6 @@
-import React, { useState, useEffect  } from "react";
-import "./css/order.css";
-import Menufooter from "../components/Menufooter";
+import React, { useState, useEffect } from "react";
+import "./css/order2.css";
+import Menufooter2 from "../webs/Menufooter2";
 import { Link } from "react-router-dom";
 import { GrDocumentText } from "react-icons/gr";
 import { LuChefHat } from "react-icons/lu";
@@ -8,7 +8,7 @@ import { BiSolidDish } from "react-icons/bi";
 import { IoIosArrowBack } from "react-icons/io";
 import foodImage from "../img/foodImage.png";
 
-function Order() {
+function Order2() {
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -83,11 +83,11 @@ function Order() {
   const formattedDateTime = dateTime.toLocaleString();
   return (
     <>
-      <Menufooter />
+      <Menufooter2 />
 
       <div className="order_box_container">
         <div className="title_header_orderBox">
-          <Link to="/orderList" className="back_orderBox">
+          <Link to="/orderList2" className="back_orderBox">
             <IoIosArrowBack className="icon_closeReviwe" />
             Back
           </Link>
@@ -128,7 +128,6 @@ function Order() {
                 ))}
               </div>
             </div>
-
             <div>
               <h4>Price</h4>
               <div className="boxGrouptxtintro">
@@ -146,8 +145,8 @@ function Order() {
               </div>
             </div>
           </div>
-          <div className="box_groupPrice_2">
-            <h4>Total:</h4>
+          <div className="box_groupPrice">
+          <h4>Total:</h4>
             <h4 className="text-dollar">$</h4>
             <h4>
               {products
@@ -170,4 +169,4 @@ function Order() {
   );
 }
 
-export default Order;
+export default Order2;

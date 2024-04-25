@@ -104,16 +104,19 @@
   margin: auto;
   border-bottom: 1px solid #ddd;
 }
+
 .boxGrouptxtintro,
 .boxgroupLastfoot {
   margin-top: 20px;
   display: grid;
   gap: 15px;
 }
+
 .boxofnamefood {
   width: 100%;
   overflow: hidden;
 }
+
 .boxgroupLastfoot {
   padding-left: 20px;
 }
@@ -122,18 +125,20 @@
   padding: 1rem;
 }
 
-.box_groupPrice_2 {
+.box_groupPrice {
   padding: 20px 2rem 10px 2rem;
   display: grid;
   grid-template-columns: 1fr 0fr 0fr;
   gap: 0.3rem;
 }
-.box_groupPrice_2 h4{
+.box_groupPrice h4{
   font-size: 20px;
 }
 .ssdasdsa-1 {
   text-align: start;
 }
+
+
 /* **************** Order List ******************** */
 .orderList_container_box {
   position: relative;
@@ -194,20 +199,24 @@
     overflow: hidden;
     padding: 10px;
   }
+
   .box_firstOrder_content {
     padding: 20px;
     width: 100%;
     overflow: hidden;
     margin-top: 2rem;
   }
+
   .boxstatus_foodorder {
     width: 100%;
   }
+
   .order_content {
     width: 100%;
     overflow: hidden;
     margin-bottom: 5rem;
   }
+
   .order_contentItem {
     display: flex;
     padding: 20px 30px;
@@ -215,14 +224,11 @@
     justify-content: space-between;
     text-align: center;
   }
- .boxGrouptxtintro{ 
-  font-size: 15px;
- }
+
   .boxofnamefood {
-    width: 100%;
-    overflow: hidden; 
-    text-align: start;
+    width: 100px;
   }
+
   /* **************** Order List ******************** */
   .orderList_container_box {
     width: 100%;
