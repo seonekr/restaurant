@@ -5,7 +5,6 @@ import foodImage from "../img/foodImage.png";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Menufooter from "../components/Menufooter";
 import { AiOutlineDelete } from "react-icons/ai";
-import Alert from "../img/alert.png";
 import Alert2 from "../img/alert2.png";
 
 import Box from "@mui/material/Box";
@@ -94,7 +93,8 @@ function Cart() {
     );
     setShowPopupOkDelete(false); // Close the delete confirmation popup after deletion
   };
-
+  
+// 
   const incrementCount = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
@@ -316,7 +316,6 @@ function Cart() {
                   />
                 )}
               </Box>
-
               <h3>Are you sure?</h3>
               <p>You want to order this</p>
             </div>

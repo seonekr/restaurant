@@ -116,7 +116,6 @@ const Mainpage = () => {
       });
       togglePopup();
     }
-    
   };
   //Time
   const handleConfirmClickTime = () => {
