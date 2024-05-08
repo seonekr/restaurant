@@ -70,6 +70,9 @@ function Menufooter() {
             <Link to="/homepage2" className="boxcart_header_container">
               Delivery
             </Link>
+            <Link to="/logino" className="boxcart_header_container">
+              Login
+            </Link>
           </div>
         </div>
       </div>

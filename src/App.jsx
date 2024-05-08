@@ -19,6 +19,7 @@ import Addfood from "./seller/Addfood";
 import Dashborard from "./seller/Dashborard";
 import Login from "./seller/Login";
 
+import Signup from "./owner/page/Signup";
 import LoginO from "./owner/page/LoginO";
 import Mainpage from "./owner/page/Mainpage";
 import Addproduct from "./owner/page/Addproduct";
@@ -36,6 +37,9 @@ import OrderList2 from "./webs/OrderList2";
 import Review2 from "./webs/Review2";
 import Payment2 from "./webs/Payment2";
 import Address2 from "./webs/Address2";
+
+//Admin
+import Dashboard from "./admin/Dashboard";
 
 function App() {
   useEffect(() => {
@@ -124,6 +128,7 @@ function App() {
 
           {/* --------- Owner Page ---------- */}
           <Route path="/logino" element={<LoginO />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/mainpage" element={<Mainpage />} />
           <Route path="/addproduct" element={<Addproduct />} />
           <Route path="/manageorder" element={<Manageorder />} />
@@ -141,6 +146,9 @@ function App() {
           <Route path="/reviews2" element={<Review2 />} />
           <Route path="/payment2" element={<Payment2 />} />
           <Route path="/address2" element={<Address2 />} />
+
+          {/* --------- Web delivery ---------- */}
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
       <ScrollToTopButton />
