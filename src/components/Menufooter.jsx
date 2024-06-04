@@ -46,18 +46,23 @@ function Menufooter() {
                 <NavLink to="/cart" className="boxcart_header_container">
                   <p className="linkTomenu">Cart</p>
                 </NavLink>
+                <>
+                  {storage.store_id && (
+                    <NavLink
+                      to="/homepage2"
+                      className="boxcart_header_container"
+                    >
+                      Delivery
+                    </NavLink>
+                  )}
+                </>
 
-                <NavLink to="/mainpage" className="boxcart_header_container">
+                {/* <NavLink to="/mainpage" className="boxcart_header_container">
                   <div className="boxcart_header">
                     <HiOutlineBuildingStorefront className="icon_cart_header" />
                   </div>
-                </NavLink>
-                {/* <NavLink to="/homepage2" className="boxcart_header_container">
-                  Delivery
                 </NavLink> */}
-                <NavLink to="/logino" className="boxcart_header_container">
-                  Login
-                </NavLink>
+
                 <NavLink to="/dashboard" className="boxcart_header_container">
                   <div className="boxcart_header">
                     <HiOutlineBuildingStorefront className="icon_cart_header" />
@@ -65,6 +70,7 @@ function Menufooter() {
                 </NavLink>
               </>
             )}
+
             {!is_admin && (
               <>
                 <NavLink to="/" className="linkTomenu">
@@ -79,12 +85,9 @@ function Menufooter() {
                 <NavLink to="/homepage2" className="boxcart_header_container">
                   Delivery
                 </NavLink>
-                <NavLink to="/logino" className="boxcart_header_container">
-                  Login
-                </NavLink>
               </>
             )}
-            
+
             {/* {store_id && ( */}
             {/* <>
                 <NavLink to="/counter" className="boxcart_header_container">
@@ -121,7 +124,6 @@ function Menufooter() {
               <IoCarSportSharp className="iconMenu_foot" />
               Delivery
             </NavLink>
-        
           </>
         )}
         {is_admin && (
