@@ -1,125 +1,4 @@
-// import React from "react";
-// import "./css/detailorder.css";
-// import Menufooter from "./Menubar";
-// import { Link } from "react-router-dom";
-// import { GrDocumentText } from "react-icons/gr";
-// import { LuChefHat } from "react-icons/lu";
-// import { BiSolidDish } from "react-icons/bi";
-// import { IoIosArrowBack } from "react-icons/io";
-
-// function Detailorder() {
-//   return (
-//     <div className="detailorder_box_container">
-//       <div className="detailorder_box_container">
-//         <div className="title_header_orderBox">
-//           <Link to="/manageorder" className="back_orderBox">
-//             <IoIosArrowBack className="icon_closeReviwe" />
-//             Back
-//           </Link>
-//           <h3>Order</h3>
-//         </div>
-//         <div className="box_firstorder_content">
-//           <h4>Track your Order</h4>
-//           <div className="detailorder_status">
-//             <div className="name-textorder">
-//               <div className="numberIddetailorder">
-//                 <p>No:1</p>
-//                 <p>ID:1</p>
-//                 <p>Name:1</p>
-//               </div>
-//               <div>
-//                 <p>Table 1</p>
-//               </div>
-//             </div>
-//             <div className="boxstatus_detailorder">
-//               <div className="group-icon-order">
-//                 <div className="icon_status-order iconactive">
-//                   <GrDocumentText />
-//                 </div>
-//                 <h4>Order</h4>
-//               </div>
-
-//               <div className="group-icon-cook">
-//                 <div className="icon_status-order iconactive">
-//                   <LuChefHat />
-//                 </div>
-//                 <h4>Cooking</h4>
-//               </div>
-//               <div className="group-icon-done">
-//                 <div className="icon_status-order ">
-//                   <BiSolidDish />
-//                 </div>
-//                 <h4>Done</h4>
-//               </div>
-//               <div className="spanboxinline1"></div>
-//               <div className="spanboxinline2"></div>
-//             </div>
-//             <p className="ssdasdsa">Your order has been received</p>
-//           </div>
-//         </div>
-//         <div className="order_content-detailorder">
-//           <h3>Menu</h3>
-//           <div className="order_content-Item">
-//             <div>
-//               <h4>Name</h4>
-//               <div className="box-Grouptxtintro box-ofnamefood">
-//                 <p>Name...</p>
-//                 <p>Name...</p>
-//                 <p>Name...</p>
-//               </div>
-//             </div>
-//             <div>
-//               <h4>Price</h4>
-//               <div className="box-Grouptxtintro box-ofpricefood">
-//                 <p>12,000</p>
-//                 <p>12,000</p>
-//                 <p>12,000</p>
-//               </div>
-//             </div>
-//             <div className="box-amount">
-//               <h4>Amount</h4>
-//               <div className="box-Grouptxtintro box-ofamountfood">
-//                 <p>1</p>
-//                 <p>1</p>
-//                 <p>1</p>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="box-groupPrice">
-//             <h4>TOTAL:</h4>
-//             <h4>76,000</h4>
-//           </div>
-//           <div className="box-groupLastfoot">
-//             <p>Place on: 15/09/2023</p>
-//             <p>Payment method: MasterCard</p>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="button-active">
-//         <div className="btn-pending">
-//           <Link to="/detailorder" className="btn-pending">
-//             Pending
-//           </Link>
-//         </div>
-//         <div className="btn-done">
-//           <Link to="/detailorder" className="btn-done">
-//             Done
-//           </Link>
-//         </div>
-//         <div className="btn-active">
-//           <Link to="/detailorder" className="btn-active">
-//             Active
-//           </Link>
-//         </div>
-//       </div>
-//       <Menufooter />
-//     </div>
-//   );
-// }
-
-// export default Detailorder;
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./css/detailorder.css";
 import Menufooter from "./Menubar";
 import { Link } from "react-router-dom";
@@ -131,18 +10,98 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CheckCircle } from "@mui/icons-material";
+import axios from "axios";
 
-function Detailorder() {
-  const steps = ["Order", "Cooking", "Done"];
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
+const Detailorder = () => {
+  const steps = ["Pending", "Preparing", "Ready", "Completed", "Cancelled"];
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+  const [orderData, setOrderData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [itemDetails, setItemDetails] = useState({});
+  const [isEditingStatus, setIsEditingStatus] = useState(false);
+  const [newStatus, setNewStatus] = useState("");
+  useEffect(() => {
+    axios
+      .get("http://43.201.166.195:8000/restaurant/orders/1/")
+      .then((response) => {
+        setOrderData(response.data);
+        fetchMenuItemDetails(response.data.order_items);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, []);
 
-  const isStepOptional = (step) => {
-    return step === 1;
+  const fetchMenuItemDetails = async (items) => {
+    const details = {};
+    let totalOrderPrice = 0;
+  
+    await Promise.all(
+      items.map(async (item) => {
+        try {
+          const response = await axios.get(
+            `http://43.201.166.195:8000/restaurant/menu-items/${item.menu_item}/`
+          );
+          const { name, price } = response.data;
+          const totalPrice = price * item.quantity;
+          details[item.menu_item] = {
+            name: name,
+            price: price,
+            totalPrice: totalPrice
+          };
+          totalOrderPrice += totalPrice;
+        } catch (error) {
+          console.error(
+            `Error fetching menu item with ID ${item.menu_item}:`,
+            error
+          );
+          details[item.menu_item] = {
+            name: "Unknown Item",
+            price: 0,
+            totalPrice: 0
+          };
+        }
+      })
+    );
+  
+    // Set total order price in orderData
+    setOrderData(prevOrderData => ({
+      ...prevOrderData,
+      totalOrderPrice: totalOrderPrice
+    }));
+  
+    setItemDetails(details);
+    setLoading(false);
   };
+  
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
+  const handleStatusUpdate = () => {
+    // Check if newStatus is properly set
+    console.log("New Status:", newStatus);
+
+    // Call the updateOrderStatus function
+    updateOrderStatus(newStatus);
+
+    // Exit the status editing mode
+    setIsEditingStatus(false);
+  };
+  const updateOrderStatus = (status, callback) => {
+    // Assuming 'status' is a string representing the new status of the order
+    const requestData = { status: status };
+
+    axios
+      .patch(`/restaurant/orders/1/update_status/`, requestData)
+      .then((response) => {
+        console.log("Order status updated successfully:", response.data);
+        // Call the callback function with the updated status
+        callback(response.data.status);
+      })
+      .catch((error) => {
+        console.error("Error updating order status:", error);
+        // Handle error, display error message to the user, etc.
+      });
   };
 
   const handleNext = () => {
@@ -154,14 +113,56 @@ function Detailorder() {
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+
+    if (activeStep < steps.length - 1) {
+      updateOrderStatus(steps[activeStep + 1]);
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    if (activeStep > 0) {
+      updateOrderStatus(steps[activeStep - 1]);
+    }
   };
+
   const handleReset = () => {
     window.location.href = "/manageorder";
   };
+
+  const handleStatusClick = () => {
+    setIsEditingStatus(true);
+  };
+
+  const handleStatusChange = (e) => {
+    setNewStatus(e.target.value);
+  };
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!orderData) {
+    return <div>Error loading order data</div>;
+  }
+  ///\
+  const modifyOrderStatus = async (newStatus) => {
+    try {
+      const response = await axios.put(
+        `http://43.201.166.195:8000/restaurant//orders/1/update_status/${status}/`,
+        { status: newStatus }
+      );
+      setOrderData(response.data);
+      setIsEditingStatus(false);
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
+  };
+
   return (
     <div className="detailorder_box_container">
       <div className="title_header_orderBox">
@@ -174,35 +175,27 @@ function Detailorder() {
       <div className="continer-box">
         <div className="box_firstorder_content">
           <h4>Track your Order</h4>
-          <div className="detailorder_status">
+          <div className="detailorder-status">
             <div className="name-textorder">
-              <div className="numberIddetailorder">
-                <p>No:1</p>
-                <p>ID:1</p>
-                <p>Name:1</p>
+              <div className="numberId-detailorder">
+                <p>ID: {orderData.id}</p>
+                <p>Restaurant: {orderData.restaurant}</p>
               </div>
               <div>
-                <p>Table 1</p>
+                <p>Table {orderData.table}</p>
               </div>
             </div>
-            <div className="boxstatus_detailorder">
+            <div className="box-status-detailorder">
               <Box sx={{ width: "100%" }}>
                 <Stepper activeStep={activeStep}>
                   {steps.map((label, index) => {
                     const stepProps = {};
-                    const labelProps = {};
-                    if (isStepOptional(index)) {
-                      labelProps.optional = (
-                        <Typography variant="caption"></Typography>
-                      );
-                    }
                     if (isStepSkipped(index)) {
                       stepProps.completed = true;
                     }
                     return (
                       <Step key={label} {...stepProps}>
                         <StepLabel
-                          {...labelProps}
                           sx={{
                             display: "flex",
                             flexDirection: "column",
@@ -217,7 +210,7 @@ function Detailorder() {
                 </Stepper>
               </Box>
             </div>
-            <p className="ssdasdsa">Your order has been received</p>
+            <p className="order-received">Your order has been received</p>
           </div>
         </div>
         <div className="order_content-detailorder">
@@ -226,35 +219,60 @@ function Detailorder() {
             <div>
               <h4>Name</h4>
               <div className="box-Grouptxtintro box-ofnamefood">
-                <p>Name...</p>
-                <p>Name...</p>
-                <p>Name...</p>
+                {orderData.order_items &&
+                  orderData.order_items.map((item, index) => (
+                    <p key={index}>{itemDetails[item.menu_item]?.name}</p>
+                  ))}
               </div>
             </div>
             <div>
               <h4>Price</h4>
               <div className="box-Grouptxtintro box-ofpricefood">
-                <p>12,000</p>
-                <p>12,000</p>
-                <p>12,000</p>
+                {orderData.order_items &&
+                  orderData.order_items.map((item, index) => (
+                    <p key={index}>{itemDetails[item.menu_item]?.price}</p>
+                  ))}
               </div>
             </div>
             <div className="box-amount">
               <h4>Amount</h4>
               <div className="box-Grouptxtintro box-ofamountfood">
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
+                {orderData.order_items &&
+                  orderData.order_items.map((item, index) => (
+                    <p key={index}>{item.quantity}</p>
+                  ))}
               </div>
             </div>
           </div>
           <div className="box-groupPrice">
             <h4>TOTAL:</h4>
-            <h4>76,000</h4>
+            <h4>
+              {orderData.totalOrderPrice
+                ? `$${orderData.totalOrderPrice.toFixed(2)}`
+                : "N/A"}
+            </h4>
           </div>
+
           <div className="box-groupLastfoot">
-            <p>Place on: 15/09/2023</p>
-            <p>Payment method: MasterCard</p>
+            <p>Placed on: {orderData.placedOn}</p>
+            <p onClick={handleStatusClick}>
+              Status:{" "}
+              {isEditingStatus ? (
+                <span>
+                  <select value={newStatus} onChange={handleStatusChange}>
+                    {steps.map((step, index) => (
+                      <option key={index} value={step}>
+                        {step}
+                      </option>
+                    ))}
+                  </select>
+                  <button onClick={handleStatusUpdate}>Update</button>
+                </span>
+              ) : (
+                orderData.status
+              )}
+            </p>
+            <p>Paid: {orderData.paid ? "Yes" : "No"}</p>
           </div>
         </div>
       </div>
@@ -286,7 +304,6 @@ function Detailorder() {
         }}
       >
         <Box sx={{ flex: "1 1 auto" }} />
-
         <div className="button-active">
           <Button
             color="inherit"
@@ -296,39 +313,33 @@ function Detailorder() {
           >
             Back
           </Button>
-
           <div className="btn-pending">
             {activeStep === 0 && (
-              <Link
-                to="/detailorder"
-                className="btn-pending"
-                onClick={handleNext}
-              >
+              <Button className="btn-pending" onClick={handleNext}>
                 Pending
-              </Link>
+              </Button>
             )}
           </div>
           <div className="btn-done">
             {activeStep === 1 && (
-              <Link to="/detailorder" className="btn-done" onClick={handleNext}>
+              <Button className="btn-done" onClick={handleNext}>
                 Done
-              </Link>
+              </Button>
             )}
           </div>
           <div className="btn-active">
             {activeStep === 2 && (
-              <Link
-                to="/detailorder"
-                className="btn-active"
-                onClick={handleNext}
-              >
+              <Button className="btn-active" onClick={handleNext}>
                 Active
-              </Link>
+              </Button>
             )}
           </div>
           <Box sx={{ display: "flex", flexDirection: "row" }}>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset} disabled={activeStep !== 3}>
+            <Button
+              onClick={handleReset}
+              disabled={activeStep !== steps.length}
+            >
               Finish
             </Button>
           </Box>
@@ -337,6 +348,6 @@ function Detailorder() {
       <Menufooter />
     </div>
   );
-}
+};
 
 export default Detailorder;

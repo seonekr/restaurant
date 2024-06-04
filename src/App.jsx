@@ -6,7 +6,6 @@ import "./main.css";
 import Home from "./pages/HomePage";
 import Order from "./pages/Order";
 import Cart from "./pages/Cart";
-import FoodDetails from "./components/FoodDetails";
 import OrderList from "./pages/OrderList";
 import Review from "./pages/Review";
 import Payment from "./pages/Payment";
@@ -19,6 +18,7 @@ import Addfood from "./seller/Addfood";
 import Dashborard from "./seller/Dashborard";
 import Login from "./seller/Login";
 
+import Signup1 from "./owner/page/Signup1";
 import Signup from "./owner/page/Signup";
 import LoginO from "./owner/page/LoginO";
 import Mainpage from "./owner/page/Mainpage";
@@ -28,6 +28,8 @@ import Detailorder from "./owner/page/Detailorder";
 import Dashborardpc from "./owner/page/Dashboardpc";
 import History from "./owner/page/History";
 import Orderhistory from "./owner/page/Orderhistory";
+import Detailorder2 from "./owner/page/Detailorder2";
+
 
 import Homepage2 from "./webs/Homepage2";
 import Order2 from "./webs/Order2";
@@ -40,8 +42,34 @@ import Address2 from "./webs/Address2";
 
 //Admin
 import Dashboard from "./admin/Dashboard";
+import Board from "./admin/components/board/Board";
+import OwnerMenu from "./admin/components/ownerMenu/OwnerMenu";
+import Itemfood from "./admin/components/Food/Itemfood";
+import Addproduct1 from "./admin/components/Food/Addproduct1";
+import Category from "./admin/components/Category/Category";
+import Employee from "./admin/components/Employee/Employee";
+import Tables from "./admin/components/Table/Tables";
+import Addtable from "./admin/components/Table/Addtable";
+import TableDetails from "./admin/components/Table/TableDetails";
+import AddEmployee from "./admin/components/Employee/AddEmployee";
+import Restaurant_admin from "./admin/components/Restaurant-manage/Restaurant_admin";
 
+// Counter
+import Counter from "./owner/counter/Counter";
+import Menu from "./owner/counter/Menu";
+import Ordermenu from "./owner/counter/Ordermenu";
+import Orderr from "./owner/counter/Orderr";
+import Edit_restaurant from "./admin/components/Restaurant-manage/Edit_restaurant";
+import Add_Restaurant from "./admin/components/Restaurant-manage/Add_Restaurant";
+
+// Waiter
+// import Waiter from "./owner/counter copy/Waiter";
+// import Menu2 from "./owner/counter copy/Menu2";
+// import Ordermenu2 from "./owner/counter copy/Ordermenu2";
 function App() {
+
+
+  ////
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -110,11 +138,12 @@ function App() {
       <Router>
         <Routes>
           {/* --------- Home Page ---------- */}
+          <Route path="/logino" Component={LoginO} />
           <Route path="/" element={<Home />} />
+          <Route path="/restaurant" element={<Home />} />
           <Route path="/orderList" element={<OrderList />} />
           <Route path="/order" element={<Order />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/foodDetails" element={<FoodDetails />} />
           <Route path="/reviews" element={<Review />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/address" element={<Address />} />
@@ -124,11 +153,15 @@ function App() {
           <Route path="/homeSeller" element={<HomeSeller />} />
           <Route path="/addfood" element={<Addfood />} />
           <Route path="/dashborard" element={<Dashborard />} />
-          <Route path="/login" element={<Login />} />
+         {/* Admin */}
+          <Route path="/restaurant_admin" element={<Restaurant_admin />} />
+          <Route path="/edit_restaurant/:id" element={<Edit_restaurant />} />
+          <Route path="/add_restaurant" element={<Add_Restaurant />} />
 
           {/* --------- Owner Page ---------- */}
           <Route path="/logino" element={<LoginO />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/signup1" element={<Signup1 />} />
           <Route path="/mainpage" element={<Mainpage />} />
           <Route path="/addproduct" element={<Addproduct />} />
           <Route path="/manageorder" element={<Manageorder />} />
@@ -136,6 +169,18 @@ function App() {
           <Route path="/dashboardpc" element={<Dashborardpc />} />
           <Route path="/history" element={<History />} />
           <Route path="/orderhistory" element={<Orderhistory />} />
+          <Route path="/detailorder2" element={<Detailorder2 />} />
+
+          <Route path="/ownermunu" element={<OwnerMenu />} />
+          <Route path="/board" element={<Board />} />
+          <Route path="/itemfood2" element={<Itemfood />} />
+          <Route path="/addproduct1" element={<Addproduct1 />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/employee" element={<Employee />} />
+          <Route path="/table" element={<Tables />} />
+          <Route path="/addtable" element={<Addtable />} />
+          <Route path="/restaurant/tables/:id" component={TableDetails} />
+          <Route path="/add-employee" element={<AddEmployee />} />
           
           {/* --------- Web delivery ---------- */}
           <Route path="/homepage2" element={<Homepage2 />} />
@@ -149,6 +194,16 @@ function App() {
 
           {/* --------- Web delivery ---------- */}
           <Route path="/dashboard" element={<Dashboard />} />
+          {/* --------- Counter ---------- */}
+          <Route path="/counter"  element={<Counter/>} />
+          <Route path="/restaurant/orders/:tableId" element={<Menu/>}/>
+          <Route path="/restaurant/orders/:tableId" element={<Ordermenu/>}/>
+          <Route path="/orderr" element={<Orderr />} />
+
+          {/* --------- Waiter ---------- */}
+          {/* <Route path="/waiter"  element={<Waiter/>} />
+          <Route path="/restaurant/orders/:tableId" element={<Detailorder2/>}/>
+          <Route path="/restaurant/waiter/orders/:tableId" element={<Ordermenu2/>}/> */}
         </Routes>
       </Router>
       <ScrollToTopButton />

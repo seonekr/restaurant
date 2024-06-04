@@ -1,20 +1,22 @@
-.cart_box_container {
-  width: 65%;
+.cart_box_container11 {
+  border-radius: 10px;
+  width: 75%;
   margin: 2rem auto auto auto;
   background-color: #fff;
+  padding: 25px;
 }
 
-.box_groupaCart_item {
+.box_groupaCart_item1 {
   display: grid;
   grid-template-columns: 1.5fr 1.2fr;
   gap: 1.5rem;
 }
 
-.box_content_cart {
+.box_content_cart1 {
   display: grid;
   gap: 1rem;
 }
-.box_cart_item_head h4{
+.box_cart_item_head1 h4{
   font-size: 18px;
 }
 /* Ensure alignment and spacing */
@@ -48,6 +50,11 @@
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
 }
+.foodDetails_box img {
+  width: 150px; /* Adjust the width as needed */
+  height: 100px; /* Adjust the height as needed */
+  object-fit: cover; /* Ensure the image covers the entire container */
+}
 
 /* Adjust spacing between elements within the food box */
 .box_ofDetails_food {
@@ -58,9 +65,7 @@
 .titleCart {
   text-align: center;
 }
-.txt_ofDetails_food{
-  margin: 0 ;
-}
+
 /* Add padding to paragraphs within food details */
 .txt_ofDetails_food p {
   margin: 5px 0;
@@ -94,8 +99,12 @@
   position: absolute;
   cursor: pointer;
 }
-
-.box_cart_item_head {
+.icon_DetailsFood:hover{
+  color: #ffffff;
+  transform: scale(1.1);
+  background-color: #c40e0e;
+}
+.box_cart_item_head1 {
   padding: 10px;
 }
 
@@ -155,6 +164,7 @@
   padding: 13px;
   border-radius: 10px;
   transition: 200ms;
+  cursor: pointer;
 }
 .btn_Continues {
   text-decoration: none;
@@ -165,9 +175,18 @@
   padding: 13px;
   border-radius: 10px;
   transition: 200ms;
+  transition: transform 0.3s ease;
+}
+.blue-link {
+  color: #0e64d2;
 }
 .btn_confirmCart:hover {
+  transform: scale(1.1);
   background-color: #0e5ac4;
+}
+.btn_Continues:hover {
+  transform: scale(1.1);
+  background-color: #72717136;
 }
 /* Popup dialog */
 .background_popup_dialog2 {
@@ -339,17 +358,17 @@
     padding-top: 1rem;
   }
 
-  .box_groupaCart_item {
+  .box_groupaCart_item1 {
     grid-template-columns: 1fr;
     gap: 0;
   }
 
-  .box_content_cart {
+  .box_content_cart1 {
     width: 100%;
     overflow: hidden;
-    padding: 10px;
+    padding: 0px;
     gap: 0;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
   .box_ofDetails_food {

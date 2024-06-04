@@ -6,6 +6,7 @@ import { LuClipboardCheck } from "react-icons/lu";
 import { IoCartOutline } from "react-icons/io5";
 import { IoRestaurantOutline } from "react-icons/io5";
 import { IoCarSportSharp } from "react-icons/io5";
+import { NavLink } from 'react-router-dom';
 
 
 function Menufooter() {
@@ -15,20 +16,20 @@ function Menufooter() {
     <>
       <div className="menufooter_contentHeader">
         <div className="box_content_header">
-          <Link to="/" className="linkTomenu ">
+          <NavLink to="/" className="linkTomenu ">
             <h3>Name Restaurant</h3>
-          </Link>
+          </NavLink>
 
           <div className="menu_header_box">
             
 
-            <Link to="/homepage2" className="linkTomenu active">
+            <NavLink to="/homepage2" className="linkTomenu">
               Home
-            </Link>
-            <Link to="/orderList2" className="linkTomenu">
+            </NavLink>
+            <NavLink to="/orderList2" className="linkTomenu">
               Order
-            </Link>
-            <Link to="/cart2" className="boxcart_header_container">
+            </NavLink>
+            <NavLink to="/cart2" className="boxcart_header_container">
               <p className="linkTomenu">Cart</p>
               <div className="boxcart_header">
                 <div className="box_border_haeaderCart boxfirstbg">
@@ -39,41 +40,41 @@ function Menufooter() {
                   <p>8</p>
                 </div>
               </div>
-            </Link>
-            <Link to="/mainpage" className="boxcart_header_container">
+            </NavLink>
+            <NavLink to="/mainpage" className="boxcart_header_container">
               <div className="boxcart_header">
                 <IoRestaurantOutline className="icon_cart_header" />
               </div>
-            </Link>
-            <Link to="/homepage2" className="boxcart_header_container">
+            </NavLink>
+            <NavLink to="/homepage2" className="boxcart_header_container">
               Delivery
-            </Link>
+            </NavLink>
           </div>
         </div>
       </div>
 
       <div className="menufooter_content_app">
-        <Link className="link_menu active" to="/homepage2">
+        <NavLink className="link_menu" to="/homepage2">
           <IoStorefrontOutline className="iconMenu_foot" />
           Home
-        </Link>
+        </NavLink>
 
-        <Link className="link_menu" to="/orderList2">
+        <NavLink className="link_menu" to="/orderList2">
           <LuClipboardCheck className="iconMenu_foot" />
           Order
-        </Link>
-        <Link className="link_menu" to="/cart2">
+        </NavLink>
+        <NavLink className="link_menu" to="/cart2">
           <IoCartOutline className="iconMenu_foot" />
           Cart
-        </Link>
-        <Link className="link_menu" to="/mainpage">
+        </NavLink>
+        <NavLink className="link_menu" to="/mainpage">
           <IoRestaurantOutline className="iconMenu_foot" />
           Owner
-        </Link>
-        <Link className="link_menu" to="/homepage2">
+        </NavLink>
+        <NavLink className="link_menu" to="/homepage2">
           <IoCarSportSharp className="iconMenu_foot" />
           Delivery
-        </Link>
+        </NavLink>
       </div>
     </>
   );

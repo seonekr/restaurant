@@ -3,7 +3,15 @@
   margin: 6rem auto auto auto;
   background-color: #fff;
 }
-
+.txt-text-table{
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+.txtname_orderlist22{
+  display: flex;
+  justify-content: space-between;
+}
 .manageorder_container_box {
   margin: auto;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);

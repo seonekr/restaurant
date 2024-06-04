@@ -1,13 +1,23 @@
 .menufooter_contentHeader {
-  top: 0;
+  /* top: 0;
   left: 0;
   width: 100%;
   display: flex;
-  position: relative; /* Changed from fixed to relative */
+  position: relative; 
   justify-content: center;
-  /* background-color: #f07171; */
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-  z-index: 999; /* Ensure it's above other content */
+  z-index: 999; 
+  background-color: #fff;
+  position: fixed; */ 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    background-color: #FFF;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .box_content_header {
@@ -16,7 +26,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .menu_header_box,
@@ -75,6 +85,7 @@
 .linkTomenu {
   font-size: 19px;
 }
+
 .menufooter_content_app {
   display: none;
 }

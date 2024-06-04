@@ -1,58 +1,71 @@
-import React, { useState } from "react";
+import React from "react";
 import "./css/payment.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Menufooter from "../components/Menufooter";
 import { IoIosArrowBack } from "react-icons/io";
-import imagebcel from "../img/imagebcel.png";
-import { IoMdCopy } from "react-icons/io";
-import imageicon from "../img/imageicon.jpg";
-import Alert from "../img/alert.png";
+import Swal from "sweetalert2";
 
-function Payment() {
-  const [mainImageBanner, setMainImageBanner] = useState(null);
-  const handleImageLogo = (e) => {
-    const file = e.target.files[0];
+function Payment({ orders }) {
+  const navigate = useNavigate();
 
-    if (file) {
-      const reader = new FileReader();
+  const totalPrice = orders.reduce((acc, product) => {
+    return (
+      acc +
+      product.items.reduce(
+        (subtotal, item) => subtotal + item.price * item.quantity,
+        0
+      )
+    );
+  }, 0);
 
-      reader.onloadend = () => {
-        setMainImageBanner([file]);
+  const handleConfirmPayment = async (event) => {
+    event.preventDefault(); 
+  
+    try {
+      const orderData = {
+        restaurant: orders[0].restaurant, 
+        status: "pending",
+        paid: false,
+        order_items: orders.map((product) =>
+          product.items.map((item) => ({
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          }))
+        ),
       };
-
-      reader.readAsDataURL(file);
+  
+      const axios = require("axios");
+  
+      const config = {
+        method: "post",
+        url: "http://127.0.0.1:8000/restaurant/orders",
+        data: orderData,
+      };
+  
+      const response = await axios(config);
+  
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Order confirmed successfully!",
+        }).then(() => {
+          navigate("/");
+        });
+      } else {
+        throw new Error("Failed to confirm order.");
+      }
+    } catch (error) {
+      console.error("Error confirming order:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to confirm order. Please try again.",
+      });
     }
   };
-
-  // const [products, setProducts] = useState([
-  //   {
-  //     mainImage: null,
-  //     productName: "",
-  //     price: "",
-  //     popular: false,
-  //   },
-  // ]);
-  // const handleImage = (e, index) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       const updatedProducts = [...products];
-  //       updatedProducts[index].mainImage = reader.result;
-  //       setProducts(updatedProducts);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-  const [showPopup, setShowPopup] = useState(false);
-
-  const togglePopupdialog = () => {
-    setShowPopup(!showPopup);
-  };
-
-  const handleOK = () => {
-    window.location.href = "/order";
-  };
+  
   return (
     <>
       <Menufooter />
@@ -62,94 +75,63 @@ function Payment() {
             <IoIosArrowBack className="icon_closeReviwe" />
             Back
           </Link>
-          <h3>Payment</h3>
         </div>
-        <div className="Box-header-payment">
-          <h4>+ Address</h4>
-        </div>
-        <Link to="/address">
-          <div className="Box-continer-payment">
-            <h4>Address:...</h4>
-          </div>
-        </Link>
+
         <div className="text-detail">
           <h4>Detail:</h4>
         </div>
         <div className="Box-continer-payment2">
           <div className="count_continer-payment2">
+            {orders.map((product, index) => (
+              <div key={index}>
+                {product.items.map((item, itemIndex) => (
+                  <div className="box_item_gourp_payment" key={itemIndex}>
+                    <div className="count_box_item_payment1">
+                      <p>{item.name}</p>
+                      <p>{item.price}</p>
+                    </div>
+                    <div className="text-quan">
+                      <p>{item.quantity}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="Box-continer-payment2">
+          <div className="count_continer-payment2">
             <div className="count_box_item_payment">
               <p>Quantity:</p>
-              <p>2</p>
+              <p>
+                {orders.reduce(
+                  (acc, product) =>
+                    acc +
+                    product.items.reduce(
+                      (subtotal, item) => subtotal + item.quantity,
+                      0
+                    ),
+                  0
+                )}
+              </p>
             </div>
-            <div className="count_box_item_payment">
-              <p>Shipping:</p>
-              <p>Free</p>
-            </div>
+
             <div className="count_box_item_payment">
               <p>Total:</p>
-              <p>240,000 KIP</p>
+              <p>$ {totalPrice}</p>
             </div>
           </div>
         </div>
-        <div className="text-account">
-          <div className="text_account_payment">
-            <p>Please transfer money to this account</p>
-          </div>
-          <div className="text_account_payment_all">
-            <img src={imagebcel} alt="" className="img-icon" />
-            <div className="text_account_payment2">
-              <p>Account number</p>
-              <p>123456789</p>
-            </div>
-            <IoMdCopy className="icon_coppy" />
-          </div>
-          <p className="text-red">Please attach proof of money transfer!</p>
-          <div className="Box-image">
-            <div className="box_input_img">
-              {mainImageBanner && mainImageBanner.length > 0 ? (
-                <img src={URL.createObjectURL(mainImageBanner[0])} alt="img" />
-              ) : (
-                <img src={imageicon} alt="img" />
-              )}
-            </div>
-            <label className="btn-image">
-              <input type="file" id="img" onChange={handleImageLogo} required />
 
-              <span>+ Image</span>
-            </label>
-          </div>
-        </div>
         <div className="button-con-pay">
-          <Link className="btn_confirm_payment" onClick={togglePopupdialog}>
+          <button
+            className="btn_confirm_payment"
+            onClick={handleConfirmPayment}
+          >
             Confirm
-          </Link>
+          </button>
         </div>
       </div>
-      {showPopup && (
-        <div className="background_popup_dialog">
-          <div className="hover_popup_dialog">
-            <div className="box_input_dialog">
-              <img src={Alert} alt="logo"></img>
-              <h3>Are you sure?</h3>
-              <p>You want to order this</p>
-            </div>
-            <div className="btn_foasdf">
-              <button
-                className="btn_cancel btn_addproducttxt_popup"
-                onClick={togglePopupdialog}
-              >
-                CANCEL
-              </button>
-              <button
-                className="btn_confirm btn_addproducttxt_popup"
-                onClick={handleOK}
-              >
-                OK
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

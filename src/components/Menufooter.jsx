@@ -1,104 +1,135 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/menufooter.css";
-import { Link } from "react-router-dom";
-import { IoStorefrontOutline } from "react-icons/io5";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { FaMagnifyingGlass, FaCartShopping, FaRegUser } from "react-icons/fa6";
+import { HiOutlineBuildingStorefront } from "react-icons/hi2";
 import { LuClipboardCheck } from "react-icons/lu";
-import { IoCartOutline } from "react-icons/io5";
-import { IoRestaurantOutline } from "react-icons/io5";
-import { IoCarSportSharp } from "react-icons/io5";
-import foodImage from "../img/foodImage.png";
+import {
+  IoCartOutline,
+  IoRestaurantOutline,
+  IoCarSportSharp,
+  IoStorefrontOutline,
+} from "react-icons/io5";
+import axios from "axios";
 
 function Menufooter() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      image: foodImage,
-      name: "Margherita Pizza",
-      price: 10.99,
-      count: 0, // Initial count for product 1
-    },
-    // Other product items...
-  ]);
+  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
+  const storage = JSON.parse(window.localStorage.getItem("user"));
+  var store_id = false;
+  if (localStorage.getItem("user")) {
+    store_id = JSON.parse(window.localStorage.getItem("user")).store_id;
+  }
 
-  const incrementCount = (productId) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === productId
-          ? { ...product, count: product.count + 1 }
-          : product
-      )
-    );
-  };
+  var is_admin = false;
+  if (localStorage.getItem("user")) {
+    is_admin = JSON.parse(window.localStorage.getItem("user")).is_admin;
+  }
+  console.log(user);
   return (
     <>
       <div className="menufooter_contentHeader">
         <div className="box_content_header">
-          <Link to="/" className="linkTomenu ">
+          <Link to="/" className="linkTomenu">
             <h3>Name Restaurant</h3>
           </Link>
 
           <div className="menu_header_box">
-            <Link to="/" className="linkTomenu active">
-              Home
-            </Link>
-            <Link to="/orderList" className="linkTomenu">
-              Order
-            </Link>
-            <Link to="/cart" className="boxcart_header_container">
-              
-              <p className="linkTomenu">Cart</p>
-              <div className="boxcart_header">
-                <div className="box_border_haeaderCart boxfirstbg">
-                  <IoCartOutline className="icon_cart_header" />
-                </div>
-                <div className="box_border_haeaderCart">
-                <p>
-        {products.reduce(
-          (total, product) => total + product.count,
-          0
-        )}
-      </p>
-                </div>
-              </div>
-            </Link>
+            {is_admin && (
+              <>
+                <NavLink to="/" className="linkTomenu">
+                  Home
+                </NavLink>
+                <NavLink to="/orderList" className="linkTomenu">
+                  Order
+                </NavLink>
+                <NavLink to="/cart" className="boxcart_header_container">
+                  <p className="linkTomenu">Cart</p>
+                </NavLink>
 
-            <Link to="/mainpage" className="boxcart_header_container">
-              <div className="boxcart_header">
-                <IoRestaurantOutline className="icon_cart_header" />
-              </div>
-            </Link>
-            <Link to="/homepage2" className="boxcart_header_container">
-              Delivery
-            </Link>
-            <Link to="/logino" className="boxcart_header_container">
-              Login
-            </Link>
+                <NavLink to="/mainpage" className="boxcart_header_container">
+                  <div className="boxcart_header">
+                    <HiOutlineBuildingStorefront className="icon_cart_header" />
+                  </div>
+                </NavLink>
+                {/* <NavLink to="/homepage2" className="boxcart_header_container">
+                  Delivery
+                </NavLink> */}
+                <NavLink to="/logino" className="boxcart_header_container">
+                  Login
+                </NavLink>
+                <NavLink to="/dashboard" className="boxcart_header_container">
+                  <div className="boxcart_header">
+                    <HiOutlineBuildingStorefront className="icon_cart_header" />
+                  </div>
+                </NavLink>
+              </>
+            )}
+            {!is_admin && (
+              <>
+                <NavLink to="/" className="linkTomenu">
+                  Home
+                </NavLink>
+                <NavLink to="/orderList" className="linkTomenu">
+                  Order
+                </NavLink>
+                <NavLink to="/cart" className="boxcart_header_container">
+                  <p className="linkTomenu">Cart</p>
+                </NavLink>
+                <NavLink to="/homepage2" className="boxcart_header_container">
+                  Delivery
+                </NavLink>
+                <NavLink to="/logino" className="boxcart_header_container">
+                  Login
+                </NavLink>
+              </>
+            )}
+            
+            {/* {store_id && ( */}
+            {/* <>
+                <NavLink to="/counter" className="boxcart_header_container">
+                  <div className="boxcart_header">
+                    <HiOutlineBuildingStorefront className="icon_cart_header" />
+                  </div>
+                </NavLink>
+                <NavLink to="/logino" className="boxcart_header_container">
+                  Login
+                </NavLink>
+              </> */}
+            {/* )} */}
           </div>
         </div>
       </div>
 
       <div className="menufooter_content_app">
-        <Link className="link_menu active" to="/">
-          <IoStorefrontOutline className="iconMenu_foot" />
-          Home
-        </Link>
+        {!is_admin && (
+          <>
+            <NavLink className="link_menu" to="/">
+              <IoStorefrontOutline className="iconMenu_foot" />
+              Home
+            </NavLink>
 
-        <Link className="link_menu" to="/orderList">
-          <LuClipboardCheck className="iconMenu_foot" />
-          Order
-        </Link>
-        <Link className="link_menu" to="/cart">
-          <IoCartOutline className="iconMenu_foot" />
-          Cart
-        </Link>
-        <Link className="link_menu" to="/mainpage">
-          <IoRestaurantOutline className="iconMenu_foot" />
-          Owner
-        </Link>
-        <Link className="link_menu" to="/homepage2">
-          <IoCarSportSharp className="iconMenu_foot" />
-          Delivery
-        </Link>
+            <NavLink className="link_menu" to="/orderList">
+              <LuClipboardCheck className="iconMenu_foot" />
+              Order
+            </NavLink>
+            <NavLink className="link_menu" to="/cart">
+              <IoCartOutline className="iconMenu_foot" />
+              Cart
+            </NavLink>
+            <NavLink className="link_menu" to="/homepage2">
+              <IoCarSportSharp className="iconMenu_foot" />
+              Delivery
+            </NavLink>
+        
+          </>
+        )}
+        {is_admin && (
+          <NavLink className="link_menu" to="/mainpage">
+            <IoRestaurantOutline className="iconMenu_foot" />
+            Owner
+          </NavLink>
+        )}
       </div>
     </>
   );

@@ -1,15 +1,73 @@
 import "./css/homePage.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menufooter from "../components/Menufooter";
 import FoodItem from "../components/FoodItem";
 import logo1 from "../img/Logo1.png";
 import banner from "../img/banner.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom"; // Import useParams
 import { FiPhone } from "react-icons/fi";
 import { IoMdTime } from "react-icons/io";
 import { FiMapPin } from "react-icons/fi";
 import Rating from "@mui/material/Rating";
+import axios from "axios";
+
 const HomePage = () => {
+  const { restaurantId } = useParams(); // Get restaurant ID from the URL
+  const [categories, setCategories] = useState([]);
+  const [categoryName, setCategoryName] = useState("All");
+  const [filter, setFilter] = useState("");
+  const [goodsList, setGoodsList] = useState([]); // Assuming you need to store the goods list
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const getCategories = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${import.meta.env.VITE_API}/restaurant/${restaurantId}/category`, // Use restaurantId
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleCategoryClick = (categoryName) => {
+    setCategoryName(categoryName);
+  };
+
+  useEffect(() => {
+    let myUrl = `/restaurant/${restaurantId}/?category_type=${filter}`; // Use restaurantId
+    if (categoryName !== "All") {
+      myUrl += `&category_name=${categoryName}`;
+    }
+
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: import.meta.env.VITE_API + myUrl,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setGoodsList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [categoryName, filter, restaurantId]); // Add restaurantId to dependencies
+
   const [value, setValue] = React.useState(3);
   return (
     <>
@@ -24,10 +82,7 @@ const HomePage = () => {
             <h3>Name Restaurant</h3>
             <p>Description restaurant</p>
 
-            <div
-              className="contact_head_Boxdetails
-            "
-            >
+            <div className="contact_head_Boxdetails">
               <FiPhone className="iconnDetails_head" />
               <p className="text">+856 20 55 000 959</p>
               <IoMdTime className="iconnDetails_head" />
@@ -65,26 +120,6 @@ const HomePage = () => {
       <div className="container_boxHeaderAt_store">
         <div className="box_banner_content">
           <img src={banner} alt="" />
-          <div className="container_boxcategory_hp">
-            <Link className="link_categor_l activeCategory" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-          </div>
         </div>
       </div>
 

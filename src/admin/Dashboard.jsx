@@ -1,9 +1,13 @@
-import React from 'react'
-
+import React from "react";
+import OwnerMenu from "./components/ownerMenu/OwnerMenu";
+import Itemfood from "./components/Food/Itemfood";
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <>
+      <OwnerMenu />
+      <Itemfood />
+    </>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

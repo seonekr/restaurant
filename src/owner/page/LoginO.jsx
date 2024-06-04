@@ -1,12 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/logino.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import Menubar from "./Menubar";
 import { FcGoogle } from "react-icons/fc";
-import { MdArrowBack } from "react-icons/md";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 
 const Login = () => {
+  const login_en = "Login";
+  const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorText, setErrorText] = useState("");
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    let data = JSON.stringify({
+      email: email,
+      password: password,
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: import.meta.env.VITE_API + "/user/signin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    console.log("Data..........", data);
+
+    axios
+      .request(config)
+      .then((response) => {
+        const result = response.data;
+        const user = {
+          user_id: result.user_id,
+          is_admin: result.is_admin,
+          company_id: result.company_id,
+          origin_company_name: result.origin_company_name,
+          user_name: result.user_name,
+          email: result.email,
+          image: result.image,
+          counter_id: result.counter_id // Assuming counter_id is returned in the response
+        };
+
+        const token = result.token.access;
+        if (token) {
+          window.localStorage.setItem("token", token);
+        }
+        window.localStorage.setItem("user", JSON.stringify(user));
+        navigate("/", { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          text: "The email or password do not match.",
+          icon: "error",
+        });
+      });
+  };
+
   return (
     <>
       <div className="box_container_logino">
@@ -17,7 +85,7 @@ const Login = () => {
             </Link>
           </div>
           <div className="contian-box-logino">
-            <h3>Login</h3>
+            <h3>{login_en}</h3>
             <p>Please login to use the service!</p>
             <div className="input_boxForm-login">
               <label>Email</label>
@@ -25,14 +93,24 @@ const Login = () => {
                 className="input_form"
                 type="email"
                 placeholder="Enter Your Email"
+                value={email}
+                onChange={handleEmail}
               />
               <label>Password</label>
               <input
                 className="input_form"
                 type="password"
                 placeholder="Enter Your Password"
+                value={password}
+                onChange={handlePassword}
               />
             </div>
+
+            {errorText.length > 0 && (
+              <div id="error_msg" className="error mt20">
+                {errorText}
+              </div>
+            )}
 
             <div className="forgot_password2">
               Forgot your password? {"\n"}
@@ -41,9 +119,9 @@ const Login = () => {
               </Link>
             </div>
 
-            <Link to="/mainpage" type="submit" className="login_btn2">
+            <button type="submit" className="login_btn2" onClick={handleLogin}>
               Login
-            </Link>
+            </button>
             <div className="dont_account">
               Do not have an account? {"\n"}
               <Link to="/signup" className="signup2">
@@ -64,6 +142,3 @@ const Login = () => {
 };
 
 export default Login;
-
-{
-}

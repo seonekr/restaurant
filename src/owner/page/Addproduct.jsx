@@ -7,6 +7,7 @@ import "react-sweet-progress/lib/style.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaPencil } from "react-icons/fa6";
 import { IoImageOutline } from "react-icons/io5";
+import axios from "axios";
 
 // import backgroundProduct from "../../img/backgroundProduct.jpg";
 import imageicon from "../../img/imageicon.jpg";

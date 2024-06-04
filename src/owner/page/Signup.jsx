@@ -61,7 +61,7 @@ const Signup = () => {
               />
               <input
                 className="input_form"
-                type="password"
+                type="password"c
                 placeholder="Phone number"
               />
               <input
@@ -76,7 +76,7 @@ const Signup = () => {
               />
             </div>
             <div className="btn-signup">
-              <Link to="/signup" className="button-signup">
+              <Link to="/logino" className="button-signup">
                 Register
               </Link>
             </div>

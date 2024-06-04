@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Menufooter from "./Menubar";
 import { Link } from "react-router-dom";
 import "./css/history.css";
@@ -6,6 +6,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function History() {
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/restaurant/orders")
+      .then((response) => response.json())
+      .then((data) => setOrders(data))
+      .catch((error) => console.error("Error fetching orders:", error));
+  }, []);
   return (
     <div>
       <div className="history_box_container">
@@ -21,56 +28,63 @@ function History() {
             <div className="history">
               <div className="item_guopBox">
                 <div className="items-his">
-                  <h4>NO</h4>
-                  <h4>Status</h4>
                   <h4>ID</h4>
+                  <h4>Status</h4>
                   <h4>Name</h4>
+                  <h4>Table</h4>
                   <h4>Time</h4>
                   <h4>total</h4>
                   <h4>Action</h4>
                 </div>
                 <div className="items-his">
-                  <span>1</span>
-                  <span className="p1">
-                    <IoIosCheckmarkCircle className="icon_check" />
-                    Done
-                  </span>
-                  <span>4</span>
-                  <span>Username</span>
-                  <span>11-3-2024 11:10:35</span>
-                  <span>250,000 KIP</span>
-                  <Link to="/orderhistory" className="btnView">
-                    View
-                  </Link>
+                  {orders.map((order, index) => (
+                    <div key={index}>
+                      <span>{index + 1}</span>
+                      <span className="p1">
+                        <IoIosCheckmarkCircle className="icon_check" />
+                        Done
+                      </span>
+                      <span>{order.username}</span>
+                      <span>{order.quantity}</span>
+                      <span>{order.date}</span>
+                      <span>{order.price}</span>
+                      <Link
+                        to={`/orderhistory/${order.id}`}
+                        className="btnView"
+                      >
+                        View
+                      </Link>
+                    </div>
+                  ))}
                 </div>
-                <div className="items-his">
+                {/* <div className="items-his">
                   <span>2</span>
                   <span>
                     <IoIosCheckmarkCircle className="icon_check" />
                     Done
                   </span>
-                  <span>5</span>
                   <span>Username</span>
+                  <span>2</span>
                   <span>11-3-2024 11:10:35</span>
                   <span>400,000 KIP</span>
                   <Link to="/orderhistory" className="btnView">
                     View
                   </Link>
-                </div>
-                <div className="items-his">
+                </div> */}
+                {/* <div className="items-his">
                   <span>3</span>
                   <span>
                     <IoIosCheckmarkCircle className="icon_check" />
                     Done
                   </span>
-                  <span>10</span>
                   <span>Username</span>
+                  <span>3</span>
                   <span>11-3-2024 11:10:35</span>
                   <span>320,000 KIP</span>
                   <Link to="/orderhistory" className="btnView">
                     View
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

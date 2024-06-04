@@ -1,83 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/foodItem.css";
-import foodImage from "../img/foodImage.png";
 import { Link } from "react-router-dom";
-
 import { IoCartOutline } from "react-icons/io5";
-import "../pages/css/homePage.css";
+import axios from "axios";
+import Cart from "../pages/Cart";
 
 function FoodItem() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      image: foodImage,
-      name: "Margherita Pizza",
-      price: 10.99,
-      count: 0, // Initial count for product 1
-    },
-    {
-      id: 2,
-      image: foodImage,
-      name: "Pepperoni Pizza",
-      price: 11.99,
-      count: 0, // Initial count for product 2
-    },
-    {
-      id: 3,
-      image: foodImage,
-      name: "Hawaiian Pizza",
-      price: 12.99,
-      count: 0, // Initial count for product 2
-    },
-    {
-      id: 4,
-      image: foodImage,
-      name: "Vegetarian Pizza",
-      price: 11.49,
-      count: 0, // Initial count for product 2
-    },
-    {
-      id: 5,
-      image: foodImage,
-      name: "Meat Lover's Pizza",
-      price: 13.99,
-      count: 0, // Initial count for product 2
-    },
-    {
-      id: 6,
-      image: foodImage,
-      name: "BBQ Chicken Pizza",
-      price: 12.99,
-      count: 0, // Initial count for product 2
-    },
-    {
-      id: 7,
-      image: foodImage,
-      name: "Buffalo Chicken Pizza",
-      price: 13.49,
-      count: 0, // Initial count for product 2
-    },
-    {
-      id: 8,
-      image: foodImage,
-      name: "Four Cheese Pizza",
-      price: 11.99,
-      count: 0, // Initial count for product 2
-    },
-    // Add count property for other products as needed
-  ]);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [categoryId, setCategoryId] = useState(null);
+  // const [cart, setCart] = useState([]);
+  const [quantity, set_quantity] = useState(1);
 
+  console.log(products);
+
+  useEffect(() => {
+    getProducts();
+    getCategories();
+  }, []);
+
+  const getProducts = () => {
+    axios
+      .get(import.meta.env.VITE_API + "/restaurant/menu-items/")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  };
+// console.log("product0", products)
+  const getCategories = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: import.meta.env.VITE_API + "/restaurant/category",
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        // console.log(JSON.stringify(response.data));
+        setCategories(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleCategoryClick = (categoryId) => {
+    setCategoryId(categoryId);
+  };
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+    // Add logic for sorting products based on selected option if needed
+  };
+
+  console.log("Category: ", categories);
+
+  const filteredProducts = categoryId
+    ? products.filter((product) => product.category === categoryId)
+    : products;
+
+  //
   const incrementCount = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === productId
-          ? { ...product, count: product.count + 1 }
+          ? { ...product, quantity: (product.quantity || 0) + 1 } // Increment count or initialize to 0
           : product
       )
     );
   };
 
-  
   //PopUp box food item
   const [isPopupfood, setisPopupfood] = useState(false);
 
@@ -85,29 +83,97 @@ function FoodItem() {
     setisPopupfood(!isPopupfood);
   };
 
-  // Add To Cart
-  const [cart, setCart] = useState([]);
+  // const addToCart = (product) => {
+  //   const existingItemIndex = cart.findIndex((item) => item.id === product.id);
+  //   if (existingItemIndex !== -1) {
+  //     // If item already exists in cart, update its quantity
+  //     const updatedCart = [...cart];
+  //     updatedCart[existingItemIndex].quantity += 1;
+  //     setCart(updatedCart);
+  //   } else {
+  //     // If item does not exist in cart, add it to cart
+  //     const updatedCart = [...cart, { ...product, quantity: 1 }];
+  //     setCart(updatedCart);
+  //   }
+  // };
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
-  //drop dowm
-  const [selectedOption, setSelectedOption] = useState("");
 
-  // Function to handle option selection
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  // ============= Cart management ================
+
+  const [cart, setCart] = useState(() => {
+    const localCart = localStorage.getItem("cart");
+    return localCart ? JSON.parse(localCart) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+  const addToCart = (product, quantity = 1) => {
+    const existingProduct = cart.find(
+      (item) => item.id === product.id && item.name === product.name
+    );
+
+    if (existingProduct) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id && item.name === product.name
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        )
+      );
+    } else {
+      setCart([...cart, { ...product, quantity }]);
+    }
+
+    alert("This product has been added to cart.");
+};
+
+
+  useEffect(() => {
+    let data = "";
+
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: import.meta.env.VITE_API + `"/restaurant/menu-items/"${products}/review`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        const sortedReviews = response.data.sort((a, b) => b.id - a.id);
+        setReviews(sortedReviews);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [products]);
 
   return (
     <>
+      <div className="container_boxcategory_hp">
+        {categories.map((category, index) => (
+          <div key={index}>
+            <Link
+              className="link_categor_l activeCategory"
+              onClick={() => handleCategoryClick(category.id)}
+            >
+              {category.name}
+            </Link>
+          </div>
+        ))}
+      </div>
       <div className="food_container_box">
         <div className="poster_food">
           <div className="filter2">
             <div></div>
             <h3>Food</h3>
           </div>
-          <div>
+          {/* <div>
             <div className="dropdown-container">
               <select
                 value={selectedOption}
@@ -121,15 +187,14 @@ function FoodItem() {
                 <option value="top seller">TOP SELLER</option>
               </select>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="box_itemFood_container">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <Link to="#" className="box_itemFood" key={product.id}>
-              <div className="box_itemFood_item" onClick={toggleisPopupfood}>
+              <div className="box_itemFood_item">
                 <img src={product.image} alt="" />
-
                 <div className="txt_boxDescription">
                   <div className="product-info-hp">
                     <p className="product-name-hp">{product.name}</p>
@@ -139,46 +204,56 @@ function FoodItem() {
                   </div>
                 </div>
               </div>
-              <Link
-                to="#"
+              <div
                 className="icon_addcartTo"
-                onClick={() => addToCart(product)}
+              
               >
                 <IoCartOutline
                   className="icon_addcartToIN"
-                  onClick={() => incrementCount(product.id)}
+                  // onClick={() => incrementCount(product.id)}
+                  onClick={() => addToCart(product)}
                 />
-              </Link>
+              </div>
             </Link>
           ))}
         </div>
-        {cart.map((item) => (
-          <Link to="/cart">
-            <div className="box_addTocart_content-food">
-              <div className="count_footmenu_box_item_22">
-                <p>
-                  {products.reduce(
-                    (total, product) => total + product.count,
-                    0
-                  )}
-                </p>
-                <p>View Cart</p>
-                <p className="text-dollar">$</p>
-                <p>
-                  {products
-                    .reduce(
-                      (total, product) =>
-                        parseInt(total) +
-                        parseInt(product.count) * parseInt(product.price),
-                      0
-                    )
-                    .toFixed(2)}
-                </p>
-              </div>
-            </div>
-          </Link>
-        ))}
       </div>
+      {/* Render cart here if needed */}
+      {/* <Link to="/cart" className="box_addTocart_content-food">
+  <div className="count_footmenu_box_item_22">
+    <p>
+      {cart.reduce(
+        (total, item) => total + (item.quantity || 0), // Sum of quantities
+        0
+      )}
+    </p>
+    <p>View Cart</p>
+    <p className="text-dollar">$</p>
+    <p>
+      {cart
+        .reduce(
+          (total, item) =>
+            total + (item.quantity || 0) * parseFloat(item.price), // Sum of individual item prices
+          0
+        )
+        .toFixed(2)}
+    </p>
+  </div>
+</Link> */}
+
+      {/* Cart Items */}
+      {/* {cart.map((item) => (
+  <div key={item.id} className="cart-item">
+    <img src={item.image} alt={item.name} className="cart-item-image" />
+    <div className="cart-item-details">
+      <p className="cart-item-name">{item.name}</p>
+      <p className="cart-item-quantity">Quantity: {item.quantity}</p>
+      <p className="cart-item-price">
+        Price: ${(parseFloat(item.price) * item.quantity).toFixed(2)}
+      </p>
+    </div>
+  </div>
+))} */}
     </>
   );
 }

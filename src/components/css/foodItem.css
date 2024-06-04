@@ -3,7 +3,7 @@
 }
 .food_container_box {
   width: 65%;
-  margin: 1rem auto 5rem auto; /* Adjust margin properties */
+  margin: 0 auto 5rem auto; /* Adjust margin properties */
   padding: 25px;
   border-radius: 10px;
   background-color: #fff;
@@ -29,7 +29,7 @@
 }
 /* Poster and Filter Styles */
 .poster_food {
-  margin-top: 10px;
+  margin-top: 5px;
   display: flex;
   justify-content: space-between;
 }
@@ -92,8 +92,32 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
+
+/* CSS for image inside .box_itemFood_item */
+.box_itemFood_item img {
+  width: 100%; /* Ensure the image fills its container */
+  height: 200px; /* Set a fixed height */
+  object-fit: cover;
+  overflow: hidden;  
+  border-radius: 8px; /* Optionally add border radius */
+}
+
+
+/* CSS for product name and price */
+.txt_boxDescription {
+  padding: 5px; /* Add padding around product info */
+}
+
+.product-name-hp {
+  font-weight: bold; /* Optionally make product name bold */
+}
+.product-price-hp {
+  color: #000000; /* Optionally change color of product price */
+}
+
+
 
 .box_itemFood_item {
   display: flex;

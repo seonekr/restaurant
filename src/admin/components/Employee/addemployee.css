@@ -1,0 +1,37 @@
+/* AddEmployee.css */
+
+.add-employee-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .add-employee-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-employee-form div {
+    margin-bottom: 10px;
+  }
+  
+  .add-employee-form label {
+    font-weight: bold;
+  }
+  
+  .add-employee-form input {
+    padding: 8px;
+    width: 100%;
+  }
+  
+  .add-employee-form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-employee-form button:hover {
+    background-color: #0056b3;
+  }
+  

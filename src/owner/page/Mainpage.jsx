@@ -1,5 +1,5 @@
 import "./css/mainpage.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menubar from "./Menubar";
 import Itemfood from "./Itemfood";
 import logo1 from "../../img/Logo1.png";
@@ -21,6 +21,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 const Mainpage = () => {
+  const [restaurantData, setRestaurantData] = useState(null);
+
   // Popup Edit Name an Description
   const [isOpen, setIsOpen] = useState(false);
   const togglePopup = () => {
@@ -263,26 +265,7 @@ const Mainpage = () => {
             </div>
           </div>
 
-          <div className="container_boxcategory-main">
-            <Link className="link_categor_l activeCategory" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-            <Link className="link_categor_l" to="#">
-              Pizza
-            </Link>
-          </div>
+          
         </div>
       </div>
 
@@ -332,34 +315,7 @@ const Mainpage = () => {
           </div>
         </div>
       )}
-      {/* {isOpen && (
-        <div className="popup1">
-          <div className="popup-content1">
-            <div className="box-storename">
-              <h2>Store name</h2>
-              <input
-                type="text"
-                placeholder="Store name..."
-                className="text-input-name1"
-              />
-            </div>
-            <div className="box-storedes">
-              <h2>Description</h2>
-              <input
-                type="text"
-                placeholder="Description..."
-                className="text-input-name1"
-              />
-            </div>
-            <div className="btn-popup">
-              <button onClick={togglePopup} className="btn-cancel1">
-                Cancel
-              </button>
-              <button className="btn-ok1">OK</button>
-            </div>
-          </div>
-        </div>
-      )} */}
+     
       {/* Popup Edit Logo */}
       {isOpenlogo && (
         <form className="popup1">
