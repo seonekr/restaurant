@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
+import Menufooter from "../../components/Menufooter";
 
 const Login = () => {
   const login_en = "Login";
@@ -77,6 +78,7 @@ const Login = () => {
 
   return (
     <>
+    <Menufooter />
       <div className="box_container_logino">
         <div className="container-box-logino">
           <div className="box-icon-close">
