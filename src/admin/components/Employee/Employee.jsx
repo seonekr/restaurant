@@ -126,10 +126,10 @@ console.log(users)
                     Delete
                   </button>
                   <Link
-                    to={`/edit-admin/${user.id}`}
+                    to="/edit_employee"
                     className="viewMore_storeDetails"
                   >
-                    View
+                    Edit
                   </Link>
                 </div>
               </div>
