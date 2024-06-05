@@ -85,6 +85,13 @@
 .linkTomenu {
   font-size: 19px;
 }
+#FaRegUser{
+  color: #000;
+  font-size: 17px;
+}
+#FaRegUser:hover{
+  color: #0e64d2;
+}
 
 .menufooter_content_app {
   display: none;

@@ -35,25 +35,55 @@ function Menufooter() {
           </Link>
 
           <div className="menu_header_box">
-            {is_admin && (
+            {user ? (
               <>
-                <NavLink to="/" className="linkTomenu">
-                  Home
-                </NavLink>
-                <NavLink to="/orderList" className="linkTomenu">
-                  Order
-                </NavLink>
-                <NavLink to="/cart" className="boxcart_header_container">
-                  <p className="linkTomenu">Cart</p>
-                </NavLink>
-                <>
-                  {storage.store_id && (
+                {is_admin && (
+                  <>
+                    <NavLink to="/" className="linkTomenu">
+                      Home
+                    </NavLink>
+                    <NavLink to="/orderList" className="linkTomenu">
+                      Order
+                    </NavLink>
+                    <NavLink to="/cart" className="boxcart_header_container">
+                      <p className="linkTomenu">Cart</p>
+                    </NavLink>
+
                     <NavLink
-                      to="/homepage2"
+                      to="/dashboard"
                       className="boxcart_header_container"
                     >
-                      Delivery
+                      <div className="boxcart_header">
+                        <HiOutlineBuildingStorefront className="icon_cart_header" />
+                      </div>
                     </NavLink>
+                  </>
+                )}
+                <>
+                  {!is_admin && (
+                    <>
+                      <NavLink to="/" className="linkTomenu">
+                        Home
+                      </NavLink>
+                      <NavLink to="/orderList" className="linkTomenu">
+                        Order
+                      </NavLink>
+                      <NavLink to="/cart" className="boxcart_header_container">
+                        <p className="linkTomenu">Cart</p>
+                      </NavLink>
+                      
+                      <>
+                        {store_id && (
+                          <NavLink className="link_menu" to="/homepage2">
+                            <IoCarSportSharp className="iconMenu_foot" />
+                            Delivery
+                          </NavLink>
+                        )}
+                      </>
+                      <NavLink to="/profile" className="linkTomenu">
+                        <FaRegUser id="FaRegUser" />
+                      </NavLink>
+                    </>
                   )}
                 </>
 
@@ -63,27 +93,37 @@ function Menufooter() {
                   </div>
                 </NavLink> */}
 
-                <NavLink to="/dashboard" className="boxcart_header_container">
+                {/* <NavLink to="/dashboard" className="boxcart_header_container">
                   <div className="boxcart_header">
                     <HiOutlineBuildingStorefront className="icon_cart_header" />
                   </div>
-                </NavLink>
+                </NavLink> */}
               </>
-            )}
-
-            {!is_admin && (
+            ) : (
               <>
-                <NavLink to="/" className="linkTomenu">
+                <NavLink to={token ? "/" : "/logino"} className="linkTomenu">
                   Home
                 </NavLink>
-                <NavLink to="/orderList" className="linkTomenu">
+                <NavLink
+                  to={token ? "/orderList" : "/logino"}
+                  className="linkTomenu"
+                >
                   Order
                 </NavLink>
-                <NavLink to="/cart" className="boxcart_header_container">
+                <NavLink
+                  to={token ? "/cart" : "/logino"}
+                  className="boxcart_header_container"
+                >
                   <p className="linkTomenu">Cart</p>
                 </NavLink>
-                <NavLink to="/homepage2" className="boxcart_header_container">
+                {/* <NavLink
+                  to={token ? "/homepage2" : "/logino"}
+                  className="boxcart_header_container"
+                >
                   Delivery
+                </NavLink> */}
+                <NavLink to="/logino" className="boxcart_header_container">
+                  Login
                 </NavLink>
               </>
             )}
@@ -104,8 +144,8 @@ function Menufooter() {
         </div>
       </div>
 
-      <div className="menufooter_content_app">
-        {!is_admin && (
+      {/* <div className="menufooter_content_app">
+        {store_id && (
           <>
             <NavLink className="link_menu" to="/">
               <IoStorefrontOutline className="iconMenu_foot" />
@@ -132,7 +172,7 @@ function Menufooter() {
             Owner
           </NavLink>
         )}
-      </div>
+      </div> */}
     </>
   );
 }

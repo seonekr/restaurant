@@ -39,6 +39,7 @@ import OrderList2 from "./webs/OrderList2";
 import Review2 from "./webs/Review2";
 import Payment2 from "./webs/Payment2";
 import Address2 from "./webs/Address2";
+import Profile from "./pages/Profile";
 
 //Admin
 import Dashboard from "./admin/Dashboard";
@@ -191,6 +192,7 @@ function App() {
           <Route path="/reviews2" element={<Review2 />} />
           <Route path="/payment2" element={<Payment2 />} />
           <Route path="/address2" element={<Address2 />} />
+          <Route path="/profile" element={<Profile />} />
 
           {/* --------- Web delivery ---------- */}
           <Route path="/dashboard" element={<Dashboard />} />
