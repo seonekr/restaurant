@@ -168,9 +168,9 @@ const Addproduct1 = () => {
             Back
           </Link>
         </div>
-        <div className="box_container_product">
+        <div className="box_container_product2">
           <h3>Add and Edit</h3>
-          <div className="filter">
+          <div className="filter22">
             <div></div>
             <h3>Food</h3>
           </div>
@@ -263,11 +263,11 @@ const Addproduct1 = () => {
             ))}
           </div>
         </div>
-        <div className="btn_submit_add">
-          <button className="button" onClick={handleSubmit}>
-            Save
-          </button>
-        </div>
+          <div className="btn_submit_add2">
+            <button className="button22" onClick={handleSubmit}>
+              Save
+            </button>
+          </div>
       </div>
     </>
   );
