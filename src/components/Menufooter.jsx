@@ -11,6 +11,7 @@ import {
   IoStorefrontOutline,
 } from "react-icons/io5";
 import axios from "axios";
+import { MdDashboardCustomize } from "react-icons/md";
 
 function Menufooter() {
   const token = localStorage.getItem("token");
@@ -35,111 +36,48 @@ function Menufooter() {
           </Link>
 
           <div className="menu_header_box">
-            {user ? (
-              <>
-                {is_admin && (
-                  <>
-                    <NavLink to="/" className="linkTomenu">
-                      Home
-                    </NavLink>
-                    <NavLink to="/orderList" className="linkTomenu">
-                      Order
-                    </NavLink>
-                    <NavLink to="/cart" className="boxcart_header_container">
-                      <p className="linkTomenu">Cart</p>
-                    </NavLink>
+            <NavLink to="/" className="linkTomenu">
+              Home
+            </NavLink>
 
-                    <NavLink
-                      to="/dashboard"
-                      className="boxcart_header_container"
-                    >
-                      <div className="boxcart_header">
-                        <HiOutlineBuildingStorefront className="icon_cart_header" />
-                      </div>
-                    </NavLink>
-                  </>
-                )}
-                <>
-                  {!is_admin && (
-                    <>
-                      <NavLink to="/" className="linkTomenu">
-                        Home
-                      </NavLink>
-                      <NavLink to="/orderList" className="linkTomenu">
-                        Order
-                      </NavLink>
-                      <NavLink to="/cart" className="boxcart_header_container">
-                        <p className="linkTomenu">Cart</p>
-                      </NavLink>
-                      
-                      <>
-                        {store_id && (
-                          <NavLink className="link_menu" to="/homepage2">
-                            <IoCarSportSharp className="iconMenu_foot" />
-                            Delivery
-                          </NavLink>
-                        )}
-                      </>
-                      <NavLink to="/profile" className="linkTomenu">
-                        <FaRegUser id="FaRegUser" />
-                      </NavLink>
-                    </>
-                  )}
-                </>
+            <NavLink to="/dashboard" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <HiOutlineBuildingStorefront className="icon_cart_header" />
+                Dashboard
+              </div>
+            </NavLink>
+            <NavLink to="/counter" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <MdDashboardCustomize className="icon_cart_header" />
+                Dashboard
+              </div>
+            </NavLink>
+            <NavLink to="/orderList" className="linkTomenu">
+              Order
+            </NavLink>
+            <NavLink to="/cart" className="boxcart_header_container">
+              <p className="linkTomenu">Cart</p>
+            </NavLink>
 
-                {/* <NavLink to="/mainpage" className="boxcart_header_container">
+            <NavLink to="/profile" className="linkTomenu">
+              <FaRegUser id="FaRegUser" />
+            </NavLink>
+
+            {/* <NavLink to="/mainpage" className="boxcart_header_container">
                   <div className="boxcart_header">
                     <HiOutlineBuildingStorefront className="icon_cart_header" />
                   </div>
                 </NavLink> */}
 
-                {/* <NavLink to="/dashboard" className="boxcart_header_container">
+            {/* <NavLink to="/dashboard" className="boxcart_header_container">
                   <div className="boxcart_header">
                     <HiOutlineBuildingStorefront className="icon_cart_header" />
                   </div>
                 </NavLink> */}
-              </>
-            ) : (
-              <>
-                <NavLink to={token ? "/" : "/logino"} className="linkTomenu">
-                  Home
-                </NavLink>
-                <NavLink
-                  to={token ? "/orderList" : "/logino"}
-                  className="linkTomenu"
-                >
-                  Order
-                </NavLink>
-                <NavLink
-                  to={token ? "/cart" : "/logino"}
-                  className="boxcart_header_container"
-                >
-                  <p className="linkTomenu">Cart</p>
-                </NavLink>
-                {/* <NavLink
-                  to={token ? "/homepage2" : "/logino"}
-                  className="boxcart_header_container"
-                >
-                  Delivery
-                </NavLink> */}
-                <NavLink to="/logino" className="boxcart_header_container">
-                  Login
-                </NavLink>
-              </>
-            )}
 
-            {/* {store_id && ( */}
-            {/* <>
-                <NavLink to="/counter" className="boxcart_header_container">
-                  <div className="boxcart_header">
-                    <HiOutlineBuildingStorefront className="icon_cart_header" />
-                  </div>
-                </NavLink>
-                <NavLink to="/logino" className="boxcart_header_container">
-                  Login
-                </NavLink>
-              </> */}
-            {/* )} */}
+            <NavLink to="/logino" className="boxcart_header_container">
+              Login
+            </NavLink>
           </div>
         </div>
       </div>
