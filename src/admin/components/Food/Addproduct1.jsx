@@ -169,7 +169,7 @@ const Addproduct1 = () => {
           </Link>
         </div>
         <div className="box_container_product2">
-          <h3>Add and Edit</h3>
+          <h3>Add Food</h3>
           <div className="filter22">
             <div></div>
             <h3>Food</h3>

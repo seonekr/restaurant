@@ -8,7 +8,6 @@ import Menufooter from "../components/Menufooter";
 import { IoIosArrowBack } from "react-icons/io";
 import Payment from "./Payment";
 
-
 const useCart = () => {
   const [cart, setCart] = useState(() => {
     const localCart = localStorage.getItem("cart");
@@ -35,14 +34,13 @@ const useCart = () => {
     } else {
       setCart([...cart, { ...product, quantity }]);
     }
-
-    alert("This product has been added to cart.");
   };
 
   const removeFromCarts = (id, store_name) => {
-    setCart(cart.filter((item) => !(item.id === id && item.store_name === store_name)));
+    setCart(
+      cart.filter((item) => !(item.id === id && item.store_name === store_name))
+    );
   };
-  
 
   const updateQuantity2 = (id, store_name, quantity) => {
     if (quantity <= 0) {
@@ -144,22 +142,19 @@ const Cart = ({ products }) => {
     setCartItems(storeItems);
     set_store_id(storeItems[0]?.store_id || null);
     set_show_payment(true);
-  
+
     alert(
       `Payment for ${store_name} completed successfully!\nTotal Price: $${getTotalPriceForStore(
         store_name
       ).toFixed(2)}`
     );
-  
+
     const updatedCart = cart.filter((item) => item.store_name !== store_name);
     setCart(updatedCart);
-  
-  
+
     setCartItems([]);
-  
- 
   };
-  
+
   const orderitems = [
     {
       user: user_id,
@@ -194,106 +189,109 @@ const Cart = ({ products }) => {
       ) : (
         <>
           <Menufooter products={products} />
-          <div className="cart_box_container11">
+          <div className="cart_box_container112">
             <Link to="/" className="back_orderBox">
               <IoIosArrowBack id="icons_back" />
               <p>Back</p>
             </Link>
-            <div className="titleCart-delivery">
+            <div className="container-box-order">
+          
               <h2>Cart</h2>
-            </div>
-
-            {stores.length === 0 ? (
-              <p className="no-reviews-message">No Products</p>
-            ) : (
-              stores.map((store) => (
-                <div className="box_cart_item_head1" key={store}>
-                  <h3>List menu:</h3>
-                  <div className="box_groupaCart_item1">
-                    <div className="box_content_cart1">
-                      {cart
-                        .filter((item) => item.store_name === store)
-                        .map((item) => (
-                          <div className="foodDetails_box" key={item.id}>
-                            <div className="box_ofDetails_food">
-                              <img src={item.image} alt={item.name} />
-                              <div className="txt_ofDetails_food">
-                                <p>{item.name}</p>
-                                <p>$ {item.price}</p>
+           
+              {stores.length === 0 ? (
+                <p className="no-reviews-message">No Products</p>
+              ) : (
+                stores.map((store) => (
+                  <div className="box_cart_item_head1" key={store}>
+                    <h3>List menu:</h3>
+                    <div className="box_groupaCart_item1">
+                      <div className="box_content_cart1">
+                        {cart
+                          .filter((item) => item.store_name === store)
+                          .map((item) => (
+                            <div className="foodDetails_box" key={item.id}>
+                              <div className="box_ofDetails_food">
+                                <img src={item.image} alt={item.name} />
+                                <div className="txt_ofDetails_food">
+                                  <p>{item.name}</p>
+                                  <p>$ {item.price}</p>
+                                </div>
                               </div>
-                            </div>
-                            <div className="right_oflastDetailsFood">
-                              <div
-                                className="icon_DetailsFood"
-                                onClick={() => removeFromCarts(item.id, store)}
-                              >
-                                <AiOutlineDelete />
-                              </div>
-                              <div className="boxCount_numfood">
-                                <p
-                                  className="deleteIconCount"
+                              <div className="right_oflastDetailsFood">
+                                <div
+                                  className="icon_DetailsFood"
                                   onClick={() =>
-                                    updateQuantity2(
-                                      item.id,
-                                      item.store_name,
-                                      item.quantity - 1
-                                    )
+                                    removeFromCarts(item.id, store)
                                   }
                                 >
-                                  <FaMinus />
-                                </p>
-                                <p className="countBtn_numberCount">
-                                  {item.quantity}
-                                </p>
-                                <p
-                                  className="addIconCount"
-                                  onClick={() =>
-                                    updateQuantity2(
-                                      item.id,
-                                      item.store_name,
-                                      item.quantity - 1
-                                    )
-                                  }
-                                >
-                                  <FaPlus />
-                                </p>
+                                  <AiOutlineDelete />
+                                </div>
+                                <div className="boxCount_numfood">
+                                  <p
+                                    className="deleteIconCount"
+                                    onClick={() =>
+                                      updateQuantity2(
+                                        item.id,
+                                        item.store_name,
+                                        item.quantity - 1
+                                      )
+                                    }
+                                  >
+                                    <FaMinus />
+                                  </p>
+                                  <p className="countBtn_numberCount">
+                                    {item.quantity}
+                                  </p>
+                                  <p
+                                    className="addIconCount"
+                                    onClick={() =>
+                                      updateQuantity2(
+                                        item.id,
+                                        item.store_name,
+                                        item.quantity + 1
+                                      )
+                                    }
+                                  >
+                                    <FaPlus />
+                                  </p>
+                                </div>
                               </div>
                             </div>
+                          ))}
+                      </div>
+                      <div className="count_footmenu_box">
+                        <h3>Cart Total for {store}</h3>
+                        <div className="count_footmenu_box_content">
+                          <div className="count_footmenu_box_item_1">
+                            <p>Quantity:</p>
+                            <p>{getTotalItemForStore(store)}</p>
                           </div>
-                        ))}
-                    </div>
-                    <div className="count_footmenu_box">
-                      <h3>Cart Total for {store}</h3>
-                      <div className="count_footmenu_box_content">
-                        <div className="count_footmenu_box_item_1">
-                          <p>Quantity:</p>
-                          <p>{getTotalItemForStore(store)}</p>
-                        </div>
 
-                        <div className="count_footmenu_box_item_2">
-                          <h3>Total: </h3>
-                          <p className="text-dollar">$</p>
-                          <p>{getTotalPriceForStore(store).toFixed(2)}</p>
-                        </div>
-                        <div className="btn-cart">
-                          <div className="btn_Continues">
-                            <Link to="/" className="blue-link">
-                              Continue Order
-                            </Link>
+                          <div className="count_footmenu_box_item_2">
+                            <h3>Total: </h3>
+                            <p className="text-dollar">$</p>
+                            <p>{getTotalPriceForStore(store).toFixed(2)}</p>
                           </div>
-                          <div
-                            onClick={() => handlePayment(store)}
-                            className="btn_confirmCart"
-                          >
-                            Confirm Order
+                          <div className="btn-cart2">
+                            <div className="btn_Continues">
+                              <Link to="/" className="blue-link">
+                                Continue Order
+                              </Link>
+                            </div>
+                            <div
+                              onClick={() => handlePayment(store)}
+                              className="btn_confirmCart"
+                            >
+                              Confirm Order
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))
-            )}
+                ))
+              )}
+            </div>
           </div>
         </>
       )}

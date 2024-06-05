@@ -228,7 +228,7 @@ const Ordermenu = ({ orders, setOrders, menuItems, tableId }) => {
           </div>
           <div className="box-groupPrice2">
             <h3>Total: </h3>
-            <p className="text-dollar2">${totalPrice}</p>
+            <p className="text-dollar2"> ${totalPrice}</p>
           </div>
         </div>
       </div>

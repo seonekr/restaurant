@@ -52,7 +52,7 @@ function Menufooter() {
                 Dashboard
               </div>
             </NavLink>
-            <NavLink to="/orderList" className="linkTomenu">
+            <NavLink to="/order" className="linkTomenu">
               Order
             </NavLink>
             <NavLink to="/cart" className="boxcart_header_container">

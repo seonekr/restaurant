@@ -88,7 +88,7 @@ function Payment({ orders }) {
                   <div className="box_item_gourp_payment" key={itemIndex}>
                     <div className="count_box_item_payment1">
                       <p>{item.name}</p>
-                      <p>{item.price}</p>
+                      <p>${item.price}</p>
                     </div>
                     <div className="text-quan">
                       <p>{item.quantity}</p>

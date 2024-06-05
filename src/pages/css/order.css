@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.title_header_orderBox h3 {
+.order_box_container h3 {
   font-size: 18px;
   text-align: center;
 }
@@ -36,6 +36,11 @@
   padding: 10px;
   border-radius: 100px;
   background-color: #d9d9d9;
+}
+.text-data-order {
+  margin: 15px 0;
+  display: grid;
+  gap: 5px;
 }
 
 .boxOrder_status {

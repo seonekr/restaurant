@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/order.css";
 import Menufooter from "../components/Menufooter";
 import { Link } from "react-router-dom";
@@ -80,21 +80,22 @@ function Order() {
   }, []);
 
   // Format date and time
-  const formattedDateTime = dateTime.toLocaleString();
+  const formattedDate = dateTime.toLocaleDateString();
+
   return (
     <>
       <Menufooter />
 
       <div className="order_box_container">
-        <div className="title_header_orderBox">
+        {/* <div className="title_header_orderBox">
           <Link to="/orderList" className="back_orderBox">
             <IoIosArrowBack className="icon_closeReviwe" />
             Back
           </Link>
-          <h3>Order</h3>
-        </div>
+        </div> */}
+        <h3>Your Order</h3>
         <div className="box_firstOrder_content">
-          <h4>Track your Order</h4>
+          {/* <h4>Track your Order</h4>
           <div className="boxOrder_status">
             <div className="numberIdFoodorder">
               <p>No:1</p>
@@ -115,9 +116,22 @@ function Order() {
               <div className="spanBoxInline2"></div>
             </div>
             <p className="ssdasdsa-1">Your order has been received</p>
+          </div> */}
+          <div className="text-data-order">
+            <p>Order: 1</p>
+            {/* <h4>Date: 05/06/2024</h4> */}
+
+            <p>Point: 100</p>
+            <p>Customer name: Kongchan</p>
+            {/* <p>Staff name: Phailin</p> */}
+            <p>
+              Staff:{" "}
+              {JSON.parse(window.localStorage.getItem("user")).user_name ||
+                null}
+            </p>
           </div>
-        </div>
-        <div className="order_content">
+
+          {/* <p>Payment: BCEL-ONEPAY</p> */}
           <h4>List menu:</h4>
           <div className="order_contentItem">
             <div>
@@ -147,7 +161,7 @@ function Order() {
             </div>
           </div>
           <div className="box_groupPrice_2">
-            <h4>Total:</h4>
+            <h4>Total: 8</h4>
             <h4 className="text-dollar">$</h4>
             <h4>
               {products
@@ -161,8 +175,8 @@ function Order() {
             </h4>
           </div>
           <div className="boxgroupLastfoot">
-            <p>Place on: {formattedDateTime}</p>
-            <p>Payment method: MasterCard</p>
+            <p>Date: {formattedDate}</p>
+            <p>Payment method: BCEL-ONEPAY</p>
           </div>
         </div>
       </div>

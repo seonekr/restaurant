@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Menufooter from "../components/Menufooter";
 import FoodItem from "../components/FoodItem";
 import logo1 from "../img/Logo1.png";
-import banner from "../img/banner.png";
+import banner22 from "../img/banner.png";
 import { Link, useParams } from "react-router-dom"; // Import useParams
 import { FiPhone } from "react-icons/fi";
 import { IoMdTime } from "react-icons/io";
@@ -17,11 +17,22 @@ const HomePage = () => {
   const [categoryName, setCategoryName] = useState("All");
   const [filter, setFilter] = useState("");
   const [goodsList, setGoodsList] = useState([]); // Assuming you need to store the goods list
+  const [banners, setBanners] = useState([]);
 
   useEffect(() => {
     getCategories();
+    getBanners();
   }, []);
-
+  const getBanners = () => {
+    axios
+      .get(import.meta.env.VITE_API + `/restaurant/restaurant`)
+      .then((response) => {
+        setBanners(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching banners:", error);
+      });
+  };
   const getCategories = () => {
     let config = {
       method: "get",
@@ -72,57 +83,58 @@ const HomePage = () => {
   return (
     <>
       <Menufooter />
-
-      <div className="container_boxHeaderAt_store2-hp">
-        <div className="box_logo">
-          <img src={logo1} alt="logo" />
-        </div>
-        <div className="box_heardOfGrooup">
-          <div className="header_box_of_header">
-            <h3>Name Restaurant</h3>
-            <p>Description restaurant</p>
-
-            <div className="contact_head_Boxdetails">
-              <FiPhone className="iconnDetails_head" />
-              <p className="text">+856 20 55 000 959</p>
-              <IoMdTime className="iconnDetails_head" />
-              <p className="text">8:00 - 20:00</p>
+      {banners.map((banner) => (
+        <div>
+          <div className="container_boxHeaderAt_store2-hp" key={banner.id}>
+            <div className="box_logo">
+              <img src={banner.logo} alt="logo" />
             </div>
+            <div className="box_heardOfGrooup">
+              <div className="header_box_of_header">
+                <h3>{banner.name}</h3>
+                <p>{banner.description}</p>
 
-            <div className="contact_head_Boxdetails-star">
-              <Rating
-                className="star-icon"
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              />
-              <p className="text-review">29 Review</p>
-              <Link to="/reviews" className="switch_btn_view_hp2">
-                View
-              </Link>
+                <div className="contact_head_Boxdetails">
+                  <FiPhone className="iconnDetails_head" />
+                  <p className="text">{banner.phone}</p>
+                  <IoMdTime className="iconnDetails_head" />
+                  <p className="text">{banner.time}</p>
+                </div>
+
+                <div className="contact_head_Boxdetails-star">
+                  <Rating
+                    className="star-icon"
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  />
+                  <p className="text-review">29 Review</p>
+                  <Link to="/reviews" className="switch_btn_view_hp2">
+                    View
+                  </Link>
+                </div>
+              </div>
+              <div className="header_contact_details_box">
+                <div className="contact_head_Boxdetails-map-hp">
+                  <FiMapPin className="iconnDetails_head-map" />
+                  <p>{banner.address}</p>
+                  <Link to="/addressMap" className="switch_btn2-hp2">
+                    View
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="header_contact_details_box">
-            <div className="contact_head_Boxdetails-map-hp">
-              <FiMapPin className="iconnDetails_head-map" />
-              <p>131 Sapang Sisangvvone Road, Ban Naxay, Vientiane 0100 ลาว</p>
 
-              <Link to="/addressMap" className="switch_btn2-hp2">
-                View
-              </Link>
+          <div className="container_boxHeaderAt_store">
+            <div className="box_banner_content">
+              <img src={banner.bannerimage} alt="" />
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="container_boxHeaderAt_store">
-        <div className="box_banner_content">
-          <img src={banner} alt="" />
-        </div>
-      </div>
-
+      ))}
       <FoodItem />
     </>
   );

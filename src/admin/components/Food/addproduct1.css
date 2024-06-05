@@ -196,10 +196,10 @@
 }
 
 /* Placeholder color for inputs */
-.box input[type="text"]::placeholder,
+/* .box input[type="text"]::placeholder,
 .box select {
   color: #999;
-}
+} */
 
 /* Hover state for inputs and select */
 .box input[type="text"]:hover,

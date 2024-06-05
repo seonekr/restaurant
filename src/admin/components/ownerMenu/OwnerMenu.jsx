@@ -20,8 +20,10 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import Swal from "sweetalert2";
 import HomeIcon from "@mui/icons-material/Home";
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import StorefrontIcon from "@mui/icons-material/Storefront";
 const OwnerMenu = () => {
+  const [banners, setBanners] = useState([]);
+
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const storage = JSON.parse(window.localStorage.getItem("user"));
@@ -177,6 +179,19 @@ const OwnerMenu = () => {
       })
       .catch((error) => console.error(error));
   };
+  useEffect(() => {
+    getBanners();
+  }, []);
+  const getBanners = () => {
+    axios
+      .get(import.meta.env.VITE_API + `/restaurant/restaurant`)
+      .then((response) => {
+        setBanners(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching banners:", error);
+      });
+  };
   return (
     <>
       <section id="dashboard">
@@ -219,9 +234,12 @@ const OwnerMenu = () => {
 
           <div className="right">
             <div className="box_popupImage_logo">
-              <NavLink to="/" className="logo">
-                <img src={Logo1} alt="" />
-              </NavLink>
+              {banners.map((banner) => (
+                <NavLink to="/" className="logo22" key={banner.id}>
+                  <img src={banner.logo} alt="" />
+                  <h3>{banner.name}</h3>
+                </NavLink>
+              ))}
               {/* {is_admin === true && (
                 <div
                   className="popup_image_logo"

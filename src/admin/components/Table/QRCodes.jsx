@@ -40,7 +40,7 @@ const QRCodes = ({ isOpen, onClose, selectedTableId }) => {
 
   return (
     <>
-      <OwnerMenu />
+      
       <div className="board-qrcode">
         <Modal
           isOpen={isOpen}

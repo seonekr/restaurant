@@ -15,6 +15,7 @@ const Orderr = ({
   const [isPaid, setIsPaid] = useState(false); // State to track whether the order is paid
   const [Employees, setEmployees] = useState([]);
   const [employeeRole, setEmployeeRole] = useState(""); // State to store employee role
+  const [banners, setBanners] = useState([]);
 
   useEffect(() => {
     axios
@@ -87,16 +88,45 @@ const Orderr = ({
     const currentDateTime = new Date().toLocaleDateString();
     return `${currentDateTime}`;
   };
-
+  useEffect(() => {
+    getBanners();
+  }, []);
+  const getBanners = () => {
+    axios
+      .get(import.meta.env.VITE_API + `/restaurant/restaurant`)
+      .then((response) => {
+        setBanners(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching banners:", error);
+      });
+  };
   return (
     <div className="bill">
-      <h2>Bill</h2>
-      {employeeRole && <h4>Employee Role: {employeeRole}</h4>}
+      {banners.map((banner) => (
+        <div className="image-logo" key={banner.id}>
+          <img src={banner.logo} onClick={() => setSelectedFood(banner)} />
+        </div>
+      ))}
+      <div className="text-box-bill">
+        <h2>Bill</h2>
+      </div>
+      {/* {employeeRole && <h4>Employee Role: {employeeRole}</h4>} */}
       <div className="Date-box">
         <h4>Order: {order.id}</h4>
         <p>Date: {getCurrentDateTime()}</p>
       </div>
+      <p>Point: 100</p>
+      <p>Customer name: Kongchan</p>
+      {/* <p>Staff name: Phailin</p> */}
+      <p>
+        Staff:{" "}
+        {JSON.parse(window.localStorage.getItem("user")).user_name || null}
+      </p>
+
+      <p>Payment: BCEL-ONEPAY</p>
       <ul>
+        <h4>Menu</h4>
         {order.order_items.map((item) => (
           <li key={item.id}>
             <div className="box-menu">
@@ -111,17 +141,26 @@ const Orderr = ({
         <h3>Quantity: {totalQuantity}</h3>
         <h3>Total: ${totalPrice}</h3>
       </div>
-      <div className="checkbox-container">
+      <h4>Vat: Free</h4>
+
+      {/* <div className="checkbox-container">
         <label>
           <input type="checkbox" checked={isPaid} onChange={handlePaidToggle} />
           Paid
         </label>
+      </div> */}
+      <div className="text-tq">
+        <p>THANK YOU</p>
+        <span>
+          We hope you enjoyed your meal and look forward to serving you again
+          soon!
+        </span>
       </div>
-      <div className="btn-cf-order">
+      {/* <div className="btn-cf-order">
         <Link className="confirm-link" onClick={handleConfirm}>
           Confirm
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
