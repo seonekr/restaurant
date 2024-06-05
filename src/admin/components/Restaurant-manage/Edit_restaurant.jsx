@@ -208,7 +208,6 @@ const Edit_restaurant = () => {
                 <label htmlFor="time">Time</label>
                 <input
                   type="time"
-                
                   name="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}

@@ -35,30 +35,32 @@ function Itemfood() {
     setFieldToEdit(field);
     setShowEditModal(true);
   };
+
   const handleSave = (updatedFood) => {
-    const {id, name, price} = updatedFood; // Destructure required fields
-    const updatedData = {
-      id,
-      name,
-      price,
-    };
-
-    // Check if an image file was selected or if a new image URL was provided
-    if (image instanceof File) {
-      updatedFood.append("image", image); // Append the new image file
-    } else if (typeof image === "string") {
-      updatedFood.append("image", image); // Append the existing image URL
+    const formData = new FormData();
+    formData.append("name", updatedFood.name);
+    formData.append("description", updatedFood.description);
+    formData.append("price", updatedFood.price);
+    formData.append("restaurant", updatedFood.restaurant);
+    if (updatedFood.image instanceof File) {
+      formData.append("image", updatedFood.image);
     }
-
 
     axios
       .put(
-        import.meta.env.VITE_API + `/restaurant/menu-items/${id}/`,
-        updatedData
+        `${import.meta.env.VITE_API}/restaurant/menu-items/${updatedFood.id}/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       )
-      .then(() => {
+      .then((response) => {
         setProducts(
-          products.map((product) => (product.id === id ? updatedFood : product))
+          products.map((product) =>
+            product.id === updatedFood.id ? response.data : product
+          )
         );
         setShowEditModal(false);
         Swal.fire("Saved!", "Your changes have been saved.", "success");
@@ -68,7 +70,6 @@ function Itemfood() {
         Swal.fire("Error!", "Failed to save changes.", "error");
       });
   };
-
   const handleDelete = (productId) => {
     Swal.fire({
       title: "Are you sure?",

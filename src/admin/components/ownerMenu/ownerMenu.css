@@ -40,7 +40,6 @@ body {
 #dashboard .left .menu .active {
     background: #0e64d2;
     color: #FFF;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
 }
 
 
@@ -53,7 +52,7 @@ body {
 }
 
 #dashboard .left .menu .link p {
-    margin-left: 1rem;
+    margin-left: 1.5rem;
 }
 
 /* Right bar */

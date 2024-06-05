@@ -7,6 +7,7 @@ import axios from "axios";
 import TableImage from "../../../img/table2.png";
 import AddTable from "./Addtable";
 import QRCodes from "./QRCodes";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
@@ -59,12 +60,34 @@ const Tables = () => {
     setSelectedTableId(tableId); // Update selected table ID
     setIsQRModalOpen(true); // Open QR modal
   };
-  
 
   const handleQRModalClose = () => {
     setIsQRModalOpen(false);
   };
-
+  const handleDelete = (productId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete this item?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, keep it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(
+            import.meta.env.VITE_API + `/restaurant/menu-items/${productId}/`
+          )
+          .then(() => {
+            setProducts(products.filter((product) => product.id !== productId));
+            Swal.fire("Deleted!", "The item has been deleted.", "success");
+          })
+          .catch((error) => {
+            console.error("Error deleting product:", error);
+          });
+      }
+    });
+  };
   return (
     <>
       <OwnerMenu />
@@ -81,7 +104,17 @@ const Tables = () => {
             {tables.map((table) => (
               <div key={table.id} className="box-table-dash">
                 <div className="box-img-table-dash">
-                  <Link to="#" onClick={() => handleTableClick(table.id)} className="Open">
+                  <Link
+                    to="#"
+                    onClick={() => handleTableClick(table.id)}
+                    className="Open"
+                  >
+                    <div
+                      className="deleteBox_productcontent22"
+                      onClick={() => handleDelete(product.id)}
+                    >
+                      <AiOutlineDelete />
+                    </div>
                     <img src={TableImage} alt={`Table ${table.id}`} />
                     <h3>{`Table ${table.number}`}</h3>
                   </Link>
@@ -91,8 +124,16 @@ const Tables = () => {
           </div>
         </div>
       </div>
-      <QRCodes isOpen={isQRModalOpen} onClose={handleQRModalClose} selectedTableId={selectedTableId} />
-      <AddTable show={showPopup} onClose={handleClosePopup} onSave={handleSaveTable} />
+      <QRCodes
+        isOpen={isQRModalOpen}
+        onClose={handleQRModalClose}
+        selectedTableId={selectedTableId}
+      />
+      <AddTable
+        show={showPopup}
+        onClose={handleClosePopup}
+        onSave={handleSaveTable}
+      />
     </>
   );
 };
