@@ -53,6 +53,7 @@ import Tables from "./admin/components/Table/Tables";
 import Addtable from "./admin/components/Table/Addtable";
 import TableDetails from "./admin/components/Table/TableDetails";
 import AddEmployee from "./admin/components/Employee/AddEmployee";
+import EditEmployee from "./admin/components/Employee/EditEmployee";
 import Restaurant_admin from "./admin/components/Restaurant-manage/Restaurant_admin";
 
 // Counter
@@ -162,6 +163,7 @@ function App() {
           <Route path="/add_restaurant" element={<Add_Restaurant />} />
           <Route path="/history_order" element={<History_order />} />
           <Route path="/review_admin" element={<Review_admin />} />
+          <Route path="/edit_employee" element={<EditEmployee />} />
 
           {/* --------- Owner Page ---------- */}
           <Route path="/logino" element={<LoginO />} />

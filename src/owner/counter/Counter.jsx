@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Menufooter from "../page/Menubar";
+import Menufooter from "../../components/Menufooter";
 import Table from "./../../img/table3.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
