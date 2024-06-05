@@ -62,6 +62,8 @@ import Ordermenu from "./owner/counter/Ordermenu";
 import Orderr from "./owner/counter/Orderr";
 import Edit_restaurant from "./admin/components/Restaurant-manage/Edit_restaurant";
 import Add_Restaurant from "./admin/components/Restaurant-manage/Add_Restaurant";
+import History_order from "./admin/components/History_order/History_order";
+import Review_admin from "./admin/components/Review/Review_admin";
 
 // Waiter
 // import Waiter from "./owner/counter copy/Waiter";
@@ -158,6 +160,8 @@ function App() {
           <Route path="/restaurant_admin" element={<Restaurant_admin />} />
           <Route path="/edit_restaurant/:id" element={<Edit_restaurant />} />
           <Route path="/add_restaurant" element={<Add_Restaurant />} />
+          <Route path="/history_order" element={<History_order />} />
+          <Route path="/review_admin" element={<Review_admin />} />
 
           {/* --------- Owner Page ---------- */}
           <Route path="/logino" element={<LoginO />} />

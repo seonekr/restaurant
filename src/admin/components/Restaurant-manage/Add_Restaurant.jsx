@@ -103,10 +103,8 @@ const Add_Restaurant = () => {
           logo: null,
           bannerimage: [],
         });
-
         setSelectedImage(null);
         setImagePreviews([]);
-
         // Show success message
         Swal.fire({
           icon: "success",
@@ -116,7 +114,6 @@ const Add_Restaurant = () => {
       })
       .catch((error) => {
         console.error(error);
-
         // Show error message
         Swal.fire({
           icon: "error",
@@ -130,7 +127,7 @@ const Add_Restaurant = () => {
       <OwnerMenu />
       <section id="post">
         <div className="box_container_add_res">
-          <h2>Restaurant</h2>
+          <h2>Add Restaurant</h2>
           <div className="submit1">
             <button type="submit">Post</button>
           </div>

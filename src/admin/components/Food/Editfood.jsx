@@ -3,99 +3,77 @@ import Swal from "sweetalert2";
 import "./editfood.css";
 
 const Editfood = ({ food, fieldToEdit, onSave, onCancel }) => {
-  const [value, setValue] = useState("");
+  const [updatedFood, setUpdatedFood] = useState({ ...food });
+  const [imagePreview, setImagePreview] = useState(food.image);
 
-  useEffect(() => {
-    setValue(
-      fieldToEdit === "name"
-        ? food.name
-        : fieldToEdit === "price"
-        ? food.price
-        : food.image
-    );
-  }, [food, fieldToEdit]);
-
-  const handleSave = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to save changes?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        onSave({ ...food, [fieldToEdit]: value });
-        Swal.fire("Saved!", "Your changes have been saved.", "success").then(
-          () => {
-            onCancel(); // Close the modal after saving
-          }
-        );
-      }
-    });
-  };
-
-  const handleCancel = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to cancel editing?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        onCancel();
-      }
-    });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setValue(reader.result); // Set the new image data to the value state
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-      onSave({ ...food, image: file }); // Pass the File object to the parent component for saving
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (files && files[0]) {
+      setUpdatedFood({ ...updatedFood, [name]: files[0] });
+      setImagePreview(URL.createObjectURL(files[0]));
+    } else {
+      setUpdatedFood({ ...updatedFood, [name]: value });
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(updatedFood);
   };
 
   return (
     <div className="popup-overlay-edit">
       <div className="modal-content-edit">
-        <h2>
-          Edit {fieldToEdit.charAt(0).toUpperCase() + fieldToEdit.slice(1)}
-        </h2>
-        {fieldToEdit !== "image" ? (
+        <h2>Edit {fieldToEdit}</h2>
+        <div>
+        {fieldToEdit === "image" && (
+        <>
           <input
-            type={fieldToEdit === "price" ? "number" : "text"}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder={
-              fieldToEdit.charAt(0).toUpperCase() + fieldToEdit.slice(1)
-            }
+            className="edit-image"
+            type="file"
+            name="image"
+            onChange={handleChange}
           />
-        ) : (
-          <div>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-            {value && (
-              <img src={value} alt="Preview" className="image-preview" /> // Display preview image
+          <div className="image-container2">
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="image-preview"
+              />
             )}
           </div>
-        )}
-        <div className="button-group-edit">
-          <button className="btn-save-edit" onClick={handleSave}>
-            Save
-          </button>
-          <button className="btn-cancel-edit" onClick={handleCancel}>
-            Cancel
-          </button>
+        </>
+      )}
+          {fieldToEdit === "name" && (
+            <input
+              // type="text"
+              className="edit-name2"
+              name="name"
+              value={updatedFood.name}
+              onChange={handleChange}
+            />
+          )}
+          {fieldToEdit === "price" && (
+            <input
+              type="number"
+              name="price"
+              value={updatedFood.price}
+              onChange={handleChange}
+            />
+          )}
+          <div className="button-group-edit">
+            <button className="btn-save-edit" onClick={handleSubmit}>
+              Save
+            </button>
+            <button
+              className="btn-cancel-edit"
+              type="button"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -78,11 +78,6 @@
 
 /*  */
 
-.container-img-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .image-preview {
   margin: 20px 0;
   max-width: 100%;
@@ -91,8 +86,25 @@
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.image-container2 {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+}
 
-.image-preview img {
-  max-width: 100%;
-  height: auto;
+.edit-image {
+  margin-bottom: 10px; /* Add some space between the input and the image container */
+}
+.edit-name2 {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding inside the input/textarea */
+  margin: 10px 0; /* Margin outside the input/textarea */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-size: 16px; /* Font size */
+  line-height: 1.5; /* Line height for readability */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.edit-name2:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
