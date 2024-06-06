@@ -7,12 +7,17 @@ import axios from "axios";
 import Menufooter from "../components/Menufooter";
 import { IoIosArrowBack } from "react-icons/io";
 import Payment from "./Payment";
+import Swal from "sweetalert2";
 
 const useCart = () => {
   const [cart, setCart] = useState(() => {
     const localCart = localStorage.getItem("cart");
     return localCart ? JSON.parse(localCart) : [];
   });
+  const employeeId = 2; // Assuming employee ID is 2
+  const tableId = 2; // Assuming table ID is 2
+
+  console.log("cart...", cart)
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -36,15 +41,15 @@ const useCart = () => {
     }
   };
 
-  const removeFromCarts = (id, store_name) => {
+  const removeFromCart = (id, store_name) => {
     setCart(
       cart.filter((item) => !(item.id === id && item.store_name === store_name))
     );
   };
 
-  const updateQuantity2 = (id, store_name, quantity) => {
+  const updateQuantity = (id, store_name, quantity) => {
     if (quantity <= 0) {
-      removeFromCarts(id, store_name);
+      removeFromCart(id, store_name);
     } else {
       setCart(
         cart.map((item) =>
@@ -74,16 +79,17 @@ const useCart = () => {
   };
 
   const getTotalItemForStore = (store_name) => {
-    const storeItems = cart.filter((item) => item.store_name === store_name);
-    return storeItems.reduce((total, item) => total + (item.quantity || 0), 0);
+    return cart
+      .filter((item) => item.store_name === store_name)
+      .reduce((total, item) => total + (item.quantity || 0), 0);
   };
 
   return {
     cart,
-    setCart, // Added setCart to the returned object
+    setCart,
     addToCart,
-    removeFromCarts,
-    updateQuantity2,
+    removeFromCart,
+    updateQuantity,
     getTotalItems,
     getTotalPrice,
     getTotalPriceForStore,
@@ -94,36 +100,27 @@ const useCart = () => {
 const Cart = ({ products }) => {
   const token = localStorage.getItem("token");
   const user = localStorage.getItem("user");
-  const [store_id, set_store_id] = useState(null);
+  const [storeId, setStoreId] = useState(null);
   const [cartItems, setCartItems] = useState([]);
-  const [show_payment, set_show_payment] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
   const navigate = useNavigate();
-  const user_id = user ? JSON.parse(user).user_id : null;
+  const userId = user ? JSON.parse(user).user_id : null;
 
   const {
     cart,
-    setCart, // Destructure setCart from useCart
     addToCart,
-    removeFromCarts,
-    updateQuantity2,
+    removeFromCart,
+    updateQuantity,
     getTotalItems,
     getTotalPrice,
     getTotalPriceForStore,
     getTotalItemForStore,
   } = useCart();
 
-  const handlePayment = (store_name) => {
-    const storeItems = cart.filter((item) => item.store_name === store_name);
-    setCartItems(storeItems);
-    set_store_id(storeItems[0]?.store_id || null);
-    set_show_payment(true);
-    setCart([]); // Clear the cart after setting the payment state
-  };
-
-  const orderitems = [
+  const orderItems = [
     {
-      user: user_id,
-      store: store_id,
+      user: userId,
+      store: storeId,
       items: cartItems,
     },
   ];
@@ -134,10 +131,61 @@ const Cart = ({ products }) => {
 
   const stores = [...new Set(cart.map((item) => item.store_name))];
 
+
+
+  const handleConfirmPayment = async (event) => {
+    event.preventDefault();
+
+    try {
+      const orderData = {
+        restaurant: 1, // Assuming restaurant ID is 1 for this example
+        table: 2, // Assuming table ID is 2 for this example
+        employee: 2, // Assuming employee ID is 2 for this example
+        status: "PENDING",
+        paid: false,
+        items: cart.map((item) => ({
+          menu_item: item.id,
+          quantity: item.quantity,
+          employee: 2,
+        })),
+      };
+
+      const config = {
+        method: "post",
+        url: "http://127.0.0.1:8000/restaurants/1/orders/create/",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: orderData,
+      };
+
+      const response = await axios(config);
+
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Order confirmed successfully!",
+        }).then(() => {
+          navigate("/");
+        });
+      } else {
+        throw new Error("Failed to confirm order.");
+      }
+    } catch (error) {
+      console.error("Error confirming order:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to confirm order. Please try again.",
+      });
+    }
+  };
+
   return (
     <>
-      {show_payment ? (
-        <Payment orders={orderitems} />
+      {showPayment ? (
+        <Payment orders={orderItems} />
       ) : (
         <>
           <Menufooter products={products} />
@@ -171,7 +219,7 @@ const Cart = ({ products }) => {
                                 <div
                                   className="icon_DetailsFood"
                                   onClick={() =>
-                                    removeFromCarts(item.id, store)
+                                    removeFromCart(item.id, store)
                                   }
                                 >
                                   <AiOutlineDelete />
@@ -180,7 +228,7 @@ const Cart = ({ products }) => {
                                   <p
                                     className="deleteIconCount"
                                     onClick={() =>
-                                      updateQuantity2(
+                                      updateQuantity(
                                         item.id,
                                         item.store_name,
                                         item.quantity - 1
@@ -195,7 +243,7 @@ const Cart = ({ products }) => {
                                   <p
                                     className="addIconCount"
                                     onClick={() =>
-                                      updateQuantity2(
+                                      updateQuantity(
                                         item.id,
                                         item.store_name,
                                         item.quantity + 1
@@ -216,7 +264,6 @@ const Cart = ({ products }) => {
                             <p>Quantity:</p>
                             <p>{getTotalItemForStore(store)}</p>
                           </div>
-
                           <div className="count_footmenu_box_item_2">
                             <h3>Total: </h3>
                             <p className="text-dollar">$</p>
@@ -229,7 +276,7 @@ const Cart = ({ products }) => {
                               </Link>
                             </div>
                             <div
-                              onClick={() => handlePayment(store)}
+                              onClick={handleConfirmPayment}
                               className="btn_confirmCart"
                             >
                               Confirm Order

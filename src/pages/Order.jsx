@@ -4,8 +4,33 @@ import Menufooter from "../components/Menufooter";
 import axios from "axios";
 
 const Order = () => {
-  const [orderDetails, setOrderDetails] = useState(null); // Initialize as null for single order object
-  const [menuDetails, setMenuDetails] = useState([]); // Initialize as empty array for menu items
+  const [orderDetails, setOrderDetails] = useState([]); // Initialize as null initially
+  const [dateTime, setDateTime] = useState(new Date());
+
+  // useEffect(() => {
+  //   getOrderDetails();
+  // }, []);
+
+  // const getOrderDetails = () => {
+  //   let data = "";
+
+  //   let config = {
+  //     method: "get",
+  //     maxBodyLength: Infinity,
+  //     url: "http://127.0.0.1:8000/restaurants/1/orders/15/detail/",
+  //     headers: {},
+  //     data: data,
+  //   };
+
+  //   axios
+  //     .request(config)
+  //     .then((response) => {
+  //       setOrderDetails(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   useEffect(() => {
     const getOrderDetails = async () => {
@@ -13,68 +38,97 @@ const Order = () => {
         const response = await axios.get(
           "http://127.0.0.1:8000/restaurants/1/orders/18/detail/"
         );
+        // Assuming response.data is an object representing a single order
         setOrderDetails(response.data);
       } catch (error) {
         console.error("Error fetching order details:", error);
+        // Handle error state or retry logic if needed
       }
     };
 
     getOrderDetails();
-  }, []);
+  }, []); //
 
-  useEffect(() => {
-    const getMenuDetails = async () => {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/restaurants/1/menu_items/list/"
-        );
-        setMenuDetails(response.data);
-      } catch (error) {
-        console.error("Error fetching menu details:", error);
-      }
-    };
-
-    getMenuDetails();
-  }, []);
-
+  // Format date and time
+  // const formattedDate = dateTime.toLocaleDateString();
   console.log("detail order", orderDetails);
-  console.log("detail menu", menuDetails);
+  // if (!orderDetails) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
       <Menufooter />
-      <div className="order_box_container">
-        <h3>Your Order</h3>
-        <div className="box_firstOrder_content">
-          <h4>List menu:</h4>
-          {orderDetails && orderDetails.items && (
-            <>
-              {orderDetails.items.map((item) => {
-                const menuItem = menuDetails.find(
-                  (menu) => menu.id === item.menu_item
-                );
-                return (
-                  <div className="test-text" key={item.id}>
-                    <p>{menuItem ? menuItem.name : "Unknown"}</p>
-                    <p>{menuItem ? `$${menuItem.price}` : "Unknown"}</p>
-                    <p>{item.quantity}</p>
+      <>
+        <div className="order_box_container">
+          <h3>Your Order</h3>
+          <div className="box_firstOrder_content">
+            {/* {orderDetails.items && (
+              <div>
+                {orderDetails.items.map((r) => (
+                  <div className="text-data-order" key={r}>
+                    <p>Order ID: {r.order}</p>
+                    <p>Restaurant:</p>
+                    <p>Table: </p>
+                    <p>Customer name: {r.user}</p>
+                    <p>Staff: {r.employee}</p>
+                    <p>Date: </p>
+                    <p>Status: order.status</p>
+                    <p>Paid: order.paid ? "Yes" : "No"</p>
+                    <p>Total Cost: $order.total_cost</p>
                   </div>
-                );
-              })}
-            </>
-          )}
-          <div className="box_groupPrice_2">
-            <h4 className="text-dollar">
-              ${orderDetails ? orderDetails.total_cost : "Loading..."}
-            </h4>
-            <h4></h4>
-          </div>
-          <div className="boxgroupLastfoot">
+                ))}
+              </div>
+            )} */}
+
+            <h4>List menu:</h4>
+            {orderDetails.items && (
+              <>
+                {orderDetails.items.map((r) => (
+                  <div className="test-text">
+                    <p>{r.menu_item}</p>
+                    <p>{r.quantity}</p>
+                  </div>
+                ))}
+              </>
+            )}
             <p>
-              Current Date:{" "}
-              {orderDetails ? orderDetails.timestamp : "Loading..."}
+             
+              Date:
+               {orderDetails.timestamp}
             </p>
-            {/* <p>Payment method: BCEL-ONEPAY</p> */}
+           
+            {/* {orderDetails.items && (
+              <div>
+                {orderDetails.items.map((r) => (
+                  <div className="order_contentItem" key={r}>
+                    <div>
+                      <h4>Menu Item</h4>
+                      <div className="boxGrouptxtintro boxofnamefood">
+                        <p>{r.menu_item}</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4>Quantity</h4>
+                      <div className="boxGrouptxtintro">
+                        <p>{r.quantity}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )} */}
+            <div className="box_groupPrice_2">
+              <h4>Total Items: </h4>
+              <h4 className="text-dollar">${orderDetails.total_cost}</h4>
+              <h4></h4>
+            </div>
+
+            <div className="boxgroupLastfoot">
+              <p>Current Date:</p>
+              <p>Payment method: BCEL-ONEPAY</p>
+            </div>
           </div>
         </div>
       </div>
