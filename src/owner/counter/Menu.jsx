@@ -113,6 +113,52 @@ const Menu = () => {
     });
   };
 
+  const addOrder = (menu_id) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      restaurant: 1,
+      items: [
+        {
+          menu_item: 5,
+          quantity: 2,
+          employee: 1,
+          created_at: "2024-06-06T17:48:25.014029+07:00",
+          updated_at: "2024-06-06T17:48:25.014029+07:00",
+        },
+        {
+          menu_item: 1,
+          quantity: 1,
+          employee: 1,
+          created_at: "2024-06-06T17:48:25.014029+07:00",
+          updated_at: "2024-06-06T17:48:25.014029+07:00",
+        },
+        {
+          menu_item: 2,
+          quantity: 2,
+          employee: 1,
+          created_at: "2024-06-06T17:48:25.014029+07:00",
+          updated_at: "2024-06-06T17:48:25.014029+07:00",
+        },
+      ],
+    });
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(
+      "http://127.0.0.1:8000/restaurants/1/orders/25/update/",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+  };
   return (
     <>
       <Menufooter />
@@ -158,7 +204,7 @@ const Menu = () => {
                 <div className="icon_addcartTo">
                   <IoCartOutline
                     className="icon_addcartToIN"
-                    onClick={() => addToCart(product)}
+                    onClick={() => addOrder(product.id)}
                   />
                 </div>
               </Link>
@@ -172,7 +218,7 @@ const Menu = () => {
             menuItems={menuItems}
             tableId={tableId}
           /> */}
-           <OrderDetail
+          <OrderDetail
             orders={orders}
             setOrders={setOrders}
             menuItems={menuItems}

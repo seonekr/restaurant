@@ -37,6 +37,8 @@ const Order = () => {
     getMenuDetails();
   }, []);
 
+
+
   console.log("detail order", orderDetails);
   console.log("detail menu", menuDetails);
 

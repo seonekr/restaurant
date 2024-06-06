@@ -49,6 +49,31 @@ const OrderDetail = () => {
         console.log(error);
       });
   };
+  const deleteOrderItem = (itemId) => {
+    const requestOptions = {
+      method: "PATCH",
+      redirect: "follow",
+    };
+
+    fetch(
+      `http://127.0.0.1:8000/restaurants/1/order-items/${itemId}/cancel/`,
+      requestOptions
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to cancel order item");
+        }
+        return response.json();
+      })
+      .then((result) => {
+        console.log("Order item cancelled successfully:", result);
+        // After successful deletion, refetch order details
+        fetchOrderDetails();
+      })
+      .catch((error) => console.error("Error cancelling order item:", error));
+  };
+
+  
   return (
     <>
       <div className="container-order-detail">
@@ -71,7 +96,9 @@ const OrderDetail = () => {
                         <div className="box-txt-quantity">
                           <div className="right_oflastDetailsFood22">
                             <div className="icon_DetailsFood22">
-                              <AiOutlineDelete />
+                              <AiOutlineDelete
+                                onClick={() => deleteOrderItem(item.id)}
+                              />
                             </div>
                             <div className="boxCount_numfood22">
                               <p className="deleteIconCount22">
