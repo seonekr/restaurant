@@ -8,6 +8,7 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      e.preventDefault();
       const formdata = new FormData();
       formdata.append("name", categoryName);
       formdata.append("restaurant", "1");
@@ -18,7 +19,7 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
         redirect: "follow",
       };
 
-      const response = await fetch("http://127.0.0.1:8000/restaurant/category", requestOptions);
+      const response = await fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/create/`, requestOptions);
 
       if (!response.ok) {
         throw new Error("Failed to add category");
@@ -32,7 +33,6 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
       });
 
       // Clear the input field and close the modal
-      setCategoryName("");
       onSubmit();
       onClose();
     } catch (error) {
@@ -43,6 +43,7 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
         text: "Failed to add category",
       });
     }
+
   };
 
   return (

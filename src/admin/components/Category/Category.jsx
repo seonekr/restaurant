@@ -12,7 +12,7 @@ const Category = () => {
 
   useEffect(() => {
     // Fetch data from the provided URL
-    fetch("http://127.0.0.1:8000/restaurant/category")
+    fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/list/`)
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -25,7 +25,7 @@ const Category = () => {
 
   const handleSaveEdit = (updatedCategory) => {
     // Save the updated category
-    fetch(`http://127.0.0.1:8000/restaurant/category/${updatedCategory.id}`, {
+    fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${updatedCategory.id}/update/`, {
       method: "PUT",
       body: JSON.stringify(updatedCategory),
       headers: {
@@ -52,7 +52,8 @@ const Category = () => {
     if (window.confirm(`Are you sure you want to delete ${category.name}?`)) {
       // Delete the category
       // Assuming you have an API endpoint for deleting category
-      fetch(`http://127.0.0.1:8000/restaurant/category/${category.id}`, {
+      fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${category.id}/delete/`, {
+      // fetch(`http://127.0.0.1:8000/restaurant/category/${category.id}`, {
         method: "DELETE",
       }).then((response) => {
         if (response.ok) {

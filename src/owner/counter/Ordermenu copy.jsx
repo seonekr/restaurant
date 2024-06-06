@@ -51,7 +51,7 @@ const Ordermenu = ({ orders, setOrders, menuItems, tableId }) => {
 
       try {
         const itemDetailsPromises = newItems.map((itemId) =>
-          axios.get(`http://127.0.0.1:8000/restaurants/1/orders/1/detail/`)
+          axios.get(`http://127.0.0.1:8000/restaurants/1/orders/5/detail/`)
           // axios.get(`http://127.0.0.1:8000/restaurants/1/orders/list/${itemId}/`)
           // axios.get(`http://127.0.0.1:8000/restaurants/4/orders/3/detail/`)
         );
