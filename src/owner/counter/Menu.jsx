@@ -19,7 +19,7 @@ const Menu = () => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/restaurant/tables/${tableId}`)
+      .get(`http://127.0.0.1:8000/restaurants/1/orders/list/`)
       .then((response) => {
         console.log("Table info response:", response.data);
         setTable(response.data);

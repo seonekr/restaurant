@@ -8,16 +8,29 @@ import "./css/counter.css";
 const Counter = () => {
   const [tables, setTables] = useState([]);
 
+
   useEffect(() => {
+    fetchData();
+  }, []);
+
+
+  const fetchData = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: import.meta.env.VITE_API +  "/restaurants/1/tables/list/",
+     
+    };
+
     axios
-      .get("http://127.0.0.1:8000/restaurant/tables/?restaurant_id=1")
+      .request(config)
       .then((response) => {
-        setTables(response.data);
+        setTables(response.data)
       })
       .catch((error) => {
-        console.error("Error fetching tables:", error);
+        console.log(error);
       });
-  }, []);
+  };
 
   const renderTableStatus = (table) => {
     return table.is_available ? "Available" : "Pending";
@@ -41,7 +54,7 @@ const Counter = () => {
                 className={`box-table ${getStatusClass(table)}`}
               >
                 <div className="box-img-table">
-                  <Link to={`/restaurant/orders/${table.id}`}>
+                  <Link to={`/restaurant/orders/${table.number}`}>
                     <img src={Table} alt={`Table ${table.id}`} />
                     <h3>{`Table ${table.number}`} </h3>
                     <p>Status: {renderTableStatus(table)}</p>
