@@ -22,7 +22,7 @@ function FoodItem() {
 
   const getProducts = () => {
     axios
-      .get(import.meta.env.VITE_API + "/restaurant/menu-items/")
+      .get(import.meta.env.VITE_API + "/restaurants/1/menu_items/list/")
       .then((response) => {
         setProducts(response.data);
       })
