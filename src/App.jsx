@@ -205,7 +205,7 @@ function App() {
           {/* --------- Counter ---------- */}
           <Route path="/counter"  element={<Counter/>} />
           <Route path="/restaurant/orders/:tableId" element={<Menu/>}/>
-          <Route path="/restaurant/orders/:tableId" element={<Ordermenu/>}/>
+          {/* <Route path="/restaurant/orders/:tableId" element={<Ordermenu/>}/> */}
           <Route path="/orderr/:orderId" element={<Orderr />} />
 
           {/* --------- Waiter ---------- */}
