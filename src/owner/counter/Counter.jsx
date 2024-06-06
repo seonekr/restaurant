@@ -1,3 +1,5 @@
+// Counter.jsx
+
 import React, { useEffect, useState } from "react";
 import Menufooter from "../../components/Menufooter";
 import Table from "./../../img/table3.png";
@@ -8,24 +10,15 @@ import "./css/counter.css";
 const Counter = () => {
   const [tables, setTables] = useState([]);
 
-
   useEffect(() => {
     fetchData();
   }, []);
 
-
   const fetchData = () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API +  "/restaurants/1/tables/list/",
-     
-    };
-
     axios
       .get("http://127.0.0.1:8000/restaurants/1/tables/list/")
       .then((response) => {
-        setTables(response.data)
+        setTables(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -46,7 +39,6 @@ const Counter = () => {
       <div className="container-counter">
         <div className="contain-counter">
           <h2>Tables in Restaurant</h2>
-
           <div className="container-table1">
             {tables.map((table) => (
               <div
@@ -54,9 +46,9 @@ const Counter = () => {
                 className={`box-table ${getStatusClass(table)}`}
               >
                 <div className="box-img-table">
-                  <Link to={`/restaurant/orders/${table.number}`}>
+                  <Link to={`/restaurant/orders/${table.id}`}>
                     <img src={Table} alt={`Table ${table.id}`} />
-                    <h3>{`Table ${table.id}`} </h3>
+                    <h3>{`Table ${table.number}`} </h3>
                     <p>Status: {renderTableStatus(table)}</p>
                   </Link>
                 </div>

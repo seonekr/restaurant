@@ -7,6 +7,7 @@ import { IoCartOutline } from "react-icons/io5";
 import Ordermenu from "./Ordermenu";
 import { IoIosArrowBack } from "react-icons/io";
 import Swal from "sweetalert2";
+import OrderDetail from "./OrderDetail";
 
 const Menu = () => {
   const { tableId } = useParams();
@@ -123,7 +124,7 @@ const Menu = () => {
               Back
             </Link>
           </div>
-          <h2>Menu Table {tableId}</h2>
+          <h2>Table {tableId}</h2>
 
           {/* <div className="category-selector">
             {categories.map((category, index) => (
@@ -165,7 +166,13 @@ const Menu = () => {
           </div>
         </div>
         <div className="contain-order">
-          <Ordermenu
+          {/* <Ordermenu
+            orders={orders}
+            setOrders={setOrders}
+            menuItems={menuItems}
+            tableId={tableId}
+          /> */}
+           <OrderDetail
             orders={orders}
             setOrders={setOrders}
             menuItems={menuItems}

@@ -51,9 +51,7 @@ const Ordermenu = ({ orders, setOrders, menuItems, tableId }) => {
 
       try {
         const itemDetailsPromises = newItems.map((itemId) =>
-          axios.get(`http://127.0.0.1:8000/restaurants/1/orders/1/detail/`)
-          // axios.get(`http://127.0.0.1:8000/restaurants/1/orders/list/${itemId}/`)
-          // axios.get(`http://127.0.0.1:8000/restaurants/4/orders/3/detail/`)
+          axios.get(`http://127.0.0.1:8000/restaurant/menu-items/${itemId}/`)
         );
         const itemDetailsResponses = await Promise.all(itemDetailsPromises);
         const itemDetailsData = itemDetailsResponses.map(
@@ -99,6 +97,15 @@ const Ordermenu = ({ orders, setOrders, menuItems, tableId }) => {
   };
 
   const deleteOrderItem = (itemId) => {
+    // const updatedOrders = orders.map((ord) => {
+    //   if (ord.id === order.id) {
+    //     const updatedOrderItems = ord.order_items.filter(
+    //       (item) => item.id !== itemId
+    //     );
+    //     return { ...ord, order_items: updatedOrderItems };
+    //   }
+    //   return ord;
+    // });
     const myHeaders = new Headers();
     myHeaders.append("Cookie", "csrftoken=3kqVvYdmUvnC1fSP3mrkCyUHahHcQlxD");
 
