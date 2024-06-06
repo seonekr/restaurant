@@ -16,16 +16,30 @@ const Tables = () => {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
 
+  console.log("tables...", tables)
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:8000/restaurants/1/tables/list/",
+     
+    };
+
     axios
-      .get("http://127.0.0.1:8000/restaurant/tables/?restaurant_id=1")
+      .request(config)
       .then((response) => {
-        setTables(response.data);
+        setTables(response.data)
       })
       .catch((error) => {
-        console.error("Error fetching tables:", error);
+        console.log(error);
       });
-  }, []);
+  };
+
+
 
   const handleOpenPopup = () => {
     setShowPopup(true);
@@ -64,7 +78,7 @@ const Tables = () => {
   const handleQRModalClose = () => {
     setIsQRModalOpen(false);
   };
-  const handleDelete = (productId) => {
+  const handleDelete = (tableId) => {
     Swal.fire({
       title: "Are you sure?",
       text: "Do you want to delete this item?",
@@ -76,14 +90,14 @@ const Tables = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            import.meta.env.VITE_API + `/restaurant/menu-items/${productId}/`
+            import.meta.env.VITE_API + `/restaurants/1/tables/${tableId}/delete/`
           )
           .then(() => {
-            setProducts(products.filter((product) => product.id !== productId));
+            setProducts(table.filter((tables) => tables.id !== tableId));
             Swal.fire("Deleted!", "The item has been deleted.", "success");
           })
           .catch((error) => {
-            console.error("Error deleting product:", error);
+            console.error("Error deleting table:", error);
           });
       }
     });
@@ -111,7 +125,7 @@ const Tables = () => {
                   >
                     <div
                       className="deleteBox_productcontent22"
-                      onClick={() => handleDelete(product.id)}
+                      onClick={() => handleDelete(tables.id)}
                     >
                       <AiOutlineDelete />
                     </div>

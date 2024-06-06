@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import OwnerMenu from "../ownerMenu/OwnerMenu";
 import Swal from "sweetalert2";
+import axios from 'axios'; // Ensure you have this import
 import "./addtable.css";
 
 const Addtable = ({ show, onClose, onSave }) => {
@@ -8,41 +9,45 @@ const Addtable = ({ show, onClose, onSave }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/restaurant/tables/?restaurant_id=1", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          number: tableNumber,
-          restaurant: 1 // Assuming you need to pass the restaurant ID here
-        }),
-      });
+      // Create a FormData object and append the table number
+      const data = new FormData();
+      data.append("number", tableNumber);
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`HTTP error! Status: ${response.status}, StatusText: ${response.statusText}, Body: ${errorText}`);
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: import.meta.env.VITE_API +  "/restaurants/1/tables/create/?number=150",
+        data: data // Include the data in the request
+      };
+
+      const response = await axios.request(config);
+
+      if (!response.status === 200) {
+        const errorText = response.statusText;
+        console.error(
+          `HTTP error! Status: ${response.status}, StatusText: ${errorText}`
+        );
         throw new Error("Network response was not ok");
       }
 
-      const data = await response.json();
-      console.log("Table saved:", data);
+      const dataResponse = response.data;
+      console.log("Table saved:", dataResponse);
 
       Swal.fire({
-        icon: 'success',
-        title: 'Table Saved',
-        text: `Table number ${data.number} was saved successfully!`,
+        icon: "success",
+        title: "Table Saved",
+        text: `Table number ${dataResponse.number} was saved successfully!`,
       });
 
-      onSave(data.number);
+      onSave(dataResponse.number);
       setTableNumber("");
       onClose();
     } catch (error) {
       console.error("Error saving table:", error);
 
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
+        icon: "error",
+        title: "Error",
         text: `There was an error saving the table: ${error.message}`,
       });
     }

@@ -17,6 +17,32 @@ const Orderr = ({
   const [employeeRole, setEmployeeRole] = useState(""); // State to store employee role
   const [banners, setBanners] = useState([]);
 
+  const axios = require("axios");
+  const FormData = require("form-data");
+  let data = new FormData();
+
+  let config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: "http://127.0.0.1:8000/restaurants/1/tables/1/detail/",
+    headers: {
+      ...data.getHeaders(),
+    },
+    data: data,
+  };
+
+  axios
+    .request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+    
+
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/restaurant/employees/`, {
