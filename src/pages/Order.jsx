@@ -11,7 +11,7 @@ const Order = () => {
     const getOrderDetails = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/restaurants/1/orders/18/detail/"
+          `${import.meta.env.VITE_API}/restaurants/1/orders/1/detail/`
         );
         setOrderDetails(response.data);
       } catch (error) {
@@ -26,7 +26,7 @@ const Order = () => {
     const getMenuDetails = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/restaurants/1/menu_items/list/"
+          `${import.meta.env.VITE_API}/restaurants/1/menu_items/list/`
         );
         setMenuDetails(response.data);
       } catch (error) {
