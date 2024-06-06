@@ -30,7 +30,7 @@ const Menu = () => {
 
     axios
       .get(
-        `http://127.0.0.1:8000/restaurant/orders/?table_id=${tableId}&restaurant_id=1`
+        `http://127.0.0.1:8000/restaurants/orders/list/?table_id=${tableId}&restaurant_id=1`
       )
       .then((response) => {
         const ordersForTable = response.data.filter(
@@ -43,7 +43,7 @@ const Menu = () => {
       });
 
     axios
-      .get(`http://127.0.0.1:8000/restaurant/menu-items/`)
+      .get(`http://127.0.0.1:8000/restaurants/1/menu_items/list/`)
       .then((response) => {
         setMenuItems(response.data);
       })
@@ -57,7 +57,7 @@ const Menu = () => {
 
   const getProducts = () => {
     axios
-      .get(import.meta.env.VITE_API + "/restaurant/menu-items/?restaurant_id=1")
+      .get(import.meta.env.VITE_API + "/restaurants/1/menu_items/list/")
       .then((response) => {
         setProducts(response.data);
       })
@@ -68,7 +68,7 @@ const Menu = () => {
 
   const getCategories = () => {
     axios
-      .get("http://127.0.0.1:8000/restaurant/category")
+      .get("http://127.0.0.1:8000/restaurants/1/categories/list/")
       .then((response) => {
         setCategories(response.data);
       })
@@ -125,7 +125,7 @@ const Menu = () => {
           </div>
           <h2>Menu Table {tableId}</h2>
 
-          <div className="category-selector">
+          {/* <div className="category-selector">
             {categories.map((category, index) => (
               <div key={index}>
                 <Link
@@ -136,7 +136,7 @@ const Menu = () => {
                 </Link>
               </div>
             ))}
-          </div>
+          </div> */}
 
           <div className="box_itemFood_container22">
             {filteredProducts.map((product) => (

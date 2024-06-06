@@ -23,7 +23,7 @@ const Bannerres = () => {
   }, []);
   const getBanners = () => {
     axios
-      .get(import.meta.env.VITE_API + `/restaurant/restaurant`)
+      .get(import.meta.env.VITE_API + `/restaurants/1`)
       .then((response) => {
         setBanners(response.data);
       })
@@ -156,7 +156,7 @@ const Bannerres = () => {
             <div className="box_banner_content2">
               <div class="banner-container">
                 <img
-                  src={banner.bannerimage}
+                  src={banner.banner_image}
                   onClick={() => setSelectedFood(banner)}
                 />
                 {/* {mainImageBanner && mainImageBanner.length > 0 ? (

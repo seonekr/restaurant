@@ -19,7 +19,7 @@ const Restaurant_admin = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/restaurant/restaurant"
+        "http://127.0.0.1:8000/restaurants/1/"
       );
       setDatas(response.data);
     } catch (error) {

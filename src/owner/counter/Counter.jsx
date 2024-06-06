@@ -10,7 +10,7 @@ const Counter = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/restaurant/tables/?restaurant_id=1")
+      .get("http://127.0.0.1:8000/restaurants/1/tables/list/")
       .then((response) => {
         setTables(response.data);
       })
@@ -43,7 +43,7 @@ const Counter = () => {
                 <div className="box-img-table">
                   <Link to={`/restaurant/orders/${table.id}`}>
                     <img src={Table} alt={`Table ${table.id}`} />
-                    <h3>{`Table ${table.number}`} </h3>
+                    <h3>{`Table ${table.id}`} </h3>
                     <p>Status: {renderTableStatus(table)}</p>
                   </Link>
                 </div>

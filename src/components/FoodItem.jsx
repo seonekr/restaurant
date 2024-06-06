@@ -35,7 +35,7 @@ function FoodItem() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + "/restaurant/category",
+      url: import.meta.env.VITE_API + "/restaurants/1/categories/list/",
       headers: {},
     };
 
@@ -83,19 +83,6 @@ function FoodItem() {
     setisPopupfood(!isPopupfood);
   };
 
-  // const addToCart = (product) => {
-  //   const existingItemIndex = cart.findIndex((item) => item.id === product.id);
-  //   if (existingItemIndex !== -1) {
-  //     // If item already exists in cart, update its quantity
-  //     const updatedCart = [...cart];
-  //     updatedCart[existingItemIndex].quantity += 1;
-  //     setCart(updatedCart);
-  //   } else {
-  //     // If item does not exist in cart, add it to cart
-  //     const updatedCart = [...cart, { ...product, quantity: 1 }];
-  //     setCart(updatedCart);
-  //   }
-  // };
 
 
   // ============= Cart management ================
@@ -135,7 +122,7 @@ function FoodItem() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + `"/restaurant/menu-items/"${products}/review`,
+      url: import.meta.env.VITE_API + `/restaurants/1/menu_items/list/${products}/review`,
       headers: {
         "Content-Type": "application/json",
       },

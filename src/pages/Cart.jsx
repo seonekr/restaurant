@@ -80,6 +80,7 @@ const useCart = () => {
 
   return {
     cart,
+    setCart, // Added setCart to the returned object
     addToCart,
     removeFromCarts,
     updateQuantity2,
@@ -101,6 +102,7 @@ const Cart = ({ products }) => {
 
   const {
     cart,
+    setCart, // Destructure setCart from useCart
     addToCart,
     removeFromCarts,
     updateQuantity2,
@@ -110,49 +112,12 @@ const Cart = ({ products }) => {
     getTotalItemForStore,
   } = useCart();
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const config = {
-          method: "get",
-          maxBodyLength: Infinity,
-          url: `${
-            import.meta.env.VITE_API
-          }/restaurant/menu-items/${products}/review`,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-
-        const response = await axios.request(config);
-        const sortedReviews = response.data.sort((a, b) => b.id - a.id);
-        setReviews(sortedReviews);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      }
-    };
-
-    if (products) {
-      fetchReviews();
-    }
-  }, [products]);
-
   const handlePayment = (store_name) => {
     const storeItems = cart.filter((item) => item.store_name === store_name);
     setCartItems(storeItems);
     set_store_id(storeItems[0]?.store_id || null);
     set_show_payment(true);
-
-    alert(
-      `Payment for ${store_name} completed successfully!\nTotal Price: $${getTotalPriceForStore(
-        store_name
-      ).toFixed(2)}`
-    );
-
-    const updatedCart = cart.filter((item) => item.store_name !== store_name);
-    setCart(updatedCart);
-
-    setCartItems([]);
+    setCart([]); // Clear the cart after setting the payment state
   };
 
   const orderitems = [
@@ -163,19 +128,6 @@ const Cart = ({ products }) => {
     },
   ];
 
-  useEffect(() => {
-    const data = JSON.stringify({ token });
-    const config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: `${import.meta.env.VITE_API}/restaurant/orders/`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data,
-    };
-  }, [token]);
-
   if (!cart) {
     return <div className="cart">Loading...</div>;
   }
@@ -185,7 +137,7 @@ const Cart = ({ products }) => {
   return (
     <>
       {show_payment ? (
-        <Payment orders={orderitems} order_from="cart" onPay={handlePayment} />
+        <Payment orders={orderitems} />
       ) : (
         <>
           <Menufooter products={products} />
@@ -195,9 +147,7 @@ const Cart = ({ products }) => {
               <p>Back</p>
             </Link>
             <div className="container-box-order">
-          
               <h2>Cart</h2>
-           
               {stores.length === 0 ? (
                 <p className="no-reviews-message">No Products</p>
               ) : (

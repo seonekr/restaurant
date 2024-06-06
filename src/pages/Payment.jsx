@@ -4,9 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Menufooter from "../components/Menufooter";
 import { IoIosArrowBack } from "react-icons/io";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 function Payment({ orders }) {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user ? user.user_id : null;
+  const employeeId = 1; // Assuming employee ID is 1 for this example
+  const tableId = 4; // Assuming table ID is 1 for this example
 
   const totalPrice = orders.reduce((acc, product) => {
     return (
@@ -23,23 +28,26 @@ function Payment({ orders }) {
   
     try {
       const orderData = {
-        restaurant: orders[0].restaurant, 
-        status: "pending",
+        restaurant: 1, // Assuming restaurant ID is 1 for this example
+        table: tableId,
+        employee: employeeId,
+        status: "PENDING",
         paid: false,
-        order_items: orders.map((product) =>
-          product.items.map((item) => ({
-            name: item.name,
-            price: item.price,
+        items: orders.flatMap(product => 
+          product.items.map(item => ({
+            menu_item: item.id,
             quantity: item.quantity,
+            employee: employeeId
           }))
         ),
       };
   
-      const axios = require("axios");
-  
       const config = {
         method: "post",
-        url: "http://127.0.0.1:8000/restaurant/orders",
+        url: "http://127.0.0.1:8000/restaurants/1/orders/create/",
+        headers: {
+          "Content-Type": "application/json",
+        },
         data: orderData,
       };
   

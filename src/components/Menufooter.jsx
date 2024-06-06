@@ -55,7 +55,7 @@ function Menufooter() {
             <NavLink to="/counter" className="boxcart_header_container">
               <div className="boxcart_header">
                 <MdDashboardCustomize className="icon_cart_header" />
-                Dashboard
+                Staff
               </div>
             </NavLink>
             <NavLink to="/profile" className="linkTomenu">
