@@ -31,9 +31,6 @@ function Menufooter() {
     <>
       <div className="menufooter_contentHeader">
         <div className="box_content_header">
-          <Link to="/" className="linkTomenu">
-            <h3>Name Restaurant</h3>
-          </Link>
 
           <div className="menu_header_box">
             <NavLink to="/" className="linkTomenu">
