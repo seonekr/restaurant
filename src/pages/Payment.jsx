@@ -10,8 +10,8 @@ function Payment({ orders }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user ? user.user_id : null;
-  const employeeId = 1; // Assuming employee ID is 1 for this example
-  const tableId = 4; // Assuming table ID is 1 for this example
+  const employeeId = 2; // Assuming employee ID is 1 for this example
+  const tableId = 2; // Assuming table ID is 1 for this example
 
   const totalPrice = orders.reduce((acc, product) => {
     return (
