@@ -8,50 +8,16 @@ import "./employee.css";
 import AddEmployee from "./AddEmployee";
 
 const Employee = () => {
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-  const [users, set_users] = useState([]);
+  const [employees, setEmployees] = useState([]);
+
+  console.log("employees....", employees)
+
 
   useEffect(() => {
-    let data = JSON.stringify({
-      token: token,
-    });
-
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + "/user/check-token",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      data: data,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.result != "success") {
-          localStorage.clear();
-
-          navigate("/loginuser");
-          return;
-        }
-      })
-      .catch((error) => {
-        localStorage.clear();
-        console.log(error);
-        navigate("/loginuser");
-        return;
-      });
-  }, [token]);
-
-  useEffect(() => {
-    let config = {
+    const config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + "/user/",
+      url: import.meta.env.VITE_API + "/restaurants/1/employees/list/",
       headers: {
         "Content-Type": "application/json",
       },
@@ -60,34 +26,34 @@ const Employee = () => {
     axios
       .request(config)
       .then((response) => {
-        // console.log(JSON.stringify(response.data));
-        set_users(response.data);
+        setEmployees(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [users]);
-console.log(users)
-  const handleDelete = (id) => {
-    let data = "";
+  }, []);
 
-    let config = {
+
+
+  const handleDelete = (id) => {
+    const config = {
       method: "delete",
       maxBodyLength: Infinity,
       url: import.meta.env.VITE_API + `/user/admin-users/${id}`,
       headers: {},
-      data: data,
     };
 
     axios
       .request(config)
       .then((response) => {
         alert("Admin user has been deleted.");
+        setUsers(users.filter(user => user.employee.id !== id));
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   return (
     <>
       <OwnerMenu />
@@ -102,43 +68,38 @@ console.log(users)
               </Link>
             </div>
           </div>
-          {users.length === 0 ? (
-            <p className="no-reviews-message">No Order</p>
-          ) : (
-            users.map((user, index) => (
-              <div key={user.id} className="box_users_user">
-                <div className="box_dp_txtandiamge">
-                  <div className="box_user_img">
-                    <img src={user.profile_image || userimage} alt="" />
-                  </div>
-                  <div className="box_user_text">
-                    <p>{user.nickname}</p>
-                    <p>{user.email}</p>
-                  </div>
+
+          {employees.map((user, userIndex) => (
+            <div key={userIndex} className="box_users_user">
+              <div className="box_dp_txtandiamge">
+                <div className="box_user_img">
+                  <img src={user.employee.profile_image || userimage} alt="" />
                 </div>
-                <div className="btn_box_Cont">
-                  <button
-                    className="delete_storeDetails"
-                    onClick={() => {
-                      handleDelete(user.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <Link
-                    to="/edit_employee"
-                    className="viewMore_storeDetails"
-                  >
-                    Edit
-                  </Link>
+                <div className="box_user_text">
+                  <p>{user.employee.nickname}</p>
+                  <p>{user.employee.email}</p>
                 </div>
               </div>
-            ))
-          )}
+              <div className="btn_box_Cont">
+                <button
+                  className="delete_storeDetails"
+                  onClick={() => {
+                    handleDelete(user.employee.id);
+                  }}
+                >
+                  Delete
+                </button>
+                <Link
+                  to="/edit_employee"
+                  className="viewMore_storeDetails"
+                >
+                  Edit
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-     
-
     </>
   );
 };

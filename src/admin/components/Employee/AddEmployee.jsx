@@ -8,9 +8,12 @@ const AddEmployee = () => {
     name: "",
     email: "",
     password: "",
+    password2: "",
     role: "",
     // Add more fields as needed
   });
+
+  console.log("formData...", formData)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +24,7 @@ const AddEmployee = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/restaurant/employees/",
+        "http://127.0.0.1:8000/restaurants/1/employees/create/",
         formData
       );
       // Handle success, maybe show a success message or redirect
@@ -83,7 +86,7 @@ const AddEmployee = () => {
                   id="password2"
                   name="password2"
                   placeholder="Confirm password..."
-                  value={formData.password}
+                  value={formData.password2}
                   onChange={handleChange}
                   required
                 />
