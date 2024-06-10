@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./bannerres.css";
 import { Link } from "react-router-dom";
-import { FiPhone } from "react-icons/fi";
-import { IoMdTime } from "react-icons/io";
-import { FiMapPin } from "react-icons/fi";
-import { IoIosStar } from "react-icons/io";
-import { IoCamera } from "react-icons/io5";
-import { FaPencil } from "react-icons/fa6";
-import axios from "axios"; // You need axios or any other library to make HTTP requests
-import EditBanner  from "/src/admin/components/Food/Editbanner.jsx";
+import { FiPhone, FiMapPin } from "react-icons/fi";
+import { IoMdTime, IoIosStar, IoCamera } from "react-icons/io5";
+import { FaPencil } from "react-icons/fa";
+import axios from "axios";
 import Swal from "sweetalert2";
 
 const Bannerres = () => {

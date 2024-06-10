@@ -10,8 +10,7 @@ import AddEmployee from "./AddEmployee";
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
 
-  console.log("employees....", employees)
-
+  console.log("employees....", employees);
 
   useEffect(() => {
     const config = {
@@ -33,26 +32,67 @@ const Employee = () => {
       });
   }, []);
 
-
-
   const handleDelete = (id) => {
     const config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + `/user/admin-users/${id}`,
+      url: import.meta.env.VITE_API + `/user/admin-users/${id}/delete/`, // corrected URL
       headers: {},
     };
 
     axios
       .request(config)
       .then((response) => {
-        alert("Admin user has been deleted.");
-        setUsers(users.filter(user => user.employee.id !== id));
+        setUsers(users.filter((user) => user.employee.id !== id));
+        Swal.fire(
+          "Error!",
+          "Admin user has been deleted.",
+          "error"
+        );
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  // const handleDelete = (category) => {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: `Do you want to delete ${category.name}?`,
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Yes, delete it!',
+  //     cancelButtonText: 'No, keep it'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${category.id}/delete/`, {
+  //         method: "DELETE",
+  //       }).then((response) => {
+  //         if (response.ok) {
+  //           // Remove the category from the state
+  //           setCategories(categories.filter((cat) => cat.id !== category.id));
+  //           Swal.fire(
+  //             'Deleted!',
+  //             `${category.name} has been deleted.`,
+  //             'success'
+  //           );
+  //         } else {
+  //           Swal.fire(
+  //             'Error!',
+  //             'There was a problem deleting the category.',
+  //             'error'
+  //           );
+  //         }
+  //       }).catch((error) => {
+  //         Swal.fire(
+  //           'Error!',
+  //           `There was a problem deleting the category: ${error.message}`,
+  //           'error'
+  //         );
+  //       });
+  //     }
+  //   });
+  // };
 
   return (
     <>
@@ -90,7 +130,7 @@ const Employee = () => {
                   Delete
                 </button>
                 <Link
-                  to="/edit_employee"
+                  to={`/edit_employee/${user.employee.id}`}
                   className="viewMore_storeDetails"
                 >
                   Edit
