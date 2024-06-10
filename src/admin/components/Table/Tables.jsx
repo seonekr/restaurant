@@ -17,20 +17,18 @@ const Tables = () => {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
 
-  console.log("tables...", tables);
   useEffect(() => {
-    fetchData();
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    if (storage && storage.restaurant_id) {
+      fetchData(storage.restaurant_id);
+    } else {
+      console.error("No restaurant ID found in local storage.");
+    }
   }, []);
 
-  const fetchData = () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "http://127.0.0.1:8000/restaurants/1/tables/list/",
-    };
-
+  const fetchData = (restaurant_id) => {
     axios
-      .request(config)
+      .get(`http://43.201.166.195:8000/restaurants/${restaurant_id}/tables/list/`)
       .then((response) => {
         setTables(response.data);
       })
@@ -48,13 +46,17 @@ const Tables = () => {
   };
 
   const handleSaveTable = (tableNumber) => {
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    const restaurant_id = storage.restaurant_id;
+
     axios
-      .post("http://127.0.0.1:8000/restaurant/tables/", {
-        restaurant_id: 1,
+      .post(`http://43.201.166.195:8000/restaurants/${restaurant_id}/tables/create/`, {
         table_number: tableNumber,
       })
       .then((response) => {
         setTables([...tables, response.data]);
+        setShowPopup(false);
+        fetchData(restaurant_id); // Reload the tables after saving a new table
       })
       .catch((error) => {
         console.error("Error saving table:", error);
@@ -88,11 +90,15 @@ const Tables = () => {
       cancelButtonText: "No, keep it",
     }).then((result) => {
       if (result.isConfirmed) {
+        const storage = JSON.parse(window.localStorage.getItem("user"));
+        const restaurantId = storage.restaurant_id;
+
         axios
-          .delete(`http://127.0.0.1:8000/restaurants/1/tables/${tableId}/delete/`)
+          .delete(`http://43.201.166.195:8000/restaurants/${restaurantId}/tables/${tableId}/delete/`)
           .then(() => {
             setTables(tables.filter((table) => table.id !== tableId));
             Swal.fire("Deleted!", "The table has been deleted.", "success");
+            fetchData(restaurantId); // Reload the tables after deleting
           })
           .catch((error) => {
             console.error("Error deleting table:", error);
@@ -149,6 +155,7 @@ const Tables = () => {
         show={showPopup}
         onClose={handleClosePopup}
         onSave={handleSaveTable}
+        fetchData={fetchData}
       />
     </>
   );

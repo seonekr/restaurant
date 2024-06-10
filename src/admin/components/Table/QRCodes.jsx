@@ -7,25 +7,29 @@ const QRCodes = ({ isOpen, onClose, selectedTableId }) => {
   const [tables, setTables] = useState([]);
   const [selectedTable, setSelectedTable] = useState(null);
   const [error, setError] = useState(null); // State for handling errors
-
   useEffect(() => {
-    const fetchTables = async () => {
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/restaurants/1/tables/list/"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch tables");
-        }
-        const data = await response.json();
-        setTables(data);
-      } catch (error) {
-        setError(error.message); // Set error state if fetching fails
-      }
-    };
-
-    fetchTables();
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    if (storage && storage.restaurant_id) {
+      fetchTables(storage.restaurant_id);
+    } else {
+      console.error("No restaurant ID found in local storage.");
+    }
   }, []);
+
+  const fetchTables = async (restaurant_id) => {
+    try {
+      const response = await fetch(
+        `http://43.201.166.195:8000/restaurants/${restaurant_id}/tables/list/`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch tables");
+      }
+      const data = await response.json();
+      setTables(data);
+    } catch (error) {
+      setError(error.message); // Set error state if fetching fails
+    }
+  };
 
   useEffect(() => {
     if (selectedTableId) {
@@ -40,7 +44,6 @@ const QRCodes = ({ isOpen, onClose, selectedTableId }) => {
 
   return (
     <>
-      
       <div className="board-qrcode">
         <Modal
           isOpen={isOpen}

@@ -27,14 +27,18 @@ const Addproduct1 = () => {
   ]);
 
   useEffect(() => {
-    fetchCategories();
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    fetchCategories(storage.restaurant_id);
   }, []);
 
-  const fetchCategories = async () => {
+  const fetchCategories = async (restaurant_id) => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/restaurant/category"
+        `${
+          import.meta.env.VITE_API
+        }/restaurants/${restaurant_id}/categories/list/`
       );
+
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -101,30 +105,38 @@ const Addproduct1 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const restaurantId = 1; // Assuming restaurant_id holds the actual ID
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    const restaurant_id = storage.restaurant_id;
 
+    try {
       const requests = products.map(async (product) => {
         const formData = new FormData();
         formData.append("name", product.name);
         formData.append("description", product.description);
         formData.append("price", product.price);
         formData.append("category", product.category);
-        formData.append("restaurant", restaurantId);
+        formData.append("restaurant", restaurant_id);
 
         if (product.image) {
           formData.append("image", product.image);
         }
 
-        return axios.post(
-          "http://127.0.0.1:8000/restaurant/menu-items/",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        try {
+          return await axios.post(
+            `${
+              import.meta.env.VITE_API
+            }/restaurants/${restaurant_id}/menu_items/create/`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+        } catch (error) {
+          console.error(`Error adding product ${product.name}:`, error.message);
+          throw error;
+        }
       });
 
       await Promise.all(requests);
@@ -263,11 +275,11 @@ const Addproduct1 = () => {
             ))}
           </div>
         </div>
-          <div className="btn_submit_add2">
-            <button className="button22" onClick={handleSubmit}>
-              Save
-            </button>
-          </div>
+        <div className="btn_submit_add2">
+          <button className="button22" onClick={handleSubmit}>
+            Save
+          </button>
+        </div>
       </div>
     </>
   );

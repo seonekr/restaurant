@@ -1,32 +1,31 @@
 import React, { useState } from "react";
 import OwnerMenu from "../ownerMenu/OwnerMenu";
 import Swal from "sweetalert2";
-import axios from 'axios'; // Ensure you have this import
+import axios from 'axios';
 import "./addtable.css";
 
-const Addtable = ({ show, onClose, onSave }) => {
+const AddTable = ({ show, onClose, onSave }) => {
   const [tableNumber, setTableNumber] = useState("");
 
   const handleSave = async () => {
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    const restaurant_id = storage.restaurant_id;
     try {
-      // Create a FormData object and append the table number
       const data = new FormData();
       data.append("number", tableNumber);
 
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: import.meta.env.VITE_API +  "/restaurants/1/tables/create/?number=150",
-        data: data // Include the data in the request
+        url: import.meta.env.VITE_API + `/restaurants/${restaurant_id}/tables/create/`,
+        data: data
       };
 
       const response = await axios.request(config);
 
-      if (!response.status === 200) {
+      if (response.status !== 201) {
         const errorText = response.statusText;
-        console.error(
-          `HTTP error! Status: ${response.status}, StatusText: ${errorText}`
-        );
+        console.error(`HTTP error! Status: ${response.status}, StatusText: ${errorText}`);
         throw new Error("Network response was not ok");
       }
 
@@ -42,6 +41,7 @@ const Addtable = ({ show, onClose, onSave }) => {
       onSave(dataResponse.number);
       setTableNumber("");
       onClose();
+      window.location.reload(); // Reload the page after saving
     } catch (error) {
       console.error("Error saving table:", error);
 
@@ -82,4 +82,4 @@ const Addtable = ({ show, onClose, onSave }) => {
   );
 };
 
-export default Addtable;
+export default AddTable;

@@ -1,80 +1,88 @@
-import React, { useState, useEffect } from "react";
-import Swal from "sweetalert2";
+import React, { useState } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import "./editfood.css";
+const Editfood = ({ selectedFood, onClose }) => {
+  const [editedFood, setEditedFood] = useState({
+    id: selectedFood.id,
+    name: selectedFood.name,
+    price: selectedFood.price,
+  });
 
-const Editfood = ({ food, fieldToEdit, onSave, onCancel }) => {
-  const [updatedFood, setUpdatedFood] = useState({ ...food });
-  const [imagePreview, setImagePreview] = useState(food.image);
+  const [editField, setEditField] = useState('name'); // State to track which field to edit
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (files && files[0]) {
-      setUpdatedFood({ ...updatedFood, [name]: files[0] });
-      setImagePreview(URL.createObjectURL(files[0]));
-    } else {
-      setUpdatedFood({ ...updatedFood, [name]: value });
+    const { name, value } = e.target;
+    setEditedFood({ ...editedFood, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.patch(
+        `http://43.201.166.195:8000/restaurants/1/menu_items/${editedFood.id}/update/`,
+        editedFood
+      );
+      console.log('Updated:', response.data);
+      onClose(); // Close edit form after successful update
+      Swal.fire({
+        icon: 'success',
+        title: 'Update Successful',
+        text: 'Your food item has been updated.',
+      }).then(() => {
+        window.location.reload(); // Reload page after update (adjust as needed)
+      });
+    } catch (error) {
+      console.error('Error updating food:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Update Failed',
+        text: 'An error occurred while updating the food item.',
+      });
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave(updatedFood);
+  const handleCancel = () => {
+    onClose(); // Close edit form without saving changes
   };
 
   return (
-    <div className="popup-overlay-edit">
-      <div className="modal-content-edit">
-        <h2>Edit {fieldToEdit}</h2>
-        <div>
-        {fieldToEdit === "image" && (
-        <>
-          <input
-            className="edit-image"
-            type="file"
-            name="image"
-            onChange={handleChange}
-          />
-          <div className="image-container2">
-            {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="image-preview"
-              />
-            )}
-          </div>
-        </>
-      )}
-          {fieldToEdit === "name" && (
+    <div className="edit-food-form">
+      <h2>Edit Food</h2>
+      <form onSubmit={handleSubmit}>
+        {editField === 'name' && (
+          <label>
+            Name:
             <input
-              // type="text"
-              className="edit-name2"
+              type="text"
               name="name"
-              value={updatedFood.name}
+              value={editedFood.name}
               onChange={handleChange}
             />
-          )}
-          {fieldToEdit === "price" && (
+          </label>
+        )}
+        {editField === 'price' && (
+          <label>
+            Price:
             <input
               type="number"
               name="price"
-              value={updatedFood.price}
+              value={editedFood.price}
               onChange={handleChange}
             />
-          )}
-          <div className="button-group-edit">
-            <button className="btn-save-edit" onClick={handleSubmit}>
-              Save
-            </button>
-            <button
-              className="btn-cancel-edit"
-              type="button"
-              onClick={onCancel}
-            >
-              Cancel
-            </button>
-          </div>
+          </label>
+        )}
+        <div className="form-buttons">
+          <button type="submit">Save</button>
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
         </div>
+      </form>
+      {/* Toggle buttons to switch between editing name and price */}
+      <div className="toggle-buttons">
+        <button onClick={() => setEditField('name')}>Edit Name</button>
+        <button onClick={() => setEditField('price')}>Edit Price</button>
       </div>
     </div>
   );

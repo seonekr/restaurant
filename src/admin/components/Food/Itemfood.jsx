@@ -9,15 +9,18 @@ import axios from "axios";
 import Editfood from "./Editfood";
 import "./itemfood1.css";
 import Bannerres from "./Bannerres";
+
 function Itemfood() {
   const [selectedFood, setSelectedFood] = useState(null);
-  const [fieldToEdit, setFieldToEdit] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-      const storage = JSON.parse(window.localStorage.getItem("user"));
-    getProducts(storage.restaurant_id);
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    if (storage && storage.restaurant_id) {
+      getProducts(storage.restaurant_id);
+    } else {
+      console.error("No restaurant ID found in local storage.");
+    }
   }, []);
 
   const getProducts = (restaurant_id) => {
@@ -31,46 +34,14 @@ function Itemfood() {
       });
   };
 
-  const handleEdit = (menu_items, field) => {
-    setSelectedFood(menu_items);
-    setFieldToEdit(field);
-    setShowEditModal(true);
+  const handleEditFood = (food, field) => {
+    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
   };
 
-  const handleSave = (updatedFood) => {
-    const formData = new FormData();
-    formData.append("name", updatedFood.name);
-    formData.append("description", updatedFood.description);
-    formData.append("price", updatedFood.price);
-    formData.append("restaurant", updatedFood.restaurant);
-    if (updatedFood.image instanceof File) {
-      formData.append("image", updatedFood.image);
-    }
-
-    axios
-      .put(
-        `${import.meta.env.VITE_API}/restaurants/menu_items/${updatedFood.id}/update/`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        setProducts(
-          products.map((product) =>
-            product.id === updatedFood.id ? response.data : product
-          )
-        );
-        setShowEditModal(false);
-        Swal.fire("Saved!", "Your changes have been saved.", "success");
-      })
-      .catch((error) => {
-        console.error("Error updating product:", error);
-        Swal.fire("Error!", "Failed to save changes.", "error");
-      });
+  const handleCloseEdit = () => {
+    setSelectedFood(null);
   };
+
   const handleDelete = (productId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -82,10 +53,7 @@ function Itemfood() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(
-            // import.meta.env.VITE_API + `/restaurants/menu-items/${productId}/`
-            import.meta.env.VITE_API + `/restaurants/menu_items/${productId}/delete/`
-          )
+          .delete(import.meta.env.VITE_API + `/restaurant/menu-items/${productId}/`)
           .then(() => {
             setProducts(products.filter((product) => product.id !== productId));
             Swal.fire("Deleted!", "The item has been deleted.", "success");
@@ -124,6 +92,7 @@ function Itemfood() {
                     <img
                       className="image-pv-item"
                       src={product.image}
+                      alt={product.name}
                       onClick={() => setSelectedFood(product)}
                     />
                     <div
@@ -133,14 +102,14 @@ function Itemfood() {
                       <AiOutlineDelete />
                     </div>
                     <div className="icon_cameraDp22">
-                      <IoCamera onClick={() => handleEdit(product, "image")} />
+                      <IoCamera onClick={() => handleEditFood(product, "image")} />
                     </div>
                     <div className="txt_boxDescription3">
                       <div className="product-info">
                         <p className="product-name">{product.name}</p>
                         <div className="edit-icon-name">
                           <FaPencil
-                            onClick={() => handleEdit(product, "name")}
+                            onClick={() => handleEditFood(product, "name")} // Specify field to edit
                           />
                         </div>
                       </div>
@@ -148,7 +117,7 @@ function Itemfood() {
                         <p className="product-price">Price: ${product.price}</p>
                         <div className="edit-icon-price">
                           <FaPencil
-                            onClick={() => handleEdit(product, "price")}
+                            onClick={() => handleEditFood(product, "price")} // Specify field to edit
                           />
                         </div>
                       </div>
@@ -160,12 +129,10 @@ function Itemfood() {
           </div>
         </div>
 
-        {showEditModal && (
+        {selectedFood && (
           <Editfood
-            food={selectedFood}
-            fieldToEdit={fieldToEdit}
-            onSave={handleSave}
-            onCancel={() => setShowEditModal(false)}
+            selectedFood={selectedFood}
+            onClose={handleCloseEdit}
           />
         )}
       </div>

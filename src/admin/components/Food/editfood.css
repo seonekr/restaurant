@@ -1,110 +1,78 @@
-/* AddTablePopup.css */
-.popup-overlay-edit {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-/* Modal content styling */
-.modal-content-edit {
-  background: white;
+.edit-food-form {
+  max-width: 400px;
+  margin: 0 auto;
   padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 350px;
-  width: 100%;
-
-  border-radius: 8px;
-}
-.image-preview {
-  max-width: 100%;
-  max-height: 200px;
-  margin-top: 10px;
-  display: block;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Edit category title styling */
-.modal-content-edit h2 {
-  margin-top: 0;
+.edit-food-form h2 {
   margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
 }
 
-/* Input field styling */
-.modal-content-edit input {
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
 }
 
-/* Save and Cancel button styling */
-.btn-save-edit,
-.btn-cancel-edit {
-  padding: 8px 16px;
-  margin-right: 10px;
+.form-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.btn-save-edit {
+.form-buttons button[type="submit"] {
   background-color: #4caf50;
   color: white;
 }
 
-.btn-cancel-edit {
-  background-color: #f44336;
+.form-buttons button[type="submit"]:hover,
+.form-buttons button[type="button"]:hover {
+  opacity: 0.8;
+}
+
+.toggle-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.toggle-buttons button {
+  padding: 8px 16px;
+  margin: 0 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
   color: white;
 }
 
-.btn-save-edit:hover {
-  background-color: #357934;
-}
-
-.btn-cancel-edit:hover {
-  background-color: #793438;
-}
-
-/*  */
-
-.image-preview {
-  margin: 20px 0;
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.image-container2 {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-}
-
-.edit-image {
-  margin-bottom: 10px; /* Add some space between the input and the image container */
-}
-.edit-name2 {
-  width: 100%; /* Full width */
-  padding: 10px; /* Padding inside the input/textarea */
-  margin: 10px 0; /* Margin outside the input/textarea */
-  border: 1px solid #ccc; /* Light gray border */
-  border-radius: 5px; /* Slightly rounded corners */
-  font-size: 16px; /* Font size */
-  line-height: 1.5; /* Line height for readability */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-.edit-name2:focus {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.toggle-buttons button:hover {
+  opacity: 0.8;
 }

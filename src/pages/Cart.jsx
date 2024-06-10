@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import "./css/cart.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaPlus, FaMinus } from "react-icons/fa";
@@ -6,45 +7,33 @@ import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
 import Menufooter from "../components/Menufooter";
 import { IoIosArrowBack } from "react-icons/io";
-import Payment from "./Payment";
-import Swal from "sweetalert2";
 
 const useCart = () => {
   const [cart, setCart] = useState(() => {
     const localCart = localStorage.getItem("cart");
     return localCart ? JSON.parse(localCart) : [];
   });
-  const employeeId = 2; // Assuming employee ID is 2
-  const tableId = 2; // Assuming table ID is 2
-
-  console.log("cart...", cart)
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product, quantity) => {
-    const existingProduct = cart.find(
-      (item) => item.id === product.id && item.name === product.name
+    const existingProductIndex = cart.findIndex(
+      (item) => item.id === product.id && item.store_name === product.store_name
     );
 
-    if (existingProduct) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id && item.name === product.name
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
-      );
+    if (existingProductIndex !== -1) {
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity += quantity;
+      setCart(updatedCart);
     } else {
       setCart([...cart, { ...product, quantity }]);
     }
   };
 
   const removeFromCart = (id, store_name) => {
-    setCart(
-      cart.filter((item) => !(item.id === id && item.store_name === store_name))
-    );
+    setCart(cart.filter((item) => !(item.id === id && item.store_name === store_name)));
   };
 
   const updateQuantity = (id, store_name, quantity) => {
@@ -53,9 +42,7 @@ const useCart = () => {
     } else {
       setCart(
         cart.map((item) =>
-          item.id === id && item.store_name === store_name
-            ? { ...item, quantity }
-            : item
+          item.id === id && item.store_name === store_name ? { ...item, quantity } : item
         )
       );
     }
@@ -65,101 +52,55 @@ const useCart = () => {
     return cart.reduce((total, item) => total + (item.quantity || 0), 0);
   };
 
-  const getTotalPrice = () => {
-    return cart.reduce(
-      (total, item) => total + item.price * (item.quantity || 0),
-      0
-    );
-  };
-
   const getTotalPriceForStore = (store_name) => {
     return cart
       .filter((item) => item.store_name === store_name)
       .reduce((total, item) => total + item.price * (item.quantity || 0), 0);
   };
 
-  const getTotalItemForStore = (store_name) => {
-    return cart
-      .filter((item) => item.store_name === store_name)
-      .reduce((total, item) => total + (item.quantity || 0), 0);
-  };
-
   return {
     cart,
-    setCart,
     addToCart,
     removeFromCart,
     updateQuantity,
     getTotalItems,
-    getTotalPrice,
     getTotalPriceForStore,
-    getTotalItemForStore,
   };
 };
 
 const Cart = ({ products }) => {
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
   const [storeId, setStoreId] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
   const [showPayment, setShowPayment] = useState(false);
   const navigate = useNavigate();
-  const userId = user ? JSON.parse(user).user_id : null;
-
-  const {
-    cart,
-    addToCart,
-    removeFromCart,
-    updateQuantity,
-    getTotalItems,
-    getTotalPrice,
-    getTotalPriceForStore,
-    getTotalItemForStore,
-  } = useCart();
-
-  const orderItems = [
-    {
-      user: userId,
-      store: storeId,
-      items: cartItems,
-    },
-  ];
-
-  if (!cart) {
-    return <div className="cart">Loading...</div>;
-  }
-
-  const stores = [...new Set(cart.map((item) => item.store_name))];
-
-
+  const { cart, addToCart, removeFromCart, updateQuantity, getTotalItems, getTotalPriceForStore } = useCart();
+  const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).user_id : null;
 
   const handleConfirmPayment = async (event) => {
     event.preventDefault();
 
     try {
+      const restaurantId = localStorage.getItem("restaurantId");
+      const tableId = localStorage.getItem("tableId");
+      const employeeId = localStorage.getItem("employeeId");
+
+      if (!restaurantId || !tableId || !employeeId) {
+        throw new Error("Missing restaurant, table, or employee ID in local storage.");
+      }
+
       const orderData = {
-        restaurant: 1, // Assuming restaurant ID is 1 for this example
-        table: 2, // Assuming table ID is 2 for this example
-        employee: 2, // Assuming employee ID is 2 for this example
+        restaurant: parseInt(restaurantId),
+        table: parseInt(tableId),
+        employee: parseInt(employeeId),
         status: "PENDING",
         paid: false,
         items: cart.map((item) => ({
           menu_item: item.id,
           quantity: item.quantity,
-          employee: 2,
+          employee: parseInt(employeeId),
         })),
       };
 
-      const config = {
-        method: "post",
-        url: "http://127.0.0.1:8000/restaurants/1/orders/create/",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: orderData,
-      };
-
-      const response = await axios(config);
+      const response = await axios.post(`http://43.201.166.195:8000/restaurants/${restaurantId}/orders/create/`, orderData);
 
       if (response.status === 201) {
         Swal.fire({
@@ -182,10 +123,12 @@ const Cart = ({ products }) => {
     }
   };
 
+  const stores = [...new Set(cart.map((item) => item.store_name))];
+
   return (
     <>
       {showPayment ? (
-        <Payment orders={orderItems} />
+        <Payment orders={[{ user: userId, store: storeId, items: cart }]} />
       ) : (
         <>
           <Menufooter products={products} />
@@ -218,9 +161,7 @@ const Cart = ({ products }) => {
                               <div className="right_oflastDetailsFood">
                                 <div
                                   className="icon_DetailsFood"
-                                  onClick={() =>
-                                    removeFromCart(item.id, store)
-                                  }
+                                  onClick={() => removeFromCart(item.id, store)}
                                 >
                                   <AiOutlineDelete />
                                 </div>
@@ -262,7 +203,7 @@ const Cart = ({ products }) => {
                         <div className="count_footmenu_box_content">
                           <div className="count_footmenu_box_item_1">
                             <p>Quantity:</p>
-                            <p>{getTotalItemForStore(store)}</p>
+                            <p>{getTotalItems()}</p>
                           </div>
                           <div className="count_footmenu_box_item_2">
                             <h3>Total: </h3>

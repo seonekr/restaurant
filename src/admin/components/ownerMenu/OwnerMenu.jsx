@@ -225,7 +225,26 @@ const OwnerMenu = () => {
                 </NavLink>
               </>
             )}
-
+ <NavLink to="/dashboard" className="link">
+                  <HomeIcon />
+                  <p>Home</p>
+                </NavLink>
+                <NavLink to="/board" className="link">
+                  <RxDashboard />
+                  <p>Dashboard</p>
+                </NavLink>
+                <NavLink to="/table" className="link">
+                  <TableRestaurantIcon />
+                  <p>Table</p>
+                </NavLink>
+                <NavLink to="/category" className="link">
+                  <MenuBookIcon />
+                  <p>Category</p>
+                </NavLink>
+                <NavLink to="/employee" className="link">
+                  <LiaUserCogSolid />
+                  <p>Employee</p>
+                </NavLink>
             <div onClick={handleLogout} className="link">
               <IoLogOutOutline />
               <p>Log Out</p>
