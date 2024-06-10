@@ -164,7 +164,7 @@ function App() {
           <Route path="/add_restaurant" element={<Add_Restaurant />} />
           <Route path="/history_order" element={<History_order />} />
           <Route path="/review_admin" element={<Review_admin />} />
-          <Route path="/edit_employee" element={<EditEmployee />} />
+          <Route path="/edit_employee/:id" element={<EditEmployee />} />
 
           {/* --------- Owner Page ---------- */}
           <Route path="/logino" element={<LoginO />} />
