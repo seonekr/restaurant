@@ -40,7 +40,7 @@
   background-color: #fff;
   max-width: 200px;
   text-align: center;
-  cursor: pointer;
+  /* cursor: pointer; */
   transition: transform 0.3s ease, background-color 0.3s ease,
     box-shadow 0.3s ease;
 }
@@ -73,6 +73,7 @@
   color: #ffffff;
 }
 .deleteBox_productcontent22 {
+  z-index: 999;
   background-color: red;
   font-size: 15px;
   color: #fff;
@@ -82,6 +83,10 @@
   padding: 3px;
   cursor: pointer;
   position: absolute;
+}
+.deleteBox_productcontent22:hover {
+  background-color: #b71c1c;
+  transform: scale(1.1);
 }
 /* table.css */
 .box-add-table {

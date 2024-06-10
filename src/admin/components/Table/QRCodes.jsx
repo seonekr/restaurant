@@ -12,7 +12,7 @@ const QRCodes = ({ isOpen, onClose, selectedTableId }) => {
     const fetchTables = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/restaurant/tables/?restaurant_id=1"
+          "http://127.0.0.1:8000/restaurants/1/tables/list/"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch tables");

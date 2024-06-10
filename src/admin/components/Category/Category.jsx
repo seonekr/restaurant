@@ -3,6 +3,7 @@ import OwnerMenu from "../ownerMenu/OwnerMenu";
 import "./category.css";
 import Editcategory from "./Editcategory";
 import Addcategory from "./Addcategory";
+import Swal from "sweetalert2";
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
@@ -49,19 +50,42 @@ const Category = () => {
   };
 
   const handleDelete = (category) => {
-    if (window.confirm(`Are you sure you want to delete ${category.name}?`)) {
-      // Delete the category
-      // Assuming you have an API endpoint for deleting category
-      fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${category.id}/delete/`, {
-      // fetch(`http://127.0.0.1:8000/restaurant/category/${category.id}`, {
-        method: "DELETE",
-      }).then((response) => {
-        if (response.ok) {
-          // Remove the category from the state
-          setCategories(categories.filter((cat) => cat.id !== category.id));
-        }
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you want to delete ${category.name}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${category.id}/delete/`, {
+          method: "DELETE",
+        }).then((response) => {
+          if (response.ok) {
+            // Remove the category from the state
+            setCategories(categories.filter((cat) => cat.id !== category.id));
+            Swal.fire(
+              'Deleted!',
+              `${category.name} has been deleted.`,
+              'success'
+            );
+          } else {
+            Swal.fire(
+              'Error!',
+              'There was a problem deleting the category.',
+              'error'
+            );
+          }
+        }).catch((error) => {
+          Swal.fire(
+            'Error!',
+            `There was a problem deleting the category: ${error.message}`,
+            'error'
+          );
+        });
+      }
+    });
   };
 
   const handleOpenPopup = () => {

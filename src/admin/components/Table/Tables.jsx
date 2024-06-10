@@ -8,6 +8,7 @@ import TableImage from "../../../img/table2.png";
 import AddTable from "./Addtable";
 import QRCodes from "./QRCodes";
 import { AiOutlineDelete } from "react-icons/ai";
+import Swal from "sweetalert2";
 
 const Tables = () => {
   const [tables, setTables] = useState([]);
@@ -16,7 +17,7 @@ const Tables = () => {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
 
-  console.log("tables...", tables)
+  console.log("tables...", tables);
   useEffect(() => {
     fetchData();
   }, []);
@@ -26,20 +27,17 @@ const Tables = () => {
       method: "get",
       maxBodyLength: Infinity,
       url: "http://127.0.0.1:8000/restaurants/1/tables/list/",
-     
     };
 
     axios
       .request(config)
       .then((response) => {
-        setTables(response.data)
+        setTables(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-
 
   const handleOpenPopup = () => {
     setShowPopup(true);
@@ -66,22 +64,24 @@ const Tables = () => {
   const handleTableSelect = (table) => {
     setSelectedTable(table);
   };
+
   const handleCloseModal = () => {
     setSelectedTable(null);
-    onClose();
   };
+
   const handleTableClick = (tableId) => {
-    setSelectedTableId(tableId); // Update selected table ID
-    setIsQRModalOpen(true); // Open QR modal
+    setSelectedTableId(tableId);
+    setIsQRModalOpen(true);
   };
 
   const handleQRModalClose = () => {
     setIsQRModalOpen(false);
   };
+
   const handleDelete = (tableId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "Do you want to delete this item?",
+      text: "Do you want to delete this table?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",
@@ -89,19 +89,19 @@ const Tables = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(
-            import.meta.env.VITE_API + `/restaurants/1/tables/${tableId}/delete/`
-          )
+          .delete(`http://127.0.0.1:8000/restaurants/1/tables/${tableId}/delete/`)
           .then(() => {
-            setProducts(table.filter((tables) => tables.id !== tableId));
-            Swal.fire("Deleted!", "The item has been deleted.", "success");
+            setTables(tables.filter((table) => table.id !== tableId));
+            Swal.fire("Deleted!", "The table has been deleted.", "success");
           })
           .catch((error) => {
             console.error("Error deleting table:", error);
+            Swal.fire("Error!", "There was an issue deleting the table.", "error");
           });
       }
     });
   };
+
   return (
     <>
       <OwnerMenu />
@@ -109,7 +109,6 @@ const Tables = () => {
         <div className="container_box_table">
           <div className="box-add-table">
             <button onClick={handleOpenPopup} className="add_table_btn">
-              {/* <img src={TableImage} alt="Add Table" /> */}
               <p>Add Table</p>
             </button>
           </div>
@@ -125,7 +124,10 @@ const Tables = () => {
                   >
                     <div
                       className="deleteBox_productcontent22"
-                      onClick={() => handleDelete(tables.id)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDelete(table.id);
+                      }}
                     >
                       <AiOutlineDelete />
                     </div>

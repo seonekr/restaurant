@@ -49,12 +49,12 @@ const OrderDetail = () => {
         console.log(error);
       });
   };
-  const deleteOrderItem = (itemId) => {
+  const deleteOrderItem = (itemId, fetchOrderDetails) => {
     const requestOptions = {
       method: "PATCH",
       redirect: "follow",
     };
-
+  
     fetch(
       `http://127.0.0.1:8000/restaurants/1/order-items/${itemId}/cancel/`,
       requestOptions
@@ -67,10 +67,27 @@ const OrderDetail = () => {
       })
       .then((result) => {
         console.log("Order item cancelled successfully:", result);
-        // After successful deletion, refetch order details
-        fetchOrderDetails();
+        // Use SweetAlert2 to display a success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Order item cancelled',
+          text: 'The order item has been cancelled successfully.',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // After the user closes the alert, refetch order details
+          fetchOrderDetails();
+        });
       })
-      .catch((error) => console.error("Error cancelling order item:", error));
+      .catch((error) => {
+        console.error("Error cancelling order item:", error);
+        // Use SweetAlert2 to display an error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to cancel order item. Please try again later.',
+          confirmButtonText: 'OK'
+        });
+      });
   };
 
   

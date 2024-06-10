@@ -21,7 +21,7 @@ function Itemfood() {
 
   const getProducts = () => {
     axios
-      .get(import.meta.env.VITE_API + "/restaurant/menu-items/")
+      .get(import.meta.env.VITE_API + "/restaurants/1/menu_items/list/")
       .then((response) => {
         setProducts(response.data);
       })
@@ -45,10 +45,10 @@ function Itemfood() {
     if (updatedFood.image instanceof File) {
       formData.append("image", updatedFood.image);
     }
-
+  
     axios
       .put(
-        `${import.meta.env.VITE_API}/restaurant/menu-items/${updatedFood.id}/`,
+        `${import.meta.env.VITE_API}/restaurants/${updatedFood.restaurant}/menu_items/${updatedFood.id}/update/`,
         formData,
         {
           headers: {
@@ -70,6 +70,7 @@ function Itemfood() {
         Swal.fire("Error!", "Failed to save changes.", "error");
       });
   };
+  
   const handleDelete = (productId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -82,7 +83,8 @@ function Itemfood() {
       if (result.isConfirmed) {
         axios
           .delete(
-            import.meta.env.VITE_API + `/restaurant/menu-items/${productId}/`
+            // import.meta.env.VITE_API + `/restaurants/menu-items/${productId}/`
+            import.meta.env.VITE_API + `/restaurants/menu_items/${productId}/delete/`
           )
           .then(() => {
             setProducts(products.filter((product) => product.id !== productId));
