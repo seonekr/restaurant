@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./bannerres.css";
 import { Link } from "react-router-dom";
 import { FiPhone, FiMapPin } from "react-icons/fi";
-import { IoMdTime, IoIosStar, IoCamera } from "react-icons/io5";
-import { FaPencil } from "react-icons/fa";
+import { IoMdTime, IoIosStar} from "react-icons/io";
+import { IoCamera} from "react-icons/io5";
+import { FaPencil } from "react-icons/fa6";
 import axios from "axios";
 import Swal from "sweetalert2";
 

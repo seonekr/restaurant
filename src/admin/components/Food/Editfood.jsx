@@ -2,27 +2,46 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import "./editfood.css";
+
 const Editfood = ({ selectedFood, onClose }) => {
+  const storage = JSON.parse(window.localStorage.getItem("user"));
+
   const [editedFood, setEditedFood] = useState({
     id: selectedFood.id,
     name: selectedFood.name,
     price: selectedFood.price,
+    image: null, // Initialize image as null
   });
 
-  const [editField, setEditField] = useState('name'); // State to track which field to edit
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedFood({ ...editedFood, [name]: value });
+    const { name, value, type } = e.target;
+    if (type === 'file') {
+      setEditedFood({ ...editedFood, [name]: e.target.files[0] });
+    } else {
+      setEditedFood({ ...editedFood, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append('name', editedFood.name);
+      formData.append('price', editedFood.price);
+      if (editedFood.image) {
+        formData.append('image', editedFood.image);
+      }
+
       const response = await axios.patch(
-        `http://43.201.166.195:8000/restaurants/1/menu_items/${editedFood.id}/update/`,
-        editedFood
+        `http://43.201.166.195:8000/restaurants/${storage.restaurant_id}/menu_items/${editedFood.id}/update/`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
+
       console.log('Updated:', response.data);
       onClose(); // Close edit form after successful update
       Swal.fire({
@@ -50,28 +69,32 @@ const Editfood = ({ selectedFood, onClose }) => {
     <div className="edit-food-form">
       <h2>Edit Food</h2>
       <form onSubmit={handleSubmit}>
-        {editField === 'name' && (
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={editedFood.name}
-              onChange={handleChange}
-            />
-          </label>
-        )}
-        {editField === 'price' && (
-          <label>
-            Price:
-            <input
-              type="number"
-              name="price"
-              value={editedFood.price}
-              onChange={handleChange}
-            />
-          </label>
-        )}
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={editedFood.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Price:
+          <input
+            type="number"
+            name="price"
+            value={editedFood.price}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Image:
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+          />
+        </label>
         <div className="form-buttons">
           <button type="submit">Save</button>
           <button type="button" onClick={handleCancel}>
@@ -79,11 +102,6 @@ const Editfood = ({ selectedFood, onClose }) => {
           </button>
         </div>
       </form>
-      {/* Toggle buttons to switch between editing name and price */}
-      <div className="toggle-buttons">
-        <button onClick={() => setEditField('name')}>Edit Name</button>
-        <button onClick={() => setEditField('price')}>Edit Price</button>
-      </div>
     </div>
   );
 };

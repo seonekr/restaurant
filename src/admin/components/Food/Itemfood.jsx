@@ -25,7 +25,7 @@ function Itemfood() {
 
   const getProducts = (restaurant_id) => {
     axios
-      .get(import.meta.env.VITE_API + `/restaurants/${restaurant_id}/menu_items/list/`)
+      .get(`http://43.201.166.195:8000/restaurants/${restaurant_id}/menu_items/list/`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -40,6 +40,8 @@ function Itemfood() {
 
   const handleCloseEdit = () => {
     setSelectedFood(null);
+    // Optionally reload products after editing
+    // getProducts(storage.restaurant_id);
   };
 
   const handleDelete = (productId) => {
@@ -53,7 +55,7 @@ function Itemfood() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(import.meta.env.VITE_API + `/restaurant/menu-items/${productId}/`)
+          .delete(`http://43.201.166.195:8000/restaurants/1/menu_items/${productId}/`)
           .then(() => {
             setProducts(products.filter((product) => product.id !== productId));
             Swal.fire("Deleted!", "The item has been deleted.", "success");
@@ -132,6 +134,7 @@ function Itemfood() {
         {selectedFood && (
           <Editfood
             selectedFood={selectedFood}
+            editField={selectedFood.field} // Pass the field to edit
             onClose={handleCloseEdit}
           />
         )}

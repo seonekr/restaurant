@@ -10,10 +10,11 @@ const Category = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     // Fetch data from the provided URL
-    fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/list/`)
+    fetch(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/list/`)
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -25,8 +26,9 @@ const Category = () => {
   };
 
   const handleSaveEdit = (updatedCategory) => {
+    
     // Save the updated category
-    fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${updatedCategory.id}/update/`, {
+    fetch(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/${updatedCategory.id}/update/`, {
       method: "PUT",
       body: JSON.stringify(updatedCategory),
       headers: {
@@ -59,7 +61,7 @@ const Category = () => {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${category.id}/delete/`, {
+        fetch(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/${category.id}/delete/`, {
           method: "DELETE",
         }).then((response) => {
           if (response.ok) {
