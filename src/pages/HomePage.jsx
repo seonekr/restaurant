@@ -36,7 +36,7 @@ const HomePage = () => {
 
   const getCategories = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurant/${restaurantId}/category`)
+      .get(`${import.meta.env.VITE_API}/restaurants/${restaurantId}/categories/list/`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -50,7 +50,6 @@ const HomePage = () => {
       .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
       .then((response) => {
         const {
-          restaurant,
           name,
           logo,
           address,
@@ -59,21 +58,26 @@ const HomePage = () => {
           description,
           time,
         } = response.data;
-        setRestaurant({
-          name: name || restaurant.name,
-          logo: logo || restaurant.logo,
-          address: address || restaurant.address,
-          banner_image: banner_image || restaurant.banner_image,
-          phone: phone || restaurant.phone,
-          description: description || restaurant.description,
-          time: time || restaurant.time,
-        });
+  
+        // Ensure that if any field is missing or undefined, it defaults to an empty string
+        const updatedRestaurant = {
+          name: name || "",
+          logo: logo || "",
+          address: address || "",
+          banner_image: banner_image || "",
+          phone: phone || "",
+          description: description || "",
+          time: time || "",
+        };
+  
+        setRestaurant(updatedRestaurant);
       })
       .catch((error) => {
         console.error("Error fetching restaurant details:", error);
       });
   };
-  console.log("restaurantttt", restaurant);
+  
+  console.log("restaurantttt", restaurant,"meooo");
   const handleCategoryClick = (categoryName) => {
     setCategoryName(categoryName);
   };

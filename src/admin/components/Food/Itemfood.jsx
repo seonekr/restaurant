@@ -16,12 +16,13 @@ function Itemfood() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getProducts();
+      const storage = JSON.parse(window.localStorage.getItem("user"));
+    getProducts(storage.restaurant_id);
   }, []);
 
-  const getProducts = () => {
+  const getProducts = (restaurant_id) => {
     axios
-      .get(import.meta.env.VITE_API + "/restaurants/1/menu_items/list/")
+      .get(import.meta.env.VITE_API + `/restaurants/${restaurant_id}/menu_items/list/`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -45,10 +46,10 @@ function Itemfood() {
     if (updatedFood.image instanceof File) {
       formData.append("image", updatedFood.image);
     }
-  
+
     axios
       .put(
-        `${import.meta.env.VITE_API}/restaurants/${updatedFood.restaurant}/menu_items/${updatedFood.id}/update/`,
+        `${import.meta.env.VITE_API}/restaurants/menu_items/${updatedFood.id}/update/`,
         formData,
         {
           headers: {
@@ -70,7 +71,6 @@ function Itemfood() {
         Swal.fire("Error!", "Failed to save changes.", "error");
       });
   };
-  
   const handleDelete = (productId) => {
     Swal.fire({
       title: "Are you sure?",

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "./editbanner.css";
-export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
+
+const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
   const [updatedBanner, setUpdatedBanner] = useState({ ...banner });
-  const [imagePreview, setImagePreview] = useState(banner.logo);
-  const [imagePrev, setImagePre] = useState(banner.bannerimage);
+  const [imagePreview, setImagePreview] = useState(banner.logo || null);
+  const [bannerImagePreview, setBannerImagePreview] = useState(
+    banner.banner_image || null
+  );
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -13,15 +16,6 @@ export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
       setImagePreview(URL.createObjectURL(files[0]));
     } else {
       setUpdatedBanner({ ...updatedBanner, [name]: value });
-    }
-  };
-  const handleChangeBanner = (e) => {
-    const { name, value, files } = e.target;
-    if (files && files[0]) {
-      setUpdatedBanner({ ...updatedBanner, [name]: files[0] });
-      setImagePre(URL.createObjectURL(files[0]));
-    } else {
-      setImagePre({ ...updatedBanner, [name]: value });
     }
   };
 
@@ -41,6 +35,7 @@ export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
                 className="edit-logo"
                 type="file"
                 name="logo"
+                accept="image/*"
                 onChange={handleChange}
               />
               <div className="image-container">
@@ -59,13 +54,14 @@ export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               <input
                 className="edit-banner-image"
                 type="file"
-                name="image"
-                onChange={handleChangeBanner}
+                name="banner_image"
+                accept="image/*"
+                onChange={handleChange}
               />
               <div className="image-container">
-                {imagePrev && (
+                {bannerImagePreview && (
                   <img
-                    src={imagePrev}
+                    src={bannerImagePreview}
                     alt="Preview"
                     className="image-preview"
                   />
@@ -77,7 +73,7 @@ export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
             <>
               <input
                 className="edit-name"
-                // type="text"
+                type="text"
                 name="name"
                 value={updatedBanner.name}
                 onChange={handleChange}
@@ -97,7 +93,7 @@ export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
             <>
               <input
                 className="edit-phone"
-                // type="text"
+                type="text"
                 name="phone"
                 value={updatedBanner.phone}
                 onChange={handleChange}
@@ -105,7 +101,7 @@ export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               <h3>Edit Time</h3>
               <input
                 className="edit-time"
-                // type="text"
+                type="text"
                 name="time"
                 value={updatedBanner.time}
                 onChange={handleChange}
@@ -116,24 +112,24 @@ export const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
           {fieldToEdit === "address" && (
             <textarea
               className="edit-address"
-              rows="10"
-              type="text"
+              rows="5"
               name="address"
               value={updatedBanner.address}
               onChange={handleChange}
             />
           )}
-           <div className="button-group-edit">
-      <button className="btn-save-edit" onClick={handleSubmit}>
-        Save
-      </button>
-      <button className="btn-cancel-edit" type="button" onClick={onCancel}>
-        Cancel
-      </button>
-    </div>
+        </div>
+        <div className="button-group-edit">
+          <button className="btn-save-edit" onClick={handleSubmit}>
+            Save
+          </button>
+          <button className="btn-cancel-edit" onClick={onCancel}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
   );
 };
+
 export default EditBanner;
