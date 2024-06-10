@@ -36,7 +36,7 @@ const Login = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + "/user/signin",
+      url: import.meta.env.VITE_API + "/user/signin-restaurant",
       headers: {
         "Content-Type": "application/json",
       },
@@ -50,14 +50,14 @@ const Login = () => {
       .then((response) => {
         const result = response.data;
         const user = {
-          user_id: result.user_id,
+          user_id:  result.user_id,
           is_admin: result.is_admin,
-          company_id: result.company_id,
-          origin_company_name: result.origin_company_name,
+          is_restaurant: result.is_restaurant,
+          restaurant_id: result.restaurant_id,
           user_name: result.user_name,
+          origin_restaurant_name: result.origin_restaurant_name,
           email: result.email,
-          image: result.image,
-          counter_id: result.counter_id // Assuming counter_id is returned in the response
+          image: result.image
         };
 
         const token = result.token.access;
@@ -78,7 +78,7 @@ const Login = () => {
 
   return (
     <>
-    <Menufooter />
+      <Menufooter />
       <div className="box_container_logino">
         <div className="container-box-logino">
           <div className="box-icon-close">

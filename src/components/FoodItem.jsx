@@ -13,7 +13,7 @@ function FoodItem() {
   // const [cart, setCart] = useState([]);
   const [quantity, set_quantity] = useState(1);
 
-  console.log(products);
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     getProducts();
@@ -22,7 +22,7 @@ function FoodItem() {
 
   const getProducts = () => {
     axios
-      .get(import.meta.env.VITE_API + "/restaurants/1/menu_items/list/")
+      .get(import.meta.env.VITE_API + `/restaurants/${storage.restaurant_id}/menu_items/list/`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -35,7 +35,7 @@ function FoodItem() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + "/restaurants/1/categories/list/",
+      url: import.meta.env.VITE_API + `/restaurants/${storage.restaurant_id}/categories/list/`,
       headers: {},
     };
 
@@ -49,6 +49,8 @@ function FoodItem() {
         console.log(error);
       });
   };
+
+
 
   const handleCategoryClick = (categoryId) => {
     setCategoryId(categoryId);
