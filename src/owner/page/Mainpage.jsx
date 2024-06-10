@@ -21,162 +21,46 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 const Mainpage = () => {
-  const [restaurantData, setRestaurantData] = useState(null);
-
-  // Popup Edit Name an Description
-  const [isOpen, setIsOpen] = useState(false);
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
-  // Popup Edit Logo Image
-  const [isOpenlogo, setIsOpenlogo] = useState(false);
-  const togglePopuplogo = () => {
-    setIsOpenlogo(!isOpenlogo);
-  };
-  // Popup Edit Banner Image
-  const [isOpenban, setIsOpenban] = useState(false);
-  const togglePopupbanner = () => {
-    setIsOpenban(!isOpenban);
-  };
-  // Popup Edit Time
-  const [isOpentime, setIsOpentime] = useState(false);
-  const togglePopuptime = () => {
-    setIsOpentime(!isOpentime);
-  };
-
-  const [mainImageBanner, setMainImageBanner] = useState(null);
-  const [mainImageLogo, setMainImageLogo] = useState(null);
-  ///Choose image handleImageLogo
-  const handleImageLogo = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setMainImageLogo([file]);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
-  const handleImage = (event, index) => {
-    const selectedImage = event.target.files[0];
-    const updatedImages = [...selectedImages];
-    updatedImages[index] = selectedImage;
-    setSelectedImages(updatedImages);
-  };
-
-  ///Choose image handleImageBanner
-  const handleImageBanner = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setMainImageBanner([file]);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
-  // Alert Name restaurant
-  const [inputValues, setInputValues] = useState({
-    input1: "",
-    input2: "",
-    input3: "",
-    input4: "",
-    input5: "",
-    input6: "",
-  });
-
-  const [openDialog, setOpenDialog] = useState(false);
-  const [dialogContent, setDialogContent] = useState("");
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setInputValues({ ...inputValues, [name]: value });
-  };
-
-  const handleConfirmClick = () => {
-    const { input1, input2 } = inputValues;
-    if (!input1.trim() && !input2.trim()) {
-      setDialogContent("Please enter data.");
-      setOpenDialog(true); // Display dialog only when there are validation errors
-    } else if (!input1.trim()) {
-      setDialogContent("Please enter store name.");
-      setOpenDialog(true);
-    } else if (!input2.trim()) {
-      setDialogContent("Please enter store description.");
-      setOpenDialog(true);
-    } else {
-      setInputValues({
-        ...inputValues,
-        input1: "",
-        input2: "",
-      });
-      togglePopup();
-    }
-  };
-  //Time
-  const handleConfirmClickTime = () => {
-    const { input3, input4 } = inputValues;
-    if (!input3.trim() && !input4.trim()) {
-      setDialogContent("Please enter data.");
-      setOpenDialog(true); // Display dialog only when there are validation errors
-    } else if (!input3.trim()) {
-      setDialogContent("Please enter start time.");
-      setOpenDialog(true);
-    } else if (!input4.trim()) {
-      setDialogContent("Please enter end time.");
-      setOpenDialog(true);
-    } else{
-      setInputValues({
-        ...inputValues,
-        input3: "",
-        input4: "",
-      });
-      togglePopuptime();
-    }
-  };
-  //
-  //Logo
-  const handleConfirmClickLogo = () => {
-    const { input5 } = inputValues;
-    if (!input5.trim() ) {
-      setDialogContent("Please choose an image.");
-      setOpenDialog(true);
-    }
-    else{
-      setInputValues({
-        ...inputValues,
-        input5: "",
-      });
-      togglePopuplogo();
-    }
-  };
-    //Banner
-    const handleConfirmClickLBanner = () => {
-      const { input6 } = inputValues;
-      if (!input6.trim() ) {
-        setDialogContent("Please choose an image.");
-        setOpenDialog(true);
-      }
-      else{
-        setInputValues({
-          ...inputValues,
-          input6: "",
-        });
-        togglePopupbanner();
-      }
-    };
   
-  //
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+    //  //PopUp box Delete
+    //  const [isPopupDelete, setPopupDelete] = useState(false);
 
+    //  const handleDelete = () => {
+    //      setPopupDelete(!isPopupDelete);
+    //  };
+ 
+    //  //PopUp box add image
+    //  const [isPopupimage, setPopupimage] = useState(false);
+ 
+    //  const togglePopupimage = () => {
+    //      setPopupimage(!isPopupimage);
+    //  };
+ 
+    //  //PopUp box add name
+    //  const [isPopupname, setPopupname] = useState(false);
+ 
+    //  const togglePopupname = () => {
+    //      setPopupname(!isPopupname);
+    //  };
+ 
+    //  //PopUp box add price
+    //  const [isPopupprice, setPopupprice] = useState(false);
+ 
+    //  const togglePopupprice = () => {
+    //      setPopupprice(!isPopupprice);
+    //  };
+    //  //PopUp box add category
+    //  const [isPopupcategory, setPopupcategory] = useState(false);
+ 
+    //  const togglePopupcategory = () => {
+    //      setPopupcategory(!isPopupcategory);
+    //  };
+    //  //PopUp box add description
+    //  const [isPopupdescription, setPopupdescription] = useState(false);
+ 
+    //  const togglePopupdescription = () => {
+    //      setPopupdescription(!isPopupdescription);
+    //  };
   return (
     <>
       <div>
