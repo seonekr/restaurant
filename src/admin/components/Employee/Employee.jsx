@@ -11,6 +11,8 @@ const Employee = () => {
   const [employees, setEmployees] = useState([]);
   const storage = JSON.parse(window.localStorage.getItem("user"));
 
+  console.log("employee.id.....", employees)
+
   useEffect(() => {
     const config = {
       method: "get",
@@ -47,13 +49,14 @@ const Employee = () => {
         const config = {
           method: "delete",
           maxBodyLength: Infinity,
-          url: import.meta.env.VITE_API + `/restaurants/${
-            storage.restaurant_id
-          }/employees/${employee.id}/delete/`,
+          url: import.meta.env.VITE_API + `/restaurants/1
+          }/employees/8/delete/`,
           headers: {
             "Content-Type": "application/json",
           },
         };
+
+       
 
         axios
           .request(config)
@@ -66,6 +69,7 @@ const Employee = () => {
             setEmployees((prevEmployees) =>
               prevEmployees.filter((emp) => emp.employee.id !== employee.id)
             );
+            console.log("employee.id....", employee.id)
           })
           .catch((error) => {
             Swal.fire(
