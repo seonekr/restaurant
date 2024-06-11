@@ -13,6 +13,7 @@ const Ordermenu = ({ orders, setOrders, menuItems, tableId }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [showBill, setShowBill] = useState(false);
   const [checkoutDate, setCheckoutDate] = useState(null);
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   // Combine all orders into a single order
   useEffect(() => {
@@ -51,7 +52,11 @@ const Ordermenu = ({ orders, setOrders, menuItems, tableId }) => {
 
       try {
         const itemDetailsPromises = newItems.map((itemId) =>
-          axios.get(`http://127.0.0.1:8000/restaurant/menu-items/${itemId}/`)
+          axios.get(
+            `${import.meta.env.VITE_API}/restaurants/${
+              storage.restaurant_id
+            }/menu_items/${itemId}/list`
+          )
         );
         const itemDetailsResponses = await Promise.all(itemDetailsPromises);
         const itemDetailsData = itemDetailsResponses.map(
@@ -97,30 +102,60 @@ const Ordermenu = ({ orders, setOrders, menuItems, tableId }) => {
   };
 
   const deleteOrderItem = (itemId) => {
-    // const updatedOrders = orders.map((ord) => {
-    //   if (ord.id === order.id) {
-    //     const updatedOrderItems = ord.order_items.filter(
-    //       (item) => item.id !== itemId
-    //     );
-    //     return { ...ord, order_items: updatedOrderItems };
-    //   }
-    //   return ord;
-    // });
-    const myHeaders = new Headers();
-    myHeaders.append("Cookie", "csrftoken=3kqVvYdmUvnC1fSP3mrkCyUHahHcQlxD");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const myHeaders = new Headers();
+        myHeaders.append(
+          "Cookie",
+          "csrftoken=3kqVvYdmUvnC1fSP3mrkCyUHahHcQlxD"
+        );
 
-    const requestOptions = {
-      method: "DELETE",
-      headers: myHeaders,
-      redirect: "follow",
-    };
+        const requestOptions = {
+          method: "DELETE",
+          headers: myHeaders,
+          redirect: "follow",
+        };
 
-    fetch(`http://127.0.0.1:8000/restaurant/order-items/${itemId}/`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+        fetch(
+          `http://43.201.166.195:8000/restaurants/${storage.restaurant_id}/order-items/${itemId}/cancel/`,
+          requestOptions
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.text();
+          })
+          .then((result) => {
+            console.log(result);
+            // Optionally update UI or show success message
+            Swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your order item has been deleted.",
+            });
+          })
+          .catch((error) => {
+            console.error("Error deleting order item:", error.message);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Failed to delete order item.",
+            });
+          });
 
-    // setOrders(updatedOrders);
+        // Optionally update state or perform other actions after deletion
+        // setOrders(updatedOrders);
+      }
+    });
   };
 
   useEffect(() => {

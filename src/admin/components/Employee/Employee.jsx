@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import OwnerMenu from "../ownerMenu/OwnerMenu";
 import userimage from "../../../img/userImage.png";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
+import Swal from "sweetalert2";
 import "./employee.css";
-import AddEmployee from "./AddEmployee";
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
-
-  console.log("employees....", employees);
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     const config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + "/restaurants/1/employees/list/",
+      url: import.meta.env.VITE_API + `/restaurants/${
+        storage.restaurant_id
+      }/employees/list/`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,69 +31,53 @@ const Employee = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [storage.restaurant_id]);
 
-  const handleDelete = (id) => {
-    const config = {
-      method: "delete",
-      maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + `/user/admin-users/${id}/delete/`, // corrected URL
-      headers: {},
-    };
+  const handleDelete = (employee) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const config = {
+          method: "delete",
+          maxBodyLength: Infinity,
+          url: import.meta.env.VITE_API + `/restaurants/${
+            storage.restaurant_id
+          }/employees/${employee.id}/delete/`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
 
-    axios
-      .request(config)
-      .then((response) => {
-        setUsers(users.filter((user) => user.employee.id !== id));
-        Swal.fire(
-          "Error!",
-          "Admin user has been deleted.",
-          "error"
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        axios
+          .request(config)
+          .then((response) => {
+            Swal.fire(
+              'Deleted!',
+              'The employee has been deleted.',
+              'success'
+            );
+            setEmployees((prevEmployees) =>
+              prevEmployees.filter((emp) => emp.employee.id !== employee.id)
+            );
+          })
+          .catch((error) => {
+            Swal.fire(
+              'Error!',
+              'There was an issue deleting the employee.',
+              'error'
+            );
+            console.log(error);
+          });
+      }
+    });
   };
-
-  // const handleDelete = (category) => {
-  //   Swal.fire({
-  //     title: 'Are you sure?',
-  //     text: `Do you want to delete ${category.name}?`,
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes, delete it!',
-  //     cancelButtonText: 'No, keep it'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/${category.id}/delete/`, {
-  //         method: "DELETE",
-  //       }).then((response) => {
-  //         if (response.ok) {
-  //           // Remove the category from the state
-  //           setCategories(categories.filter((cat) => cat.id !== category.id));
-  //           Swal.fire(
-  //             'Deleted!',
-  //             `${category.name} has been deleted.`,
-  //             'success'
-  //           );
-  //         } else {
-  //           Swal.fire(
-  //             'Error!',
-  //             'There was a problem deleting the category.',
-  //             'error'
-  //           );
-  //         }
-  //       }).catch((error) => {
-  //         Swal.fire(
-  //           'Error!',
-  //           `There was a problem deleting the category: ${error.message}`,
-  //           'error'
-  //         );
-  //       });
-  //     }
-  //   });
-  // };
 
   return (
     <>
@@ -124,7 +109,7 @@ const Employee = () => {
                 <button
                   className="delete_storeDetails"
                   onClick={() => {
-                    handleDelete(user.employee.id);
+                    handleDelete(user.employee);
                   }}
                 >
                   Delete

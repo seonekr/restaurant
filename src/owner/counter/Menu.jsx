@@ -17,10 +17,15 @@ const Menu = () => {
   const [categories, setCategories] = useState([]);
   const [orders, setOrders] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/restaurants/1/orders/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${
+          storage.restaurant_id
+        }/orders/list/`
+      )
       .then((response) => {
         console.log("Table info response:", response.data);
         setTable(response.data);
@@ -31,7 +36,7 @@ const Menu = () => {
 
     axios
       .get(
-        `http://127.0.0.1:8000/restaurants/orders/list/?table_id=${tableId}&restaurant_id=1`
+        `http://127.0.0.1:8000/restaurants/orders/list/?table_id=${tableId}&${storage.restaurant_id}`
       )
       .then((response) => {
         const ordersForTable = response.data.filter(

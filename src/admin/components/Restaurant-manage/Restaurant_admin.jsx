@@ -19,7 +19,7 @@ const Restaurant_admin = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/restaurants/"
+        `${import.meta.env.VITE_API}/restaurants/`
       );
       setDatas(response.data);
     } catch (error) {
@@ -30,9 +30,9 @@ const Restaurant_admin = () => {
   const handleDelete = async (id) => {
     // Modified handleDelete to take id parameter
     try {
-      await axios.delete(
-        `http://43.202.102.25:8000/tourapi/hotel/delete/${id}/`
-      );
+      // await axios.delete(
+      //   `http://43.202.102.25:8000/tourapi/hotel/delete/${id}/`
+      // );
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -85,7 +85,7 @@ const Restaurant_admin = () => {
                       {/* <Expandable>{data.description}</Expandable> */}
                       <div className="txt_tour">
                         <p className="price_number_ones">
-                          Description: ${data.description}
+                          Description: {data.description}
                         </p>
                       </div>
 

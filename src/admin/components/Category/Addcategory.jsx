@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 
 const Addcategory = ({ isOpen, onClose, onSubmit }) => {
   const [categoryName, setCategoryName] = useState("");
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,7 +12,7 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
       e.preventDefault();
       const formdata = new FormData();
       formdata.append("name", categoryName);
-      formdata.append("restaurant", "1");
+
 
       const requestOptions = {
         method: "POST",
@@ -19,7 +20,7 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
         redirect: "follow",
       };
 
-      const response = await fetch(`${import.meta.env.VITE_API}/restaurants/1/categories/create/`, requestOptions);
+      const response = await fetch(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/create/`, requestOptions);
 
       if (!response.ok) {
         throw new Error("Failed to add category");

@@ -9,6 +9,7 @@ import "./css/counter.css";
 
 const Counter = () => {
   const [tables, setTables] = useState([]);
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     fetchData();
@@ -16,7 +17,11 @@ const Counter = () => {
 
   const fetchData = () => {
     axios
-      .get("http://127.0.0.1:8000/restaurants/1/tables/list/")
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${
+          storage.restaurant_id
+        }/tables/list/`
+      )
       .then((response) => {
         setTables(response.data);
       })
@@ -48,7 +53,7 @@ const Counter = () => {
                 <div className="box-img-table">
                   <Link to={`/restaurant/orders/${table.id}`}>
                     <img src={Table} alt={`Table ${table.id}`} />
-                    <h3>{`Table ${table.number}`} </h3>
+                    <h3>{`Table ${table.id}`} </h3>
                     <p>Status: {renderTableStatus(table)}</p>
                   </Link>
                 </div>

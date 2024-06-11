@@ -28,7 +28,9 @@ const Tables = () => {
 
   const fetchData = (restaurant_id) => {
     axios
-      .get(`http://43.201.166.195:8000/restaurants/${restaurant_id}/tables/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${restaurant_id}/tables/list/`
+      )
       .then((response) => {
         setTables(response.data);
       })
@@ -50,9 +52,14 @@ const Tables = () => {
     const restaurant_id = storage.restaurant_id;
 
     axios
-      .post(`http://43.201.166.195:8000/restaurants/${restaurant_id}/tables/create/`, {
-        table_number: tableNumber,
-      })
+      .post(
+        `${
+          import.meta.env.VITE_API
+        }/restaurants/${restaurant_id}/tables/create/`,
+        {
+          table_number: tableNumber,
+        }
+      )
       .then((response) => {
         setTables([...tables, response.data]);
         setShowPopup(false);
@@ -94,7 +101,11 @@ const Tables = () => {
         const restaurantId = storage.restaurant_id;
 
         axios
-          .delete(`http://43.201.166.195:8000/restaurants/${restaurantId}/tables/${tableId}/delete/`)
+          .delete(
+            `${
+              import.meta.env.VITE_API
+            }/restaurants/${restaurantId}/tables/${tableId}/delete/`
+          )
           .then(() => {
             setTables(tables.filter((table) => table.id !== tableId));
             Swal.fire("Deleted!", "The table has been deleted.", "success");
@@ -102,7 +113,11 @@ const Tables = () => {
           })
           .catch((error) => {
             console.error("Error deleting table:", error);
-            Swal.fire("Error!", "There was an issue deleting the table.", "error");
+            Swal.fire(
+              "Error!",
+              "There was an issue deleting the table.",
+              "error"
+            );
           });
       }
     });

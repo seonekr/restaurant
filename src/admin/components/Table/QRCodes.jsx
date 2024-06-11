@@ -19,7 +19,9 @@ const QRCodes = ({ isOpen, onClose, selectedTableId }) => {
   const fetchTables = async (restaurant_id) => {
     try {
       const response = await fetch(
-        `http://43.201.166.195:8000/restaurants/${restaurant_id}/tables/list/`
+        `${
+          import.meta.env.VITE_API
+        }/restaurants/${restaurant_id}/tables/list/`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch tables");
