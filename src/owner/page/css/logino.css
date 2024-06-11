@@ -58,27 +58,29 @@
 }
 
 .forgot_password2 {
-  text-align: center;
+  text-align: end;
 }
 .findpassword2 {
   text-align: center;
   color: #e51e1e;
 }
 .dont_account {
-  text-align: center;
+  text-align: end;
 }
 .signup2 {
   color: #e51e1e;
 }
 
 .login_btn2 {
+  height: 58px;
   transition: background-color 0.3s;
   text-decoration: none;
   text-align: center;
   background-color: #0e64d2;
   color: #fff;
   padding: 13px;
-  border-radius: 10px;
+  font-size: 18px;
+  border-radius: 15px;
   transition: 200ms;
 }
 

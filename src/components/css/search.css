@@ -38,4 +38,10 @@
     background-color: blue;
 }
 
+.icon_account_login{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
 

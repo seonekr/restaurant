@@ -14,6 +14,7 @@ import HomeRestaurant from "./pages/HomeRestaurant";
 import Search from "./components/Search";
 
 
+
 import HomeSeller2 from "./seller/homeSeller copy";
 import HomeSeller from "./seller/homeSeller";
 import Addfood from "./seller/Addfood";
@@ -21,6 +22,7 @@ import Dashborard from "./seller/Dashborard";
 import Login from "./seller/Login";
 
 import Signup1 from "./owner/page/Signup1";
+import Signup2 from "./owner/page/Signup2";
 import Signup from "./owner/page/Signup";
 import LoginO from "./owner/page/LoginO";
 import Mainpage from "./owner/page/Mainpage";
@@ -174,6 +176,7 @@ function App() {
           <Route path="/logino" element={<LoginO />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signup1" element={<Signup1 />} />
+          <Route path="/signup2" element={<Signup2 />} />
           <Route path="/mainpage" element={<Mainpage />} />
           <Route path="/addproduct" element={<Addproduct />} />
           <Route path="/manageorder" element={<Manageorder />} />

@@ -17,17 +17,19 @@ const Search = () => {
           </div>
 
           <div className="Box_containner_form_search">
-            <input 
-              type="text" 
-              placeholder="Search..." 
-            />
+            <input type="text" placeholder="Search..." />
             <button type="submit">
               <FaMagnifyingGlass />
             </button>
           </div>
 
-          <div className="icon_account_login">Scan</div>
-          
+          <div className="icon_account_login">
+            <div>
+              <Link to="#">Scan</Link>
+            </div>
+
+            <Link to="/logino">Login</Link>
+          </div>
         </div>
       </div>
     </>

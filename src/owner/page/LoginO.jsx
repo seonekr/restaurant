@@ -50,14 +50,14 @@ const Login = () => {
       .then((response) => {
         const result = response.data;
         const user = {
-          user_id:  result.user_id,
+          user_id: result.user_id,
           is_admin: result.is_admin,
           is_restaurant: result.is_restaurant,
           restaurant_id: result.restaurant_id,
           user_name: result.user_name,
           origin_restaurant_name: result.origin_restaurant_name,
           email: result.email,
-          image: result.image
+          image: result.image,
         };
 
         const token = result.token.access;
@@ -125,16 +125,16 @@ const Login = () => {
               Login
             </button>
             <div className="dont_account">
-              Do not have an account? {"\n"}
-              <Link to="/signup" className="signup2">
-                Sign up
+              Is this your first time? {"\n"}
+              <Link to="/signup1" className="signup2">
+                Join the membership
               </Link>
             </div>
 
-            <a href="https://myaccount.google.com/" className="login_google2">
+            {/* <a href="https://myaccount.google.com/" className="login_google2">
               <FcGoogle className="iconnDetails_head" />
               Login with Google
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
