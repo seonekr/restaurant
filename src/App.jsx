@@ -10,6 +10,8 @@ import OrderList from "./pages/OrderList";
 import Review from "./pages/Review";
 import Payment from "./pages/Payment";
 import Address from "./pages/Address";
+import HomeRestaurant from "./pages/HomeRestaurant";
+import Search from "./components/Search";
 
 
 import HomeSeller2 from "./seller/homeSeller copy";
@@ -144,7 +146,7 @@ function App() {
         <Routes>
           {/* --------- Home Page ---------- */}
           <Route path="/logino" Component={LoginO} />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/restaurant" element={<Home />} />
           <Route path="/orderList" element={<OrderList />} />
           <Route path="/order" element={<Order />} />
@@ -152,6 +154,8 @@ function App() {
           <Route path="/reviews" element={<Review />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/address" element={<Address />} />
+          <Route path="/" element={<HomeRestaurant />} />
+          <Route path="/search" element={<Search />} />
 
           {/* --------- Seller Page ---------- */}
           <Route path="/homeSeller2" element={<HomeSeller2 />} />
