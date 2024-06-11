@@ -12,6 +12,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const EditEmployee = () => {
+  const storage = JSON.parse(window.localStorage.getItem("user"));
   const { id } = useParams();
   const [employee, setEmployee] = useState({
     name: "",
@@ -25,7 +26,7 @@ const EditEmployee = () => {
 
   useEffect(() => {
     axios
-      .get(import.meta.env.VITE_API + `/restaurants/1/employees/${id}/detail/`)
+      .get(import.meta.env.VITE_API + `/restaurants/${storage.restaurant_id}/employees/list/`)
       .then((response) => {
         setEmployee(response.data);
       })
@@ -59,7 +60,7 @@ const EditEmployee = () => {
     let config = {
       method: "patch",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API +  `/restaurants/1/employees/${id}/update/`,
+      url: import.meta.env.VITE_API +  `/restaurants/${storage.restaurant_id}/employees/${id}/update/`,
       headers: {
         ...data.getHeaders(),
       },

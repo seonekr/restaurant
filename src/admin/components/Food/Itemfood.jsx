@@ -13,6 +13,7 @@ import Bannerres from "./Bannerres";
 function Itemfood() {
   const [selectedFood, setSelectedFood] = useState(null);
   const [products, setProducts] = useState([]);
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     const storage = JSON.parse(window.localStorage.getItem("user"));
@@ -25,7 +26,11 @@ function Itemfood() {
 
   const getProducts = (restaurant_id) => {
     axios
-      .get(`http://43.201.166.195:8000/restaurants/${restaurant_id}/menu_items/list/`)
+      .get(
+        `${
+          import.meta.env.VITE_API
+        }/restaurants/${restaurant_id}/menu_items/list/`
+      )
       .then((response) => {
         setProducts(response.data);
       })
@@ -40,7 +45,7 @@ function Itemfood() {
   const handleEditImage = (food, field) => {
     setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
   };
-  const handleEditPrice= (food, field) => {
+  const handleEditPrice = (food, field) => {
     setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
   };
 
@@ -61,7 +66,11 @@ function Itemfood() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://43.201.166.195:8000/restaurants/1/menu_items/${productId}/`)
+          .delete(
+            `
+            ${import.meta.env.VITE_API}
+              /restaurants/${storage.restaurant_id}/menu_items/${productId}/`
+          )
           .then(() => {
             setProducts(products.filter((product) => product.id !== productId));
             Swal.fire("Deleted!", "The item has been deleted.", "success");
@@ -110,7 +119,9 @@ function Itemfood() {
                       <AiOutlineDelete />
                     </div>
                     <div className="icon_cameraDp22">
-                      <IoCamera onClick={() => handleEditImage(product, "image")} />
+                      <IoCamera
+                        onClick={() => handleEditImage(product, "image")}
+                      />
                     </div>
                     <div className="txt_boxDescription3">
                       <div className="product-info">

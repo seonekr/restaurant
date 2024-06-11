@@ -22,7 +22,7 @@ export const Profile = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/");
+    navigate("/logino");
     return;
   };
 

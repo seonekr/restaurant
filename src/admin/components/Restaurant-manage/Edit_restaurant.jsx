@@ -125,7 +125,7 @@ const Edit_restaurant = () => {
       <OwnerMenu />
       <section id="post">
         <div className="box_container_product">
-          <h2>EditHotel</h2>
+          <h2>Edit Restaurant</h2>
           <div className="submit1">
             <button type="submit">Update</button>
           </div>

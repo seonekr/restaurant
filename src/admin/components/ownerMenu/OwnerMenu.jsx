@@ -78,7 +78,7 @@ const OwnerMenu = () => {
     axios
       .request(config)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.result != "success") {
           localStorage.clear();
 
@@ -105,7 +105,7 @@ const OwnerMenu = () => {
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         set_logo(response.data[0].logo);
       })
       .catch((error) => {
@@ -150,7 +150,7 @@ const OwnerMenu = () => {
 
   const performLogout = () => {
     // Implement your logout logic here
-    console.log("User logged out");
+    // console.log("User logged out");
     // Example: Clear storage and navigate to the login page
     localStorage.clear();
     navigate("/logino");
@@ -205,16 +205,9 @@ const OwnerMenu = () => {
     axios
       .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
       .then((response) => {
-        const {
-          name,
-          logo,
-          address,
-          banner_image,
-          phone,
-          description,
-          time,
-        } = response.data;
-  
+        const { name, logo, address, banner_image, phone, description, time } =
+          response.data;
+
         // Ensure that if any field is missing or undefined, it defaults to an empty string
         const updatedRestaurant = {
           name: name || "",
@@ -225,7 +218,7 @@ const OwnerMenu = () => {
           description: description || "",
           time: time || "",
         };
-  
+
         setRestaurant(updatedRestaurant);
       })
       .catch((error) => {
@@ -299,12 +292,12 @@ const OwnerMenu = () => {
                   <h3>{banner.name}</h3>
                 </NavLink>
               ))} */}
-             
-                <NavLink to="/" className="logo22" >
+
+              <NavLink to="/" className="logo22">
                 <img src={restaurant.logo} alt="logo" />
-                  <h3>{restaurant.name}</h3>
-                </NavLink>
-            
+                <h3>{restaurant.name}</h3>
+              </NavLink>
+
               {/* {is_admin === true && (
                 <div
                   className="popup_image_logo"

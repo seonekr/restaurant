@@ -10,7 +10,9 @@ const TableDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/restaurant/tables/${id}`)
+      .get(`${
+        import.meta.env.VITE_API
+      }/restaurant/tables/${id}`)
       .then((response) => {
         setTable(response.data);
       })

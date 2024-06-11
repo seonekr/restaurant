@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Menufooter from "../../components/Menufooter";
-import "./css/orderDetail.css"; // Ensure you have this CSS file for styling
 import { AiOutlineDelete } from "react-icons/ai";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import Swal from "sweetalert2";
+import "./css/orderDetail.css"; // Ensure you have this CSS file for styling
 
 const OrderDetail = () => {
   const { tableId } = useParams();
   const [orderDetails, setOrderDetails] = useState(null);
   const [menuDetails, setMenuDetails] = useState([]);
+  const storage = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     fetchOrderDetails();
@@ -19,78 +20,67 @@ const OrderDetail = () => {
 
   const fetchOrderDetails = () => {
     axios
-      .get(`http://127.0.0.1:8000/restaurants/1/orders/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/orders/`,
+        {
+          params: {
+            table_id: tableId,
+            status: ["PENDING", "PREPARING", "READY"],
+          },
+        }
+      )
       .then((response) => {
-        const filteredOrders = response.data.filter(
-          (order) =>
-            order.table === parseInt(tableId) &&
-            (order.status === "PENDING" ||
-              order.status === "PREPARING" ||
-              order.status === "READY")
-        );
-        if (filteredOrders.length > 0) {
-          setOrderDetails(filteredOrders[0]); // Assuming you want to show details of the first matching order
+        if (response.data.length > 0) {
+          setOrderDetails(response.data[0]); // Assuming you want to show details of the first matching order
         } else {
           setOrderDetails(null); // No matching order found
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Error fetching order details:", error);
       });
   };
 
   const fetchMenuDetails = () => {
     axios
-      .get(`http://127.0.0.1:8000/restaurants/1/menu_items/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/`
+      )
       .then((response) => {
         setMenuDetails(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Error fetching menu details:", error);
       });
   };
-  const deleteOrderItem = (itemId, fetchOrderDetails) => {
-    const requestOptions = {
-      method: "PATCH",
-      redirect: "follow",
-    };
-  
-    fetch(
-      `http://127.0.0.1:8000/restaurants/1/order-items/${itemId}/cancel/`,
-      requestOptions
-    )
+
+  const deleteOrderItem = (itemId) => {
+    axios
+      .patch(
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/order-items/${itemId}/cancel/`
+      )
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to cancel order item");
-        }
-        return response.json();
-      })
-      .then((result) => {
-        console.log("Order item cancelled successfully:", result);
-        // Use SweetAlert2 to display a success message
+        console.log("Order item cancelled successfully:", response.data);
         Swal.fire({
-          icon: 'success',
-          title: 'Order item cancelled',
-          text: 'The order item has been cancelled successfully.',
-          confirmButtonText: 'OK'
+          icon: "success",
+          title: "Order item cancelled",
+          text: "The order item has been cancelled successfully.",
+          confirmButtonText: "OK",
         }).then(() => {
-          // After the user closes the alert, refetch order details
-          fetchOrderDetails();
+          fetchOrderDetails(); // Refetch order details after successful cancellation
         });
       })
       .catch((error) => {
         console.error("Error cancelling order item:", error);
-        // Use SweetAlert2 to display an error message
         Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to cancel order item. Please try again later.',
-          confirmButtonText: 'OK'
+          icon: "error",
+          title: "Error",
+          text: "Failed to cancel order item. Please try again later.",
+          confirmButtonText: "OK",
         });
       });
   };
 
-  
   return (
     <>
       <div className="container-order-detail">
@@ -131,35 +121,6 @@ const OrderDetail = () => {
                           </div>
                         </div>
                       </div>
-
-                      {/* <p>
-                       
-                        {item.quantity}
-                      </p> */}
-                      {/* <div className="box-txt-quantity">
-                    <div className="right_oflastDetailsFood22">
-                      <div className="icon_DetailsFood22">
-                        <AiOutlineDelete
-                        />
-                      </div>
-                      <div className="boxCount_numfood22">
-                        <p
-                          className="deleteIconCount22"
-                          
-                        >
-                          <RemoveCircleOutlineIcon />
-                        </p>
-                        <p className="countBtn_numberCount">{item.quantity}</p>
-                        <p
-                          className="addIconCount22"
-                      
-                          
-                        >
-                          <ControlPointIcon />
-                        </p>
-                      </div>
-                    </div>
-                  </div> */}
                     </div>
                   );
                 })}
