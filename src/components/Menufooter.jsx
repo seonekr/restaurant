@@ -33,7 +33,7 @@ function Menufooter() {
         <div className="box_content_header">
 
           <div className="menu_header_box">
-            <NavLink to="/" className="linkTomenu">
+            <NavLink to="/home" className="linkTomenu">
               Home
             </NavLink>
             <NavLink to="/order" className="linkTomenu">

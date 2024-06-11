@@ -65,7 +65,7 @@ const Login = () => {
           window.localStorage.setItem("token", token);
         }
         window.localStorage.setItem("user", JSON.stringify(user));
-        navigate("/", { replace: true });
+        navigate("/home", { replace: true });
       })
       .catch((error) => {
         console.log(error);

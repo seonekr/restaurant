@@ -12,7 +12,7 @@ const Search = () => {
         <form>
           <div className="headWithBox_search">
             <div className="head_box_logo">
-              <Link to="/">
+              <Link to="/home">
                 <img src={restaurant} alt="Logo" />
               </Link>
             </div>
