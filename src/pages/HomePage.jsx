@@ -33,7 +33,7 @@ const HomePage = () => {
 
   const getCategories = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/list/`)
+      .get(`${import.meta.env.VITE_API}/restaurants/1/categories/list/`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -44,7 +44,7 @@ const HomePage = () => {
 
   const getRestaurantDetails = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
+      .get(`${import.meta.env.VITE_API}/restaurants/1/`)
       .then((response) => {
         const {
           name,
