@@ -13,6 +13,8 @@ const Editfood = ({ selectedFood, onClose }) => {
     image: null, // Initialize image as null
   });
 
+  const [editMode, setEditMode] = useState(null); // State to track which field to edit
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     if (type === 'file') {
@@ -65,36 +67,46 @@ const Editfood = ({ selectedFood, onClose }) => {
     onClose(); // Close edit form without saving changes
   };
 
+  const handleEditClick = (field) => {
+    setEditMode(field); // Set edit mode to the selected field (name, price, image)
+  };
+
   return (
     <div className="edit-food-form">
       <h2>Edit Food</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={editedFood.name}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Price:
-          <input
-            type="number"
-            name="price"
-            value={editedFood.price}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Image:
-          <input
-            type="file"
-            name="image"
-            onChange={handleChange}
-          />
-        </label>
+        {editMode === 'name' && (
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={editedFood.name}
+              onChange={handleChange}
+            />
+          </label>
+        )}
+        {editMode === 'price' && (
+          <label>
+            Price:
+            <input
+              type="number"
+              name="price"
+              value={editedFood.price}
+              onChange={handleChange}
+            />
+          </label>
+        )}
+        {editMode === 'image' && (
+          <label>
+            Image:
+            <input
+              type="file"
+              name="image"
+              onChange={handleChange}
+            />
+          </label>
+        )}
         <div className="form-buttons">
           <button type="submit">Save</button>
           <button type="button" onClick={handleCancel}>
@@ -102,6 +114,12 @@ const Editfood = ({ selectedFood, onClose }) => {
           </button>
         </div>
       </form>
+      {/* Toggle buttons to switch between editing name, price, and image */}
+      <div className="toggle-buttons">
+        <button onClick={() => handleEditClick('name')}>Edit Name</button>
+        <button onClick={() => handleEditClick('price')}>Edit Price</button>
+        <button onClick={() => handleEditClick('image')}>Edit Image</button>
+      </div>
     </div>
   );
 };

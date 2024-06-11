@@ -34,7 +34,13 @@ function Itemfood() {
       });
   };
 
-  const handleEditFood = (food, field) => {
+  const handleEditName = (food, field) => {
+    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
+  };
+  const handleEditImage = (food, field) => {
+    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
+  };
+  const handleEditPrice= (food, field) => {
     setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
   };
 
@@ -104,14 +110,14 @@ function Itemfood() {
                       <AiOutlineDelete />
                     </div>
                     <div className="icon_cameraDp22">
-                      <IoCamera onClick={() => handleEditFood(product, "image")} />
+                      <IoCamera onClick={() => handleEditImage(product, "image")} />
                     </div>
                     <div className="txt_boxDescription3">
                       <div className="product-info">
                         <p className="product-name">{product.name}</p>
                         <div className="edit-icon-name">
                           <FaPencil
-                            onClick={() => handleEditFood(product, "name")} // Specify field to edit
+                            onClick={() => handleEditName(product, "name")} // Specify field to edit
                           />
                         </div>
                       </div>
@@ -119,7 +125,7 @@ function Itemfood() {
                         <p className="product-price">Price: ${product.price}</p>
                         <div className="edit-icon-price">
                           <FaPencil
-                            onClick={() => handleEditFood(product, "price")} // Specify field to edit
+                            onClick={() => handleEditPrice(product, "price")} // Specify field to edit
                           />
                         </div>
                       </div>

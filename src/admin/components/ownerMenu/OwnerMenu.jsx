@@ -39,7 +39,15 @@ const OwnerMenu = () => {
   const [logo, set_logo] = useState(null);
   const [image, set_image] = useState(null);
   const [mainImageLogo, setMainImagLogo] = useState(null);
-
+  const [restaurant, setRestaurant] = useState({
+    name: "",
+    logo: "",
+    address: "",
+    banner_image: "",
+    phone: "",
+    description: "",
+    time: "",
+  });
   // Choose logo image
   const [isPopupImageLogo, setPopupImageLogo] = useState(false);
 
@@ -180,16 +188,48 @@ const OwnerMenu = () => {
       .catch((error) => console.error(error));
   };
   useEffect(() => {
-    getBanners();
+    // getBanners();
+    getRestaurantDetails();
   }, []);
-  const getBanners = () => {
+  // const getBanners = () => {
+  //   axios
+  //     .get(import.meta.env.VITE_API + `/restaurant/restaurant`)
+  //     .then((response) => {
+  //       setBanners(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching banners:", error);
+  //     });
+  // };
+  const getRestaurantDetails = () => {
     axios
-      .get(import.meta.env.VITE_API + `/restaurant/restaurant`)
+      .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
       .then((response) => {
-        setBanners(response.data);
+        const {
+          name,
+          logo,
+          address,
+          banner_image,
+          phone,
+          description,
+          time,
+        } = response.data;
+  
+        // Ensure that if any field is missing or undefined, it defaults to an empty string
+        const updatedRestaurant = {
+          name: name || "",
+          logo: logo || "",
+          address: address || "",
+          banner_image: banner_image || "",
+          phone: phone || "",
+          description: description || "",
+          time: time || "",
+        };
+  
+        setRestaurant(updatedRestaurant);
       })
       .catch((error) => {
-        console.error("Error fetching banners:", error);
+        console.error("Error fetching restaurant details:", error);
       });
   };
   return (
@@ -225,26 +265,26 @@ const OwnerMenu = () => {
                 </NavLink>
               </>
             )}
- <NavLink to="/dashboard" className="link">
-                  <HomeIcon />
-                  <p>Home</p>
-                </NavLink>
-                <NavLink to="/board" className="link">
-                  <RxDashboard />
-                  <p>Dashboard</p>
-                </NavLink>
-                <NavLink to="/table" className="link">
-                  <TableRestaurantIcon />
-                  <p>Table</p>
-                </NavLink>
-                <NavLink to="/category" className="link">
-                  <MenuBookIcon />
-                  <p>Category</p>
-                </NavLink>
-                <NavLink to="/employee" className="link">
-                  <LiaUserCogSolid />
-                  <p>Employee</p>
-                </NavLink>
+            <NavLink to="/dashboard" className="link">
+              <HomeIcon />
+              <p>Home</p>
+            </NavLink>
+            <NavLink to="/board" className="link">
+              <RxDashboard />
+              <p>Dashboard</p>
+            </NavLink>
+            <NavLink to="/table" className="link">
+              <TableRestaurantIcon />
+              <p>Table</p>
+            </NavLink>
+            <NavLink to="/category" className="link">
+              <MenuBookIcon />
+              <p>Category</p>
+            </NavLink>
+            <NavLink to="/employee" className="link">
+              <LiaUserCogSolid />
+              <p>Employee</p>
+            </NavLink>
             <div onClick={handleLogout} className="link">
               <IoLogOutOutline />
               <p>Log Out</p>
@@ -253,12 +293,18 @@ const OwnerMenu = () => {
 
           <div className="right">
             <div className="box_popupImage_logo">
-              {banners.map((banner) => (
+              {/* {banners.map((banner) => (
                 <NavLink to="/" className="logo22" key={banner.id}>
                   <img src={banner.logo} alt="" />
                   <h3>{banner.name}</h3>
                 </NavLink>
-              ))}
+              ))} */}
+             
+                <NavLink to="/" className="logo22" >
+                <img src={restaurant.logo} alt="logo" />
+                  <h3>{restaurant.name}</h3>
+                </NavLink>
+            
               {/* {is_admin === true && (
                 <div
                   className="popup_image_logo"

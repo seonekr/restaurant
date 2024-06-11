@@ -24,11 +24,8 @@ const HomePage = () => {
     description: "",
     time: "",
   });
-
   const storage = JSON.parse(window.localStorage.getItem("user"));
-
   // console.log("storage =====================", storage.restaurant_id)
-
   useEffect(() => {
     getCategories();
     getRestaurantDetails();
@@ -36,7 +33,7 @@ const HomePage = () => {
 
   const getCategories = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${restaurantId}/categories/list/`)
+      .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/list/`)
       .then((response) => {
         setCategories(response.data);
       })
