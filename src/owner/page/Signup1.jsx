@@ -57,7 +57,7 @@ const Signup1 = () => {
                   />
                   <label htmlFor="seller" className="user_type02">
                     <FaUsers id="icon_user_sell" />
-                    Seller
+                    owner
                   </label>
                 </li>
               </ul>
