@@ -33,7 +33,9 @@ const useCart = () => {
   };
 
   const removeFromCart = (id, store_name) => {
-    setCart(cart.filter((item) => !(item.id === id && item.store_name === store_name)));
+    setCart(
+      cart.filter((item) => !(item.id === id && item.store_name === store_name))
+    );
   };
 
   const updateQuantity = (id, store_name, quantity) => {
@@ -42,7 +44,9 @@ const useCart = () => {
     } else {
       setCart(
         cart.map((item) =>
-          item.id === id && item.store_name === store_name ? { ...item, quantity } : item
+          item.id === id && item.store_name === store_name
+            ? { ...item, quantity }
+            : item
         )
       );
     }
@@ -72,8 +76,17 @@ const Cart = ({ products }) => {
   const [storeId, setStoreId] = useState(null);
   const [showPayment, setShowPayment] = useState(false);
   const navigate = useNavigate();
-  const { cart, addToCart, removeFromCart, updateQuantity, getTotalItems, getTotalPriceForStore } = useCart();
-  const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).user_id : null;
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    getTotalItems,
+    getTotalPriceForStore,
+  } = useCart();
+  const userId = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).user_id
+    : null;
 
   const handleConfirmPayment = async (event) => {
     event.preventDefault();
@@ -84,12 +97,14 @@ const Cart = ({ products }) => {
       const employeeId = localStorage.getItem("employeeId");
 
       if (!restaurantId || !tableId || !employeeId) {
-        throw new Error("Missing restaurant, table, or employee ID in local storage.");
+        throw new Error(
+          "Missing restaurant, table, or employee ID in local storage."
+        );
       }
 
       const orderData = {
         restaurant: parseInt(restaurantId),
-        table: parseInt(tableId),
+        table: 2,
         employee: parseInt(employeeId),
         status: "PENDING",
         paid: false,
@@ -100,7 +115,11 @@ const Cart = ({ products }) => {
         })),
       };
 
-      const response = await axios.post(`http://43.201.166.195:8000/restaurants/${restaurantId}/orders/create/`, orderData);
+      const response = await axios.post(
+        import.meta.env.VITE_API +
+          `/restaurants/${restaurantId}/orders/create/`,
+        orderData
+      );
 
       if (response.status === 201) {
         Swal.fire({
@@ -133,7 +152,7 @@ const Cart = ({ products }) => {
         <>
           <Menufooter products={products} />
           <div className="cart_box_container112">
-            <Link to="/" className="back_orderBox">
+            <Link to="/home" className="back_orderBox">
               <IoIosArrowBack id="icons_back" />
               <p>Back</p>
             </Link>

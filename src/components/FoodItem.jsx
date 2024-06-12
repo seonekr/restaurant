@@ -23,7 +23,11 @@ function FoodItem() {
 
   const getProducts = (restaurant_id) => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${restaurant_id}/menu_items/list/`)
+      .get(
+        `${
+          import.meta.env.VITE_API
+        }/restaurants/${restaurant_id}/menu_items/list/`
+      )
       .then((response) => {
         setProducts(response.data);
       })
@@ -34,7 +38,11 @@ function FoodItem() {
 
   const getCategories = (restaurant_id) => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${restaurant_id}/categories/list/`)
+      .get(
+        `${
+          import.meta.env.VITE_API
+        }/restaurants/${restaurant_id}/categories/list/`
+      )
       .then((response) => {
         setCategories(response.data);
       })
@@ -46,24 +54,28 @@ function FoodItem() {
   const handleCategoryClick = (categoryId) => {
     setCategoryId(categoryId);
   };
-
   const addToCart = (product) => {
-    const existingProductIndex = cart.findIndex(
-      (item) => item.id === product.id
-    );
+    // Clone the current cart state
+    const updatedCart = [...cart];
 
-    if (existingProductIndex !== -1) {
-      const updatedCart = [...cart];
-      updatedCart[existingProductIndex].quantity++;
-      setCart(updatedCart);
+    // Check if the product already exists in the cart
+    const existingProduct = updatedCart.find((item) => item.id === product.id);
+
+    if (existingProduct) {
+      // Product already exists in cart, show alert and do not add again
+      alert("This product is already in your cart!");
     } else {
+      // Product does not exist in cart, add it with quantity 1
       const updatedProduct = { ...product, quantity: 1 };
-      setCart([...cart, updatedProduct]);
+      updatedCart.push(updatedProduct);
+      setCart(updatedCart);
+
+      // Show alert that product was added to cart
+      alert("Product added to cart!");
     }
 
     // Update local storage with updated cart
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const loadCartFromLocalStorage = () => {
@@ -72,6 +84,7 @@ function FoodItem() {
       setCart(JSON.parse(storedCart));
     }
   };
+  
 
   return (
     <>
@@ -79,7 +92,9 @@ function FoodItem() {
         {categories.map((category) => (
           <div key={category.id}>
             <Link
-              className={`link_categor_l ${category.id === categoryId ? "activeCategory" : ""}`}
+              className={`link_categor_l ${
+                category.id === categoryId ? "activeCategory" : ""
+              }`}
               onClick={() => handleCategoryClick(category.id)}
             >
               {category.name}

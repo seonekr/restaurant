@@ -12,71 +12,45 @@ const Employee = () => {
   const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
-    const config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + `/restaurants/${
-        storage.restaurant_id
-      }/employees/list/`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    fetchEmployees();
+  }, [storage.restaurant_id]);
 
+  const fetchEmployees = () => {
     axios
-      .request(config)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${
+          storage.restaurant_id
+        }/employees/list/`
+      )
       .then((response) => {
         setEmployees(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching employees:", error);
       });
-  }, [storage.restaurant_id]);
+  };
 
-  const handleDelete = (employee) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const config = {
-          method: "delete",
-          maxBodyLength: Infinity,
-          url: import.meta.env.VITE_API + `/restaurants/${
-            storage.restaurant_id
-          }/employees/${employee.id}/delete/`,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
+  const handleDelete = (employeeId) => {
+    const requestOptions = {
+      method: "DELETE",
+      redirect: "follow",
+    };
 
-        axios
-          .request(config)
-          .then((response) => {
-            Swal.fire(
-              'Deleted!',
-              'The employee has been deleted.',
-              'success'
-            );
-            setEmployees((prevEmployees) =>
-              prevEmployees.filter((emp) => emp.employee.id !== employee.id)
-            );
-          })
-          .catch((error) => {
-            Swal.fire(
-              'Error!',
-              'There was an issue deleting the employee.',
-              'error'
-            );
-            console.log(error);
-          });
-      }
-    });
+    fetch(
+      `http://127.0.0.1:8000/restaurants/${storage.restaurant_id}/employees/${employeeId}/delete/`,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          console.log("Employee deleted successfully");
+          fetchEmployees(); // Refresh employee list after deletion
+        } else {
+          throw new Error("Failed to delete employee");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting employee:", error);
+      });
   };
 
   return (
@@ -106,14 +80,15 @@ const Employee = () => {
                 </div>
               </div>
               <div className="btn_box_Cont">
-                <button
-                  className="delete_storeDetails"
-                  onClick={() => {
-                    handleDelete(user.employee);
-                  }}
-                >
-                  Delete
-                </button>
+                {user.employee && (
+                  <button
+                    className="delete_storeDetails"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    Delete
+                  </button>
+                )}
+
                 <Link
                   to={`/edit_employee/${user.employee.id}`}
                   className="viewMore_storeDetails"
