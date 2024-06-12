@@ -11,7 +11,7 @@ const Employee = () => {
   const [employees, setEmployees] = useState([]);
   const storage = JSON.parse(window.localStorage.getItem("user"));
 
-  console.log("employee.id.....", employees)
+  console.log("employee.id.....", employees);
 
   useEffect(() => {
     fetchEmployees();
@@ -33,27 +33,43 @@ const Employee = () => {
   };
 
   const handleDelete = (employeeId) => {
-    const requestOptions = {
-      method: "DELETE",
-      redirect: "follow",
-    };
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to delete this employee?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const requestOptions = {
+          method: "DELETE",
+          redirect: "follow",
+        };
 
-    fetch(
-      `http://127.0.0.1:8000/restaurants/${storage.restaurant_id}/employees/${employeeId}/delete/`,
-      requestOptions
-    )
-      .then((response) => {
-        if (response.ok) {
-          console.log("Employee deleted successfully");
-          fetchEmployees(); // Refresh employee list after deletion
-        } else {
-          throw new Error("Failed to delete employee");
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting employee:", error);
-      });
-
+        fetch(
+          `http://127.0.0.1:8000/restaurants/${storage.restaurant_id}/employees/${employeeId}/delete/`,
+          requestOptions
+        )
+          .then((response) => {
+            if (response.ok) {
+              Swal.fire("Deleted!", "Employee has been deleted.", "success");
+              fetchEmployees(); // Refresh employee list after deletion
+            } else {
+              throw new Error("Failed to delete employee");
+            }
+          })
+          .catch((error) => {
+            Swal.fire(
+              "Error!",
+              "There was an error deleting the employee.",
+              "error"
+            );
+            console.error("Error deleting employee:", error);
+          });
+      }
+    });
   };
 
   return (

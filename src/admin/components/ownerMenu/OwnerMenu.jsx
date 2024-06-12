@@ -27,9 +27,11 @@ const OwnerMenu = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const storage = JSON.parse(window.localStorage.getItem("user"));
-  var is_restaurant = false;
+  var restaurant_id = false;
   if (localStorage.getItem("user")) {
-    is_restaurant = JSON.parse(window.localStorage.getItem("user")).restaurant_id;
+    restaurant_id = JSON.parse(
+      window.localStorage.getItem("user")
+    ).restaurant_id;
   }
 
   var is_admin = false;
@@ -258,7 +260,7 @@ const OwnerMenu = () => {
                 </NavLink>
               </>
             )}
-            {is_restaurant === true && (
+            {restaurant_id && (
               <>
                 <NavLink to="/dashboard" className="link">
                   <HomeIcon />
@@ -282,6 +284,7 @@ const OwnerMenu = () => {
                 </NavLink>
               </>
             )}
+
             <div onClick={handleLogout} className="link">
               <IoLogOutOutline />
               <p>Log Out</p>
@@ -296,18 +299,12 @@ const OwnerMenu = () => {
                   <h3>{banner.name}</h3>
                 </NavLink>
               ))} */}
-      {is_restaurant === true && (
+
               <NavLink to="/home" className="logo22">
                 <img src={restaurant.logo} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
-      )}
-      {is_admin === true && (
-              <NavLink to="/" className="logo22">
-                <img src={Logo1} alt="logo" />
-                <h3>Humanscot</h3>
-              </NavLink>
-      )}
+
               {/* {is_admin === true && (
                 <div
                   className="popup_image_logo"
@@ -364,7 +361,7 @@ const OwnerMenu = () => {
             <div className="boximage_admin">
               <NavLink to="/account-admin" className="userAdminImage">
                 <p>{storage.email}</p>
-                <img src={storage.image}/>
+                <img src={storage.image} />
               </NavLink>
             </div>
           </div>
