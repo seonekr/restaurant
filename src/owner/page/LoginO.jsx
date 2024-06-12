@@ -36,7 +36,7 @@ const Login = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + "/user/signin-restaurant",
+      url: import.meta.env.VITE_API + "/user/signin",
       headers: {
         "Content-Type": "application/json",
       },
@@ -52,12 +52,15 @@ const Login = () => {
         const user = {
           user_id: result.user_id,
           is_admin: result.is_admin,
-          is_restaurant: result.is_restaurant,
-          restaurant_id: result.restaurant_id,
+          store_id: result.store_id,
           user_name: result.user_name,
-          origin_restaurant_name: result.origin_restaurant_name,
+          origin_store_name: result.origin_store_name,
           email: result.email,
           image: result.image,
+          restaurant_id: result.restaurant_id,
+          restaurnt_name: result.restaurnt_name,
+          employee_id: result.employee_id,
+          employee_role: result.employee_role,
         };
 
         const token = result.token.access;
