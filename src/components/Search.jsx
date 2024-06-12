@@ -9,28 +9,28 @@ const Search = () => {
   return (
     <>
       <div className="navbar_header_search">
-        <div className="headWithBox_search">
-          <div className="head_box_logo">
-            <Link to="/">
-              <img src={restaurant} alt="Logo" />
-            </Link>
-          </div>
-
-          <div className="Box_containner_form_search">
-            <input type="text" placeholder="Search..." />
-            <button type="submit">
-              <FaMagnifyingGlass />
-            </button>
-          </div>
-
-          <div className="icon_account_login">
-            <div>
-              <Link to="#">Scan</Link>
+        <form>
+          <div className="headWithBox_search">
+            <div className="head_box_logo">
+              <Link to="/home">
+                <img src={restaurant} alt="Logo" />
+              </Link>
             </div>
 
-            <Link to="/logino">Login</Link>
+            <div className="Box_containner_form_search">
+              <input type="search" placeholder="Search..." />
+              <button className="btn_submit">
+                <FaMagnifyingGlass id="FaMagnifyingGlass"/>
+              </button>
+            </div>
+
+            <div className="icon_account_login">
+                <Link to="#">Scan</Link>
+
+              <Link to="/logino">Login</Link>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

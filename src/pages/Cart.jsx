@@ -14,6 +14,9 @@ const useCart = () => {
     return localCart ? JSON.parse(localCart) : [];
   });
 
+  const employeeId = 2; // Assuming employee ID is 2
+  const tableId = 2; // Assuming table ID is 2
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -104,22 +107,18 @@ const Cart = ({ products }) => {
 
       const orderData = {
         restaurant: parseInt(restaurantId),
-        table: 2,
+        table: parseInt(tableId),
         employee: parseInt(employeeId),
         status: "PENDING",
         paid: false,
         items: cart.map((item) => ({
           menu_item: item.id,
           quantity: item.quantity,
-          employee: parseInt(employeeId),
+          employee: 2,
         })),
       };
 
-      const response = await axios.post(
-        import.meta.env.VITE_API +
-          `/restaurants/${restaurantId}/orders/create/`,
-        orderData
-      );
+      const response = await axios.post(`http://43.201.166.195:8000/restaurants/${restaurantId}/orders/create/`, orderData);
 
       if (response.status === 201) {
         Swal.fire({

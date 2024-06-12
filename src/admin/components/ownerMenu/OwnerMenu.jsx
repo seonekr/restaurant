@@ -293,7 +293,7 @@ const OwnerMenu = () => {
                 </NavLink>
               ))} */}
 
-              <NavLink to="/" className="logo22">
+              <NavLink to="/home" className="logo22">
                 <img src={restaurant.logo} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
