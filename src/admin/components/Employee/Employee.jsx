@@ -32,7 +32,6 @@ const Employee = () => {
       });
   };
 
-<<<<<<< HEAD
   const handleDelete = (employeeId) => {
     const requestOptions = {
       method: "DELETE",
@@ -54,54 +53,7 @@ const Employee = () => {
       .catch((error) => {
         console.error("Error deleting employee:", error);
       });
-=======
-  const handleDelete = (employee) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const config = {
-          method: "delete",
-          maxBodyLength: Infinity,
-          url: import.meta.env.VITE_API + `/restaurants/1
-          }/employees/8/delete/`,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
 
-       
-
-        axios
-          .request(config)
-          .then((response) => {
-            Swal.fire(
-              'Deleted!',
-              'The employee has been deleted.',
-              'success'
-            );
-            setEmployees((prevEmployees) =>
-              prevEmployees.filter((emp) => emp.employee.id !== employee.id)
-            );
-            console.log("employee.id....", employee.id)
-          })
-          .catch((error) => {
-            Swal.fire(
-              'Error!',
-              'There was an issue deleting the employee.',
-              'error'
-            );
-            console.log(error);
-          });
-      }
-    });
->>>>>>> 930fb23411dfcf4cf8c6f447d48ab2c833703b0f
   };
 
   return (
