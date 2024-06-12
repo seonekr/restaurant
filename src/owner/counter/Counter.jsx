@@ -44,6 +44,39 @@ const Counter = () => {
       <div className="container-counter">
         <div className="contain-counter">
           <h2>Tables in Restaurant</h2>
+          <div className="Reserve">
+            <p>s</p>
+            {/* <div className="colorBox_chContainer">
+              <h1>Color:</h1>
+              <div className="addcolor_container">
+                <div className="Card_boxColor">
+                  <div
+                    style={{
+                      backgroundColor: color,
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "50%",
+                    }}
+                  ></div>
+                  <span
+                    className="spanCancelBox"
+                    onClick={() => removeColorInput(index)}
+                  >
+                    ×
+                  </span>
+                </div>
+              </div>
+
+              <div className="addcolorContent">
+                <input
+                  className="inputBoxaddcolor"
+                  type="text"
+                  placeholder="Enter Color"
+                />
+                <div className="btn_addcolorbox">Add</div>
+              </div>
+            </div> */}
+          </div>
           <div className="container-table1">
             {tables.map((table) => (
               <div
