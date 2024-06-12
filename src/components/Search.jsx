@@ -24,6 +24,8 @@ const Search = () => {
     height: 240,
     width: 320,
   };
+
+  
   return (
     <>
       <div className="navbar_header_search">

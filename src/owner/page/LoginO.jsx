@@ -68,7 +68,23 @@ const Login = () => {
           window.localStorage.setItem("token", token);
         }
         window.localStorage.setItem("user", JSON.stringify(user));
-        navigate("/", { replace: true });
+
+        if (user.restaurant_id) {
+          window.localStorage.setItem(
+            "restaurant",
+            JSON.stringify(user.restaurant_id)
+          );
+          navigate("/home", { replace: true });
+        }else if (user.is_admin) {
+          window.localStorage.setItem(
+            "restaurant",
+            JSON.stringify(user.is_admin)
+          );
+          navigate("/home", { replace: true });
+        }else{
+          navigate("/", { replace: true });
+
+        }
       })
       .catch((error) => {
         console.log(error);
