@@ -27,9 +27,11 @@ const OwnerMenu = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const storage = JSON.parse(window.localStorage.getItem("user"));
-  var store_id = false;
+  var restaurant_id = false;
   if (localStorage.getItem("user")) {
-    store_id = JSON.parse(window.localStorage.getItem("user")).store_id;
+    restaurant_id = JSON.parse(
+      window.localStorage.getItem("user")
+    ).restaurant_id;
   }
 
   var is_admin = false;
@@ -232,6 +234,34 @@ const OwnerMenu = () => {
           <div className="menu">
             {is_admin === true && (
               <>
+                {/* <NavLink to="/dashboard" className="link">
+                  <HomeIcon />
+                  <p>Home</p>
+                </NavLink> */}
+                <NavLink to="/board" className="link">
+                  <RxDashboard />
+                  <p>Dashboard</p>
+                </NavLink>
+                {/* <NavLink to="/table" className="link">
+                  <TableRestaurantIcon />
+                  <p>Table</p>
+                </NavLink> */}
+                {/* <NavLink to="/category" className="link">
+                  <MenuBookIcon />
+                  <p>Category</p>
+                </NavLink> */}
+                {/* <NavLink to="/employee" className="link">
+                  <LiaUserCogSolid />
+                  <p>Employee</p>
+                </NavLink> */}
+                <NavLink to="/restaurant_admin" className="link">
+                  <StorefrontIcon />
+                  <p>Restaurant</p>
+                </NavLink>
+              </>
+            )}
+            {restaurant_id && (
+              <>
                 <NavLink to="/dashboard" className="link">
                   <HomeIcon />
                   <p>Home</p>
@@ -252,32 +282,9 @@ const OwnerMenu = () => {
                   <LiaUserCogSolid />
                   <p>Employee</p>
                 </NavLink>
-                <NavLink to="/restaurant_admin" className="link">
-                  <StorefrontIcon />
-                  <p>Restaurant</p>
-                </NavLink>
               </>
             )}
-            <NavLink to="/dashboard" className="link">
-              <HomeIcon />
-              <p>Home</p>
-            </NavLink>
-            <NavLink to="/board" className="link">
-              <RxDashboard />
-              <p>Dashboard</p>
-            </NavLink>
-            <NavLink to="/table" className="link">
-              <TableRestaurantIcon />
-              <p>Table</p>
-            </NavLink>
-            <NavLink to="/category" className="link">
-              <MenuBookIcon />
-              <p>Category</p>
-            </NavLink>
-            <NavLink to="/employee" className="link">
-              <LiaUserCogSolid />
-              <p>Employee</p>
-            </NavLink>
+
             <div onClick={handleLogout} className="link">
               <IoLogOutOutline />
               <p>Log Out</p>
@@ -293,7 +300,7 @@ const OwnerMenu = () => {
                 </NavLink>
               ))} */}
 
-              <NavLink to="/" className="logo22">
+              <NavLink to="/home" className="logo22">
                 <img src={restaurant.logo} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
@@ -354,7 +361,7 @@ const OwnerMenu = () => {
             <div className="boximage_admin">
               <NavLink to="/account-admin" className="userAdminImage">
                 <p>{storage.email}</p>
-                <img src={storage.images || userimage} alt="admin profile" />
+                <img src={storage.image} />
               </NavLink>
             </div>
           </div>

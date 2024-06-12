@@ -26,14 +26,14 @@ function Menufooter() {
   if (localStorage.getItem("user")) {
     is_admin = JSON.parse(window.localStorage.getItem("user")).is_admin;
   }
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <div className="menufooter_contentHeader">
         <div className="box_content_header">
 
           <div className="menu_header_box">
-            <NavLink to="/" className="linkTomenu">
+            <NavLink to="/home" className="linkTomenu">
               Home
             </NavLink>
             <NavLink to="/order" className="linkTomenu">

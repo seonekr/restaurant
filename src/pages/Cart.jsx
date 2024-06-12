@@ -14,6 +14,9 @@ const useCart = () => {
     return localCart ? JSON.parse(localCart) : [];
   });
 
+  const employeeId = 2; // Assuming employee ID is 2
+  const tableId = 2; // Assuming table ID is 2
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -33,7 +36,9 @@ const useCart = () => {
   };
 
   const removeFromCart = (id, store_name) => {
-    setCart(cart.filter((item) => !(item.id === id && item.store_name === store_name)));
+    setCart(
+      cart.filter((item) => !(item.id === id && item.store_name === store_name))
+    );
   };
 
   const updateQuantity = (id, store_name, quantity) => {
@@ -42,7 +47,9 @@ const useCart = () => {
     } else {
       setCart(
         cart.map((item) =>
-          item.id === id && item.store_name === store_name ? { ...item, quantity } : item
+          item.id === id && item.store_name === store_name
+            ? { ...item, quantity }
+            : item
         )
       );
     }
@@ -72,8 +79,17 @@ const Cart = ({ products }) => {
   const [storeId, setStoreId] = useState(null);
   const [showPayment, setShowPayment] = useState(false);
   const navigate = useNavigate();
-  const { cart, addToCart, removeFromCart, updateQuantity, getTotalItems, getTotalPriceForStore } = useCart();
-  const userId = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).user_id : null;
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    getTotalItems,
+    getTotalPriceForStore,
+  } = useCart();
+  const userId = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).user_id
+    : null;
 
   const handleConfirmPayment = async (event) => {
     event.preventDefault();
@@ -84,7 +100,9 @@ const Cart = ({ products }) => {
       const employeeId = localStorage.getItem("employeeId");
 
       if (!restaurantId || !tableId || !employeeId) {
-        throw new Error("Missing restaurant, table, or employee ID in local storage.");
+        throw new Error(
+          "Missing restaurant, table, or employee ID in local storage."
+        );
       }
 
       const orderData = {
@@ -96,7 +114,7 @@ const Cart = ({ products }) => {
         items: cart.map((item) => ({
           menu_item: item.id,
           quantity: item.quantity,
-          employee: parseInt(employeeId),
+          employee: 2,
         })),
       };
 
@@ -133,7 +151,7 @@ const Cart = ({ products }) => {
         <>
           <Menufooter products={products} />
           <div className="cart_box_container112">
-            <Link to="/" className="back_orderBox">
+            <Link to="/home" className="back_orderBox">
               <IoIosArrowBack id="icons_back" />
               <p>Back</p>
             </Link>
