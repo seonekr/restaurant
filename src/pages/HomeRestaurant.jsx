@@ -16,7 +16,7 @@ function HomeRestaurant() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://43.201.166.195:8000/restaurants/?search=restaurant01",
+      url: import.meta.env.VITE_API + " /restaurants/?search=restaurant01",
       headers: {},
     };
 
@@ -42,16 +42,20 @@ function HomeRestaurant() {
         </div>
         <div className="box_itemFood_restaurant">
           {restaurants.map((restaurant, index) => (
-            <div className="box_containner_restaurant" >
-              <Link to="#" className="box_containner_itemFood" key={index}>
+            <div className="box_containner_restaurant">
+              <Link to={``} className="box_containner_itemFood" key={index}>
                 <div className="box_containner_image">
-                  <img src={restaurant.logo } alt="img" />
+                  <img src={restaurant.logo} alt="img" />
                   <div className="txt_boxDescription">
                     <div className="product-info-txt">
-                      <p className="product-name-txt">Name: {restaurant.name}</p>
+                      <p className="product-name-txt">
+                        Name: {restaurant.name}
+                      </p>
                     </div>
                     <div className="product-info-txt">
-                      <p className="product-price-txt">Description: {restaurant.description}</p>
+                      <p className="product-price-txt">
+                        Description: {restaurant.description}
+                      </p>
                     </div>
                   </div>
                 </div>
