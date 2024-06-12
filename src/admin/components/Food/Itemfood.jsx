@@ -11,12 +11,13 @@ import "./itemfood1.css";
 import Bannerres from "./Bannerres";
 
 function Itemfood() {
+  const [fieldToEdit, setFieldToEdit] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
   const [products, setProducts] = useState([]);
   const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
-    const storage = JSON.parse(window.localStorage.getItem("user"));
     if (storage && storage.restaurant_id) {
       getProducts(storage.restaurant_id);
     } else {
@@ -27,9 +28,7 @@ function Itemfood() {
   const getProducts = (restaurant_id) => {
     axios
       .get(
-        `${
-          import.meta.env.VITE_API
-        }/restaurants/${restaurant_id}/menu_items/list/`
+        `${import.meta.env.VITE_API}/restaurants/${restaurant_id}/menu_items/list/`
       )
       .then((response) => {
         setProducts(response.data);
@@ -40,19 +39,21 @@ function Itemfood() {
   };
 
   const handleEditName = (food, field) => {
-    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
-  };
-  const handleEditImage = (food, field) => {
-    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
-  };
-  const handleEditPrice = (food, field) => {
-    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
+    setSelectedFood({ ...food });
+    setFieldToEdit(field);
+    setShowEditModal(true);
   };
 
-  const handleCloseEdit = () => {
-    setSelectedFood(null);
-    // Optionally reload products after editing
-    // getProducts(storage.restaurant_id);
+  const handleEditImage = (food, field) => {
+    setSelectedFood({ ...food });
+    setFieldToEdit(field);
+    setShowEditModal(true);
+  };
+
+  const handleEditPrice = (food, field) => {
+    setSelectedFood({ ...food });
+    setFieldToEdit(field);
+    setShowEditModal(true);
   };
 
   const handleDelete = (productId) => {
@@ -67,9 +68,7 @@ function Itemfood() {
       if (result.isConfirmed) {
         axios
           .delete(
-            `
-            ${import.meta.env.VITE_API}
-              /restaurants/${storage.restaurant_id}/menu_items/${productId}/`
+            `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/${productId}/`
           )
           .then(() => {
             setProducts(products.filter((product) => product.id !== productId));
@@ -80,6 +79,11 @@ function Itemfood() {
           });
       }
     });
+  };
+
+  const handleSave = (updatedData) => {
+    setProducts(updatedData);
+    setShowEditModal(false);
   };
 
   return (
@@ -148,11 +152,12 @@ function Itemfood() {
           </div>
         </div>
 
-        {selectedFood && (
+        {showEditModal && (
           <Editfood
             selectedFood={selectedFood}
-            editField={selectedFood.field} // Pass the field to edit
-            onClose={handleCloseEdit}
+            fieldToEdit={fieldToEdit}
+            onCancel={() => setShowEditModal(false)}
+            onSave={handleSave}
           />
         )}
       </div>

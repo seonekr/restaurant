@@ -82,29 +82,30 @@
   max-width: 100%; /* Ensure the image doesn't overflow its container */
   margin-top: 10px; /* Add some space between the input and the image */
 }
+
 /* button */
 .button-group-edit {
-    margin-top: 20px;      /* Add some space above the button group */
-    text-align: center;    /* Center the buttons horizontally */
-  }
-  
-  .btn-save-edit,
-  .btn-cancel-edit {
-    padding: 10px 20px;    /* Padding inside the buttons */
-    margin: 0 10px;        /* Margin between the buttons */
-    border: none;          /* Remove default button border */
-    border-radius: 5px;    /* Rounded corners */
-    cursor: pointer;       /* Show pointer cursor on hover */
-    font-size: 16px;       /* Font size */
-  }
-  
-  .btn-save-edit {
-    background-color: #4CAF50; /* Green background color for Save button */
-    color: white;               /* White text color for Save button */
-  }
-  
-  .btn-cancel-edit {
-    background-color: #f44336; /* Red background color for Cancel button */
-    color: white;               /* White text color for Cancel button */
-  }
-  
+  margin-top: 20px; /* Add some space above the button group */
+  text-align: center; /* Center the buttons horizontally */
+}
+
+.btn-save-edit-res {
+  background-color: #4caf50; /* Green background color for Save button */
+  color: white; /* White text color for Save button */
+  padding: 10px 20px; /* Padding inside the buttons */
+  margin: 0 10px; /* Margin between the buttons */
+  border: none; /* Remove default button border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Show pointer cursor on hover */
+  font-size: 16px; /* Font size */
+}
+.btn-cancel-edit-res {
+  background-color: #f44336; /* Red background color for Cancel button */
+  color: white; /* White text color for Cancel button */
+  padding: 10px 20px; /* Padding inside the buttons */
+  margin: 0 10px; /* Margin between the buttons */
+  border: none; /* Remove default button border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Show pointer cursor on hover */
+  font-size: 16px; /* Font size */
+}

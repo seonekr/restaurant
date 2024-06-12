@@ -70,6 +70,7 @@ import Add_Restaurant from "./admin/components/Restaurant-manage/Add_Restaurant"
 import History_order from "./admin/components/History_order/History_order";
 import Review_admin from "./admin/components/Review/Review_admin";
 import OrderDetail from "./owner/counter/OrderDetail";
+// import ScanQR from "./components/ScanQR";
 
 // Waiter
 // import Waiter from "./owner/counter copy/Waiter";
@@ -158,6 +159,7 @@ function App() {
           <Route path="/address" element={<Address />} />
           <Route path="/" element={<HomeRestaurant />} />
           <Route path="/search" element={<Search />} />
+         {/* ? <Route path="/scanqr" element={<ScanQR />} /> */}
 
           {/* --------- Seller Page ---------- */}
           <Route path="/homeSeller2" element={<HomeSeller2 />} />
