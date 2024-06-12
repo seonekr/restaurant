@@ -6,14 +6,14 @@ import OwnerMenu from "../ownerMenu/OwnerMenu";
 import "./css/add_restaurant.css";
 
 const Add_Restaurant = () => {
-  const [addHotelData, setAddHotelData] = useState({
+  const [addRestaurantData, setAddRestaurantData] = useState({
     name: "",
-    phone: "",
-    address: "",
-    time: "",
     description: "",
+    address: "",
+    phone: "",
+    time: "",
     logo: null,
-    bannerimage: [],
+    banner_image: null,
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -21,7 +21,7 @@ const Add_Restaurant = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAddHotelData((prevState) => ({
+    setAddRestaurantData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -32,35 +32,35 @@ const Add_Restaurant = () => {
       const file = e.target.files[0];
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
-      setAddHotelData((prevState) => ({
+      setAddRestaurantData((prevState) => ({
         ...prevState,
         logo: file,
       }));
     }
   };
 
-  const handleMultipleImageChange = (e) => {
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const previewsArray = filesArray.map((file) => URL.createObjectURL(file));
+  // const handleMultipleImageChange = (e) => {
+  //   if (e.target.files) {
+  //     const filesArray = Array.from(e.target.files);
+  //     const previewsArray = filesArray.map((file) => URL.createObjectURL(file));
 
-      setImagePreviews((prevPreviews) => prevPreviews.concat(previewsArray));
-      setAddHotelData((prevState) => ({
-        ...prevState,
-        bannerimage: prevState.bannerimage.concat(filesArray),
-      }));
+  //     setImagePreviews((prevPreviews) => prevPreviews.concat(previewsArray));
+  //     setAddRestaurantData((prevState) => ({
+  //       ...prevState,
+  //       logo: prevState.logo.concat(filesArray),
+  //     }));
 
-      e.target.value = null;
-    }
-  };
+  //     e.target.value = null;
+  //   }
+  // };
 
   const removeImage = (index) => {
-    const newImages = addHotelData.bannerimage.filter((_, i) => i !== index);
+    const newImages = addRestaurantData.logo.filter((_, i) => i !== index);
     const newPreviews = imagePreviews.filter((_, i) => i !== index);
 
-    setAddHotelData((prevState) => ({
+    setAddRestaurantData((prevState) => ({
       ...prevState,
-      bannerimage: newImages,
+      logo: newImages,
     }));
     setImagePreviews(newPreviews);
   };
@@ -69,19 +69,20 @@ const Add_Restaurant = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("phone", phone);
-    formData.append("address", address);
-    formData.append("time", time);
-    formData.append("description", description);
-    formData.append("logo", addHotelData.logo);
-    addHotelData.bannerimage.forEach((img, i) => {
-      formData.append(`images[${i}]`, img);
-    });
+    formData.append("name", addRestaurantData.name);
+    formData.append("description", addRestaurantData.description);
+    formData.append("address", addRestaurantData.address);
+    formData.append("phone", addRestaurantData.phone);
+    formData.append("time", addRestaurantData.time);
+    formData.append("logo", addRestaurantData.logo);
+    formData.append("banner_image", addRestaurantData.banner_image);
+    // addRestaurantData.images.forEach((img, i) => {
+    //   formData.append(`images[${i}]`, img);
+    // });
 
     const config = {
       method: "post",
-      url: import.meta.env.VITE_API + `/tourapi/hotel/create/`,
+      url: import.meta.env.VITE_API + `/user/signup-restaurant`,
 
       headers: {
         "Content-Type": "multipart/form-data",
@@ -94,18 +95,19 @@ const Add_Restaurant = () => {
       .then((response) => {
         console.log(JSON.stringify(response.data));
 
-        setAddHotelData({
+        setAddRestaurantData({
           name: "",
-          phone: "",
-          address: "",
-          time: "",
           description: "",
+          address: "",
+          phone: "",
+          time: "",
           logo: null,
-          bannerimage: [],
+          banner_image: null,
         });
+
         setSelectedImage(null);
         setImagePreviews([]);
-        // Show success message
+
         Swal.fire({
           icon: "success",
           title: "Success",
@@ -114,6 +116,7 @@ const Add_Restaurant = () => {
       })
       .catch((error) => {
         console.error(error);
+
         // Show error message
         Swal.fire({
           icon: "error",

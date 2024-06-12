@@ -1,34 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 import "./editbanner.css";
 
 const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
+  const storage = JSON.parse(window.localStorage.getItem("user"));
   const [updatedBanner, setUpdatedBanner] = useState({ ...banner });
   const [imagePreview, setImagePreview] = useState(banner.logo || null);
   const [bannerImagePreview, setBannerImagePreview] = useState(
     banner.banner_image || null
   );
 
+  useEffect(() => {
+    setUpdatedBanner({ ...banner });
+    setImagePreview(banner.logo || null);
+    setBannerImagePreview(banner.banner_image || null);
+  }, [banner]);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files && files[0]) {
       setUpdatedBanner({ ...updatedBanner, [name]: files[0] });
-      setImagePreview(URL.createObjectURL(files[0]));
+      if (name === "logo") {
+        setImagePreview(URL.createObjectURL(files[0]));
+      } else if (name === "banner_image") {
+        setBannerImagePreview(URL.createObjectURL(files[0]));
+      }
     } else {
       setUpdatedBanner({ ...updatedBanner, [name]: value });
     }
   };
 
-  const handleSubmit = (e) => {
+  
+  const handleSave = (e) => {
     e.preventDefault();
-    onSave(updatedBanner);
+    const formData = new FormData();
+    formData.append("name", updatedBanner.name);
+    formData.append("description", updatedBanner.description);
+    formData.append("phone", updatedBanner.phone);
+    formData.append("time", updatedBanner.time);
+    formData.append("address", updatedBanner.address);
+
+    if (updatedBanner.logo instanceof File) {
+      formData.append("logo", updatedBanner.logo);
+    }
+    if (updatedBanner.banner_image instanceof File) {
+      formData.append("banner_image", updatedBanner.banner_image);
+    }
+
+    axios
+      .patch(
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        onSave(response.data);
+        Swal.fire("Saved!", "Your changes have been saved.", "success").then(
+          () => {
+            // Reload the page after successful save
+            history.go(0); // Reload current page
+          }
+        );
+      })
+      .catch((error) => {
+        console.error("Error updating product:", error);
+        Swal.fire("Error!", "Failed to save changes.", "error");
+      });
   };
 
   return (
     <div className="popup-overlay-edit">
       <div className="modal-content-edit">
         <h3>Edit {fieldToEdit}</h3>
-        <div>
+        <form onSubmit={handleSave}>
           {fieldToEdit === "logo" && (
             <>
               <input
@@ -88,7 +137,6 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               />
             </>
           )}
-
           {(fieldToEdit === "phone" || fieldToEdit === "time") && (
             <>
               <input
@@ -108,7 +156,6 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               />
             </>
           )}
-
           {fieldToEdit === "address" && (
             <textarea
               className="edit-address"
@@ -118,15 +165,19 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               onChange={handleChange}
             />
           )}
-        </div>
-        <div className="button-group-edit">
-          <button className="btn-save-edit" onClick={handleSubmit}>
-            Save
-          </button>
-          <button className="btn-cancel-edit" onClick={onCancel}>
-            Cancel
-          </button>
-        </div>
+          <div className="button-group-edit">
+            <button className="btn-save-edit" type="submit">
+              Save
+            </button>
+            <button
+              className="btn-cancel-edit"
+              type="button"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
