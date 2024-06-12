@@ -110,7 +110,7 @@
   margin: 7px;
   cursor: pointer;
   position: absolute;
-  z-index: 999;
+ 
 }
 .box_input-img-add input {
   display: none;

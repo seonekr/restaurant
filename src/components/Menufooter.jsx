@@ -26,7 +26,7 @@ function Menufooter() {
   if (localStorage.getItem("user")) {
     is_admin = JSON.parse(window.localStorage.getItem("user")).is_admin;
   }
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <div className="menufooter_contentHeader">

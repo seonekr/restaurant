@@ -166,11 +166,11 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
             />
           )}
           <div className="button-group-edit">
-            <button className="btn-save-edit" type="submit">
+            <button className="btn-save-edit-res" >
               Save
             </button>
             <button
-              className="btn-cancel-edit"
+              className="btn-cancel-edit-res"
               type="button"
               onClick={onCancel}
             >

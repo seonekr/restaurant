@@ -65,110 +65,102 @@ const Bannerres = () => {
   return (
     <>
       <div>
-        <div>
-          <div className="container_boxHeaderAt_mainpage22">
-            <div className="box_logo_main">
-              <img
-                src={restaurant.logo}
-                alt="Restaurant Logo"
-                onClick={() => setSelectedFood(restaurant)}
-              />
-              <div className="iconnChangeImagelogo">
-                <IoCamera onClick={() => handleEdit(restaurant, "logo")} />
-              </div>
-            </div>
-            <div className="box_heardOfGrooup_main">
-              <div className="header_box_of_header-main">
-                <div className="description_header-main">
-                  <h3>{restaurant.name}</h3>
-                  <p>{restaurant.description}</p>
-                  <div className="iconnChangeImageEditname">
-                    <FaPencil
-                      onClick={() =>
-                        handleEdit(restaurant, "name", "description")
-                      }
-                    />
-                  </div>
-                  <div className="contact_head_Boxdetails-tel">
-                    <div className="contact_head_Boxdetails2">
-                      <div className="iconnDetails_head">
-                        <FiPhone />
-                      </div>
-                      <p>{restaurant.phone}</p>
-                    </div>
-                    <div className="contact_head_Boxdetails2">
-                      <IoMdTime className="iconnDetails_head" />
-                      <p>{restaurant.time}</p>
-                      <div className="iconEdit_time">
-                        <FaPencil
-                          onClick={() =>
-                            handleEdit(restaurant, "phone", "time")
-                          }
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="header_contact_details-main22">
-                  <div className="contact_head_Boxdetails2">
-                    <div className="all_star_box">
-                      <IoIosStar className="iconstar_review adtiveStar" />
-                      <IoIosStar className="iconstar_review adtiveStar" />
-                      <IoIosStar className="iconstar_review adtiveStar" />
-                      <IoIosStar className="iconstar_review" />
-                      <IoIosStar className="iconstar_review" />
-                    </div>
-                    <p>29 Review</p>
-                  </div>
-                  <Link to="#" className="switch_btn1">
-                    View
-                  </Link>
-                </div>
-              </div>
-              <div className="header_contact_details_box22">
-                <div className="header_contact_details-map22">
-                  <div className="contact_head_Boxdetails-map22">
-                    <FiMapPin className="iconnDetails_head-map" />
-                    <p>{restaurant.address}</p>
-                  </div>
-                  <Link to="#" className="switch_btn22">
-                    View
-                  </Link>
-                  <div className="iconEdit_map11">
-                    <FaPencil
-                      onClick={() => handleEdit(restaurant, "address")}
-                    />
-                  </div>
-                </div>
-              </div>
+        <div className="container_boxHeaderAt_mainpage22">
+          <div className="box_logo_main">
+            <img
+              src={restaurant.logo}
+              alt="Restaurant Logo"
+              onClick={() => setSelectedFood(restaurant)}
+            />
+            <div className="iconnChangeImagelogo">
+              <IoCamera onClick={() => handleEdit(restaurant, "logo")} />
             </div>
           </div>
+          <div className="box_heardOfGrooup_main">
+            <div className="header_box_of_header-main">
+              <div className="description_header-main">
+                <h3>{restaurant.name}</h3>
+                <p>{restaurant.description}</p>
+                <div className="iconnChangeImageEditname">
+                  <FaPencil
+                    onClick={() =>
+                      handleEdit(restaurant, "name", "description")
+                    }
+                  />
+                </div>
+                <div className="contact_head_Boxdetails-tel">
+                  <div className="contact_head_Boxdetails2">
+                    <div className="iconnDetails_head">
+                      <FiPhone />
+                    </div>
+                    <p>{restaurant.phone}</p>
+                  </div>
+                  <div className="contact_head_Boxdetails3">
+                    <IoMdTime className="iconnDetails_head" />
+                    <p>{restaurant.time}</p>
+                    <div className="iconEdit_time">
+                      <FaPencil
+                        onClick={() => handleEdit(restaurant, "phone", "time")}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          <div className="box_banner_content2">
-            <div className="banner-container">
-              <img
-                src={restaurant.banner_image}
-                alt="Restaurant Banner"
-                onClick={() => setSelectedFood(restaurant)}
-              />
-              <div className="camera-icon22">
-                <IoCamera
-                  onClick={() => handleEdit(restaurant, "bannerimage")}
-                />
+              <div className="header_contact_details-main22">
+                <div className="contact_head_Boxdetails2">
+                  <div className="all_star_box">
+                    <IoIosStar className="iconstar_review adtiveStar" />
+                    <IoIosStar className="iconstar_review adtiveStar" />
+                    <IoIosStar className="iconstar_review adtiveStar" />
+                    <IoIosStar className="iconstar_review" />
+                    <IoIosStar className="iconstar_review" />
+                  </div>
+                  <p>29 Review</p>
+                </div>
+                <Link to="#" className="switch_btn1">
+                  View
+                </Link>
+              </div>
+            </div>
+            <div className="header_contact_details_box22">
+              <div className="header_contact_details-map22">
+                <div className="contact_head_Boxdetails-map22">
+                  <FiMapPin className="iconnDetails_head-map" />
+                  <p>{restaurant.address}</p>
+                </div>
+                <Link to="#" className="switch_btn22">
+                  View
+                </Link>
+                <div className="iconEdit_map11">
+                  <FaPencil onClick={() => handleEdit(restaurant, "address")} />
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div className="box_banner_content2">
+          <div className="banner-container">
+            <img
+              src={restaurant.banner_image}
+              alt="Restaurant Banner"
+              onClick={() => setSelectedFood(restaurant)}
+            />
+            <div className="camera-icon22">
+              <IoCamera onClick={() => handleEdit(restaurant, "bannerimage")} />
+            </div>
+          </div>
+        </div>
+        {showEditModal && (
+          <EditBanner
+            banner={selectedFood}
+            fieldToEdit={fieldToEdit}
+            onSave={handleSave}
+            onCancel={() => setShowEditModal(false)}
+          />
+        )}
       </div>
-      {showEditModal && (
-        <EditBanner
-          banner={selectedFood}
-          fieldToEdit={fieldToEdit}
-          onSave={handleSave}
-          onCancel={() => setShowEditModal(false)}
-        />
-      )}
     </>
   );
 };
