@@ -75,15 +75,14 @@ const Login = () => {
             JSON.stringify(user.restaurant_id)
           );
           navigate("/home", { replace: true });
-        }else if (user.is_admin) {
+        } else if (user.is_admin) {
           window.localStorage.setItem(
             "restaurant",
             JSON.stringify(user.is_admin)
           );
           navigate("/home", { replace: true });
-        }else{
+        } else {
           navigate("/", { replace: true });
-
         }
       })
       .catch((error) => {
@@ -97,7 +96,7 @@ const Login = () => {
 
   return (
     <>
-      <Menufooter />
+      {/* <Menufooter /> */}
       <div className="box_container_logino">
         <div className="container-box-logino">
           <div className="box-icon-close">
@@ -157,7 +156,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Menubar />
+      {/* <Menubar /> */}
     </>
   );
 };
