@@ -74,16 +74,17 @@ const Login = () => {
             "restaurant",
             JSON.stringify(user.restaurant_id)
           );
-          navigate("/home", { replace: true });
+          navigate("/", { replace: true });
         }else if (user.is_admin) {
           window.localStorage.setItem(
             "restaurant",
             JSON.stringify(user.is_admin)
           );
-          navigate("/home", { replace: true });
-        }else{
           navigate("/", { replace: true });
-
+        }else if (!user.is_admin && !user.restaurant_id){
+          navigate("/", { replace: true });
+        }else{
+          navigate("/logino", { replace: true });
         }
       })
       .catch((error) => {
@@ -149,11 +150,6 @@ const Login = () => {
                 Join the membership
               </Link>
             </div>
-
-            {/* <a href="https://myaccount.google.com/" className="login_google2">
-              <FcGoogle className="iconnDetails_head" />
-              Login with Google
-            </a> */}
           </div>
         </div>
       </div>

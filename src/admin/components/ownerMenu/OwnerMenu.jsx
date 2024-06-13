@@ -151,9 +151,6 @@ const OwnerMenu = () => {
   };
 
   const performLogout = () => {
-    // Implement your logout logic here
-    // console.log("User logged out");
-    // Example: Clear storage and navigate to the login page
     localStorage.clear();
     navigate("/logino");
   };
@@ -190,19 +187,8 @@ const OwnerMenu = () => {
       .catch((error) => console.error(error));
   };
   useEffect(() => {
-    // getBanners();
     getRestaurantDetails();
   }, []);
-  // const getBanners = () => {
-  //   axios
-  //     .get(import.meta.env.VITE_API + `/restaurant/restaurant`)
-  //     .then((response) => {
-  //       setBanners(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching banners:", error);
-  //     });
-  // };
   const getRestaurantDetails = () => {
     axios
       .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
@@ -234,26 +220,10 @@ const OwnerMenu = () => {
           <div className="menu">
             {is_admin === true && (
               <>
-                {/* <NavLink to="/dashboard" className="link">
-                  <HomeIcon />
-                  <p>Home</p>
-                </NavLink> */}
                 <NavLink to="/board" className="link">
                   <RxDashboard />
                   <p>Dashboard</p>
                 </NavLink>
-                {/* <NavLink to="/table" className="link">
-                  <TableRestaurantIcon />
-                  <p>Table</p>
-                </NavLink> */}
-                {/* <NavLink to="/category" className="link">
-                  <MenuBookIcon />
-                  <p>Category</p>
-                </NavLink> */}
-                {/* <NavLink to="/employee" className="link">
-                  <LiaUserCogSolid />
-                  <p>Employee</p>
-                </NavLink> */}
                 <NavLink to="/restaurant_admin" className="link">
                   <StorefrontIcon />
                   <p>Restaurant</p>
@@ -293,26 +263,10 @@ const OwnerMenu = () => {
 
           <div className="right">
             <div className="box_popupImage_logo">
-              {/* {banners.map((banner) => (
-                <NavLink to="/" className="logo22" key={banner.id}>
-                  <img src={banner.logo} alt="" />
-                  <h3>{banner.name}</h3>
-                </NavLink>
-              ))} */}
-
-              <NavLink to="/home" className="logo22">
+              <NavLink to="/" className="logo22">
                 <img src={restaurant.logo} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
-
-              {/* {is_admin === true && (
-                <div
-                  className="popup_image_logo"
-                  onClick={togglePopupImageLogo}
-                >
-                  <CiCamera id="box_icon_camera" />
-                </div>
-              )} */}
 
               {isPopupImageLogo && (
                 <form
