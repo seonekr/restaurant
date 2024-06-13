@@ -150,11 +150,11 @@ function App() {
           {/* --------- Home Page ---------- */}
           <Route path="/logino" Component={LoginO} />
           <Route path="/home/:restaurant_id/:table_id" element={<Home />} />
-          {/* <Route path="/home" element={<Home />} />
-          <Route path="/restaurant" element={<Home />} /> */}
+          <Route path="/home" element={<Home />} />
+          {/* <Route path="/restaurant" element={<Home />} /> */}
           <Route path="/orderList" element={<OrderList />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/home/:restaurant_id/:table_id/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/reviews" element={<Review />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/address" element={<Address />} />
@@ -232,3 +232,5 @@ function App() {
 }
 
 export default App;
+
+

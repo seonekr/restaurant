@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./css/menufooter.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { FaMagnifyingGlass, FaCartShopping, FaRegUser } from "react-icons/fa6";
 import { HiOutlineBuildingStorefront } from "react-icons/hi2";
 import { LuClipboardCheck } from "react-icons/lu";
@@ -14,15 +14,19 @@ import axios from "axios";
 import { MdDashboardCustomize } from "react-icons/md";
 
 function Menufooter() {
+  const { restaurant_id, table_id } = useParams();
   const token = localStorage.getItem("token");
   const user = localStorage.getItem("user");
   const storage = JSON.parse(window.localStorage.getItem("user"));
-  var restaurant_id = false;
-  if (localStorage.getItem("user")) {
-    restaurant_id = JSON.parse(
-      window.localStorage.getItem("user")
-    ).restaurant_id;
-  }
+
+  // var restaurant_id = false;
+  // if (localStorage.getItem("user")) {
+  //   restaurant_id = JSON.parse(
+  //     window.localStorage.getItem("user")
+  //   ).restaurant_id;
+  // }
+
+  console.log(restaurant_id, table_id);
 
   var is_admin = false;
   if (localStorage.getItem("user")) {
@@ -71,7 +75,10 @@ function Menufooter() {
                       <NavLink to="/order" className="linkTomenu">
                         Order
                       </NavLink>
-                      <NavLink to="/cart" className="boxcart_header_container">
+                      <NavLink
+                        to="/cart"
+                        className="boxcart_header_container"
+                      >
                         <p className="linkTomenu">Cart</p>
                       </NavLink>
                       <NavLink

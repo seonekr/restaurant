@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./css/foodItem.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IoCartOutline } from "react-icons/io5";
 import axios from "axios";
 
 function FoodItem() {
+  const { restaurant_id, table_id } = useParams();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -12,16 +13,11 @@ function FoodItem() {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    // Load storage data from localStorage
-    const storage = JSON.parse(window.localStorage.getItem("user"));
-    if (storage && storage.restaurant_id) {
-      getProducts(storage.restaurant_id);
-      getCategories(storage.restaurant_id);
-      loadCartFromLocalStorage(); // Load cart items from local storage on component mount
-    }
+    getProducts();
+    getCategories();
   }, []);
 
-  const getProducts = (restaurant_id) => {
+  const getProducts = () => {
     axios
       .get(
         `${
@@ -36,7 +32,7 @@ function FoodItem() {
       });
   };
 
-  const getCategories = (restaurant_id) => {
+  const getCategories = () => {
     axios
       .get(
         `${
@@ -66,7 +62,12 @@ function FoodItem() {
       alert("This product is already in your cart!");
     } else {
       // Product does not exist in cart, add it with quantity 1
-      const updatedProduct = { ...product, quantity: 1 };
+      const updatedProduct = {
+        ...product,
+        quantity: 1,
+        restaurant_id: restaurant_id,
+        table_id: table_id,
+      };
       updatedCart.push(updatedProduct);
       setCart(updatedCart);
 
@@ -84,7 +85,8 @@ function FoodItem() {
       setCart(JSON.parse(storedCart));
     }
   };
-  
+
+  console.log("####*************######", typeof restaurant_id, table_id);
 
   return (
     <>

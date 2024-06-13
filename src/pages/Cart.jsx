@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "./css/cart.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
@@ -13,9 +13,6 @@ const useCart = () => {
     const localCart = localStorage.getItem("cart");
     return localCart ? JSON.parse(localCart) : [];
   });
-
-  const employeeId = 2; // Assuming employee ID is 2
-  const tableId = 2; // Assuming table ID is 2
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -75,6 +72,8 @@ const useCart = () => {
   };
 };
 
+
+
 const Cart = ({ products }) => {
   const [storeId, setStoreId] = useState(null);
   const [showPayment, setShowPayment] = useState(false);
@@ -91,34 +90,54 @@ const Cart = ({ products }) => {
     ? JSON.parse(localStorage.getItem("user")).user_id
     : null;
 
+  const stores = [...new Set(cart.map((item) => item.store_name))];
+
+
+  // Prepare datas before ordering
+  const [loading, isLoading] = useState(false);
+  const [restaurantId, setRestaurantId] = useState(cart[0].restaurant_id);
+  const [table, setTable] = useState(cart[0].table_id);
+  const [user, setUser] = useState(null);
+  const [employee, setEmployee] = useState(null);
+  const [status, setStatus] = useState("PENDING");
+  const [paid, setPaid] = useState(false);
+  const [orderItems, setOrderItems] = useState([]);
+
+
+
+  console.log("####################################");
+  console.log("restaurantId: ", restaurantId);
+  console.log("table: ", table);
+  console.log("user: ", user);
+  console.log("employee: ", employee);
+  console.log("status: ", status);
+  console.log("paid: ", paid);
+  console.log("orderItems: ", orderItems);
+  console.log("####################################");
+
   const handleConfirmPayment = async (event) => {
     event.preventDefault();
 
     try {
-      const restaurantId = localStorage.getItem("restaurantId");
-      const tableId = localStorage.getItem("tableId");
-      const employeeId = localStorage.getItem("employeeId");
-
-      if (!restaurantId || !tableId || !employeeId) {
-        throw new Error(
-          "Missing restaurant, table, or employee ID in local storage."
-        );
-      }
-
       const orderData = {
-        restaurant: parseInt(restaurantId),
-        table: parseInt(tableId),
-        employee: parseInt(employeeId),
-        status: "PENDING",
-        paid: false,
-        items: cart.map((item) => ({
+        restaurant: restaurantId,
+        table: table,
+        user: user,
+        employee: employee,
+        status: status,
+        paid: paid,
+        order_items: cart.map((item) => ({
           menu_item: item.id,
           quantity: item.quantity,
-          employee: 2,
+          employee: parseInt(employee),
         })),
       };
 
-      const response = await axios.post(`http://43.201.166.195:8000/restaurants/${restaurantId}/orders/create/`, orderData);
+      const response = await axios.post(
+        import.meta.env.VITE_API +
+          `/restaurants/${restaurantId}/table/${table}/create_or_update/`,
+        orderData
+      );
 
       if (response.status === 201) {
         Swal.fire({
@@ -141,7 +160,71 @@ const Cart = ({ products }) => {
     }
   };
 
-  const stores = [...new Set(cart.map((item) => item.store_name))];
+  const handleSubmit = async function createOrUpdateOrder() {
+    let isLoading = true;
+
+    try {
+      let data = JSON.stringify({
+        restaurant: restaurantId,
+        table: table,
+        user: user,
+        employee: employee,
+        status: "PENDING",
+        paid: false,
+        order_items: cart.map((item) => ({
+          menu_item: item.id,
+          quantity: item.quantity,
+          employee: employee,
+        })),
+        // order_items: [
+        //   {
+        //     menu_item: 1,
+        //     quantity: 9,
+        //     employee: 1,
+        //   },
+        //   {
+        //     menu_item: 2,
+        //     quantity: 6,
+        //     employee: 1,
+        //   },
+        // ],
+      });
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url:
+          import.meta.env.VITE_API +
+          `/restaurants/${restaurantId}/table/${table}/create_or_update/`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      console.log("Loading...");
+
+      const response = await axios.request(config);
+      // console.log("Response:", JSON.stringify(response.data));
+      alert("Success.");
+      // Remove the cart from localStorage
+      localStorage.removeItem("cart");
+      navigate("/home")
+    } catch (error) {
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        console.error("Error Response:", error.response.data);
+      } else if (error.request) {
+        // No response received from the server
+        console.error("Error Request:", error.request);
+      } else {
+        // Something else caused the error
+        console.error("Error", error.message);
+      }
+    } finally {
+      isLoading = false;
+      console.log("Loading finished.");
+    }
+  };
 
   return (
     <>
@@ -235,7 +318,7 @@ const Cart = ({ products }) => {
                               </Link>
                             </div>
                             <div
-                              onClick={handleConfirmPayment}
+                              onClick={handleSubmit}
                               className="btn_confirmCart"
                             >
                               Confirm Order
