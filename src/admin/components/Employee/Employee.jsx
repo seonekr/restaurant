@@ -49,7 +49,9 @@ const Employee = () => {
         };
 
         fetch(
-          `http://127.0.0.1:8000/restaurants/${storage.restaurant_id}/employees/${employeeId}/delete/`,
+          `${import.meta.env.VITE_API}restaurants/${
+            storage.restaurant_id
+          }/employees/${employeeId}/delete/`,
           requestOptions
         )
           .then((response) => {
