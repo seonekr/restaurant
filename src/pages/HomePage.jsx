@@ -25,7 +25,6 @@ const HomePage = () => {
     time: "",
   });
   const storage = JSON.parse(window.localStorage.getItem("user"));
-  // console.log("storage =====================", storage.restaurant_id)
   useEffect(() => {
     getCategories();
     getRestaurantDetails();
@@ -55,7 +54,7 @@ const HomePage = () => {
           description,
           time,
         } = response.data;
-  
+
         // Ensure that if any field is missing or undefined, it defaults to an empty string
         const updatedRestaurant = {
           name: name || "",
@@ -66,14 +65,14 @@ const HomePage = () => {
           description: description || "",
           time: time || "",
         };
-  
+
         setRestaurant(updatedRestaurant);
       })
       .catch((error) => {
         console.error("Error fetching restaurant details:", error);
       });
   };
-  
+
 
   const handleCategoryClick = (categoryName) => {
     setCategoryName(categoryName);
