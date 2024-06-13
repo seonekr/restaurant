@@ -81,7 +81,6 @@ const Restaurant_admin = () => {
                   <div className="box_container_tour_admin" key={index}>
                     <div className="container_image_tour">
                       <img src={data.logo || no_picture} alt="image" />
-
                     </div>
 
                     <div className="container_desc_tour">
