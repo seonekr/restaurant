@@ -150,8 +150,8 @@ function App() {
           {/* --------- Home Page ---------- */}
           <Route path="/logino" Component={LoginO} />
           <Route path="/home/:restaurant_id/:table_id" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/restaurant" element={<Home />} />
+          {/* <Route path="/home" element={<Home />} />
+          <Route path="/restaurant" element={<Home />} /> */}
           <Route path="/orderList" element={<OrderList />} />
           <Route path="/order" element={<Order />} />
           <Route path="/home/:restaurant_id/:table_id/cart" element={<Cart />} />
@@ -163,8 +163,8 @@ function App() {
          {/* ? <Route path="/scanqr" element={<ScanQR />} /> */}
 
           {/* --------- Seller Page ---------- */}
-          <Route path="/homeSeller2" element={<HomeSeller2 />} />
-          <Route path="/homeSeller" element={<HomeSeller />} />
+          {/* <Route path="/homeSeller2" element={<HomeSeller2 />} />
+          <Route path="/homeSeller" element={<HomeSeller />} /> */}
           <Route path="/addfood" element={<Addfood />} />
           <Route path="/dashborard" element={<Dashborard />} />
          {/* Admin */}
