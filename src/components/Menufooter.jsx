@@ -104,11 +104,13 @@ function Menufooter() {
                 </>
               )}
             </>
-
-            <NavLink to="/profile" className="linkTomenu">
-              <FaRegUser id="FaRegUser" />
+            <NavLink to="/home" className="linkTomenu">
+              Home
             </NavLink>
           </div>
+          <NavLink to="/profile" className="linkTomenu">
+            <FaRegUser id="FaRegUser" />
+          </NavLink>
         </div>
       </div>
     </>

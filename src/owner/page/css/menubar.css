@@ -1,40 +1,47 @@
-.menubar_contentHeader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    background-color: #FFF;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+.menubar_contentHeader22 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
 
 .box_content_header2 {
-    width: 80%;
-    height: 9vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #FFF;
+  width: 80%;
+  height: 9vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-
-.menu_header_box2,
 .menu_header_box2 {
-    display: flex;
-    align-items: center;
-    gap: 5rem;
-    font-size: 18px;
-    font-weight: 500;
-    justify-content: right;
-    margin-left: 40%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.menu_header_box2 a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.menu_header_box2 a:hover {
+  color: #0e64d2;
 }
 
 .active2 {
-    color: #0E64D2;
+  color: #0e64d2;
 }
 
 .linkTomenu2 {
-    font-size: 19px;
+  font-size: 19px;
 }
+

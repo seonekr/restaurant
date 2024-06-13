@@ -4,6 +4,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { AiFillDashboard } from "react-icons/ai";
 import restaurant from "../img/restaurant.jpg";
+import Logo1 from "../img/Logo1.png";
 // import QRCode from "qrcode.react";
 const Search = () => {
   const [scanResult, setScanResult] = useState("");
@@ -25,7 +26,6 @@ const Search = () => {
     width: 320,
   };
 
-  
   return (
     <>
       <div className="navbar_header_search">
@@ -45,7 +45,6 @@ const Search = () => {
             </div>
 
             <div className="icon_account_login">
-
               <Link to="/logino">Login</Link>
             </div>
           </div>
