@@ -177,10 +177,6 @@ const Board = () => {
         <div className="boxspentainer"></div>
         <div className="board">
           <div className="title_header_orderBox">
-            <Link to="/mainpage" className="back_orderBox">
-              <IoIosArrowBack className="icon_closeReviwe" />
-              Back
-            </Link>
             <h4>Dashboard</h4>
           </div>
           <div className="box-dashboard1">
