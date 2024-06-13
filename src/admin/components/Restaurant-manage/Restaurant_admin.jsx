@@ -6,6 +6,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import OwnerMenu from "../ownerMenu/OwnerMenu";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import no_picture from "../../../img/no-picture-icon.jpg";
+
 
 const Restaurant_admin = () => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -63,12 +65,12 @@ const Restaurant_admin = () => {
           <div className="box_content_hotel">
             <div className="productHead_content">
               <h2 className="htxthead">
-                <span className="spennofStyleadmin"></span>Restaurant
+                <span className="spennofStyleadmin"></span>List Restaurant
               </h2>
               <div className="categoryBoxfiler">
                 <Link to="/add_restaurant" className="box_add_product">
                   <BiPlus id="icon_add_product" />
-                  <p>Add</p>
+                  <p>Add Restaurant</p>
                 </Link>
               </div>
             </div>
@@ -78,17 +80,13 @@ const Restaurant_admin = () => {
                 datas.map((data, index) => (
                   <div className="box_container_tour_admin" key={index}>
                     <div className="container_image_tour">
-                      <img src={data.logo} alt="image" />
+                      <img src={data.logo || no_picture} alt="image" />
                     </div>
-                    <div className="container_desc_tour">
-                      <h3>Name restaurant: {data.name}</h3>
-                      {/* <Expandable>{data.description}</Expandable> */}
-                      <div className="txt_tour">
-                        <p className="price_number_ones">
-                          Description: {data.description}
-                        </p>
-                      </div>
 
+                    <div className="container_desc_tour">
+                      <h3>Restaurant: {data.name}</h3>
+                      {/* <Expandable>{data.description}</Expandable> */}
+                      <p className="price_number_ones">Description: {data.description}</p>
                       <p className="txt_address">Address: {data.address}</p>
                       <p className="txt_address">Phone: {data.phone}</p>
                       <p className="txt_address">Time-Open: {data.time}</p>

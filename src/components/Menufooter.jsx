@@ -37,10 +37,10 @@ function Menufooter() {
             <>
               {is_admin ? (
                 <>
-                  <NavLink to="/home" className="linkTomenu">
+                  <NavLink to="/" className="linkTomenu">
                     Home
                   </NavLink>
-                  <NavLink to="/dashboard" className="boxcart_header_container">
+                  <NavLink to="/board" className="boxcart_header_container">
                     <div className="boxcart_header">
                       <HiOutlineBuildingStorefront className="icon_cart_header" />
                       Dashboard
@@ -65,7 +65,7 @@ function Menufooter() {
                 <>
                   {restaurant_id && (
                     <>
-                      <NavLink to="/home" className="linkTomenu">
+                      <NavLink to="/" className="linkTomenu">
                         Home
                       </NavLink>
                       <NavLink to="/order" className="linkTomenu">

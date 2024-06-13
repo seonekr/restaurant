@@ -14,6 +14,7 @@ a {
     z-index: 999;
     padding: 100px 40px 20px 265px;
 }
+
 .box_content_hotel {
     width: 100%;
     min-height: 80vh;
@@ -25,8 +26,9 @@ a {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
 }
-.productHead_content{
-    margin: 5px auto; 
+
+.productHead_content {
+    margin: 5px auto;
     margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
@@ -69,118 +71,110 @@ a {
 
 
 /* ========== box_container ==========*/
-.box_container_tour{
+.box_container_tour {
 
     width: 90%;
     margin: auto;
     display: grid;
     gap: 1rem;
 }
-.box_container_tour_admin{
 
+.box_container_tour_admin {
     width: 100%;
-    height: auto;
+    height: 250px;
     display: flex;
     gap: 2rem;
     border: solid 1px #eee;
-    border-radius: 5px;
+    border-radius: 13px;
     padding: 15px 20px;
     cursor: pointer;
     overflow: hidden;
 }
-.box_container_tour_admin:hover{
+
+.box_container_tour_admin:hover {
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 }
-.container_image_tour{
+
+.container_image_tour {
     width: 350px;
     height: auto;
     overflow: hidden;
 }
+
 .container_image_tour img {
     width: 100%;
     height: 220px;
     object-fit: cover;
     border-radius: 5px;
 }
+
 .container_image_tour:hover img {
     transform: scale(1.1);
     transition: 0.5s;
 }
 
-.container_desc_tour{
-    width: 70%;
+.container_desc_tour {
+    width: 100%;
 }
-.container_desc_tour p{
+
+.container_desc_tour p {
     padding: 0 15px;
     margin-top: 15px;
 }
-.container_desc_tour h2:hover{
-    color: #3d76fb;
-    transition: 0.5s;
-}
-.txt_tour{
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-}
 
-
-.price_number_ones{
-    font-size: 16px;
-}
-.price_number_ones:hover{
-    color: #fb4d3d;
-}
-
-.txt_brand_car{
+.price_number_ones {
     font-size: 16px;
 }
 
-.txt_address{
+.txt_brand_car {
     font-size: 16px;
 }
-.txt_address:hover{
-    color: #3d76fb;
-    transition: 0.5s;
+
+.txt_address {
+    font-size: 16px;
 }
-#icon_map{
+
+#icon_map {
     font-size: 1.3rem;
     color: #3d76fb;
 }
 
 
-.btn_delete_view{
+.btn_delete_view {
     display: flex;
     gap: 10px;
     align-items: end;
 }
 
-.box_btn_saveDelete{
+.box_btn_saveDelete {
     background-color: #fa1f1fd7;
     padding: 8px 25px;
     border-radius: 5px;
     color: #FFF;
-    cursor: pointer;  
+    cursor: pointer;
 }
-.box_btn_saveEdit{
-    background-color: #0E64D2;
+
+.box_btn_saveEdit {
+    background-color: #3d76fb;
     padding: 8px 25px;
     border-radius: 5px;
     color: #FFF;
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 /*========= read more text p ===========*/
-.btn_read_more{
+.btn_read_more {
     padding: 3px 5px;
     border: solid 1px #0E64D2;
     border-radius: 3px;
     background: #FFF;
     cursor: pointer;
 }
-.btn_read_more:hover{
+
+.btn_read_more:hover {
     border: solid 1px #fa1f1fd7;
 }
+
 /*  */
 
 .box_container_next_product {
@@ -192,6 +186,7 @@ a {
     margin-top: 3.5rem;
     bottom: 0;
 }
+
 .box_prev_left_product {
     width: 80px;
     height: 40px;
@@ -205,6 +200,7 @@ a {
     justify-content: center;
     background: #FA442C;
 }
+
 .box_prev_right_product {
     width: 80px;
     height: 40px;
@@ -218,11 +214,13 @@ a {
     justify-content: center;
     background: #27A7EF;
 }
-.box_num_product{
+
+.box_num_product {
     display: flex;
     gap: 1rem;
     align-items: center;
 }
+
 .num_admin_product {
     width: 70px;
     height: 40px;
@@ -238,6 +236,7 @@ a {
     align-items: center;
     gap: 1rem;
 }
+
 .viewMore_storeDetails {
     cursor: pointer;
     color: #fff;
