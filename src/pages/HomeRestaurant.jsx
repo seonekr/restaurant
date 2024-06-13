@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from "react";
 import "./css/homeRestaurant.css";
-import restaurant from "../img/restaurant.jpg";
+import imageicon from "../img/imageicon.jpg";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import axios from "axios";
 
 function HomeRestaurant() {
-  // const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  // const fetchData = () => {
-  //   let config = {
-  //     method: "get",
-  //     maxBodyLength: Infinity,
-  //     url: import.meta.env.VITE_API + " /restaurants/?search=restaurant01",
-  //     headers: {},
-  //   };
+  const fetchData = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: import.meta.env.VITE_API + "/restaurants/",
+      headers: {},
+    };
 
-  //   axios
-  //     .request(config)
-  //     .then((response) => {
-  //       setRestaurants(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+    axios
+      .request(config)
+      .then((response) => {
+        setRestaurants(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <Search />
-      {/* <div className="container_restaurant">
+      <div className="container_restaurant">
         <div className="head_restaurant">
           <div className="filter_restaurant">
             <div></div>
@@ -45,7 +45,7 @@ function HomeRestaurant() {
             <div className="box_containner_restaurant">
               <Link to={``} className="box_containner_itemFood" key={index}>
                 <div className="box_containner_image">
-                  <img src={restaurant.logo} alt="img" />
+                  <img src={restaurant.logo || imageicon } alt="img" />
                   <div className="txt_boxDescription">
                     <div className="product-info-txt">
                       <p className="product-name-txt">
@@ -63,7 +63,7 @@ function HomeRestaurant() {
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
