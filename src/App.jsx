@@ -149,6 +149,7 @@ function App() {
         <Routes>
           {/* --------- Home Page ---------- */}
           <Route path="/logino" Component={LoginO} />
+          {/* <Route path="/home/:restaurant_id/:table_id" element={<Home />} /> */}
           <Route path="/home" element={<Home />} />
           <Route path="/restaurant" element={<Home />} />
           <Route path="/orderList" element={<OrderList />} />

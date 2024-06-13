@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { AiFillDashboard } from "react-icons/ai";
 import restaurant from "../img/restaurant.jpg";
 // import QRCode from "qrcode.react";
-import QrScanner from "react-qr-scanner";
 const Search = () => {
   const [scanResult, setScanResult] = useState("");
   const [showScanner, setShowScanner] = useState(false);
@@ -25,6 +24,8 @@ const Search = () => {
     height: 240,
     width: 320,
   };
+
+  
   return (
     <>
       <div className="navbar_header_search">
@@ -44,7 +45,6 @@ const Search = () => {
             </div>
 
             <div className="icon_account_login">
-              <button onClick={() => setShowScanner(!showScanner)}>Scan</button>
 
               <Link to="/logino">Login</Link>
             </div>
