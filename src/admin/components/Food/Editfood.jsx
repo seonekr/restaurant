@@ -59,7 +59,7 @@ const Editfood = ({ selectedFood, onCancel, fieldToEdit, onSave }) => {
         // Reload the page after a short delay to ensure state update is complete
         setTimeout(() => {
           window.location.reload();
-        }, 1000); // Adjust delay as needed
+        }, 100); // Adjust delay as needed
       });
     } catch (error) {
       console.error("Error updating food:", error);

@@ -10,7 +10,7 @@ import Rating from "@mui/material/Rating";
 import axios from "axios";
 
 const HomePage = () => {
-  const { restaurantId } = useParams();
+  const { restaurant_id, table_id } = useParams();
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState("All");
   const [filter, setFilter] = useState("");
@@ -79,6 +79,8 @@ const HomePage = () => {
   };
 
   const [value, setValue] = useState(3);
+
+  console.log("##########", restaurant_id, table_id)
 
   return (
     <>

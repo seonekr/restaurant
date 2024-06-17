@@ -8,162 +8,105 @@ import Ordermenu from "./Ordermenu";
 import { IoIosArrowBack } from "react-icons/io";
 import Swal from "sweetalert2";
 import OrderDetail from "./OrderDetail";
+import { AiOutlineDelete } from "react-icons/ai";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
 
 const Menu = () => {
   const { tableId } = useParams();
-  const [table, setTable] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [orders, setOrders] = useState([]);
-  const [menuItems, setMenuItems] = useState([]);
-  const storage = JSON.parse(window.localStorage.getItem("user"));
+  const storage = JSON.parse(localStorage.getItem("user"));
+  const [table, setTable] = useState([]);
+  const [menus, setMenus] = useState([]);
+  const [orderDetail, setOrderDetail] = useState([]);
+  const [loadingTable, setLoadingTable] = useState(true);
+  const [loadingMenus, setLoadingMenus] = useState(true);
+  const [loadingOrderDetail, setLoadingOrderDetail] = useState(true);
+  const [errorTable, setErrorTable] = useState(null);
+  const [errorMenus, setErrorMenus] = useState(null);
+  const [errorOrderDetail, setErrorOrderDetail] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(
-        `${import.meta.env.VITE_API}/restaurants/${
+    fetchTable();
+    fetchMenus();
+    fetchOrderDetail();
+  }, [storage.restaurant_id, tableId]);
+
+  const fetchTable = async () => {
+    setLoadingTable(true);
+    try {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${import.meta.env.VITE_API}/restaurants/${
           storage.restaurant_id
-        }/orders/list/`
-      )
-      .then((response) => {
-        console.log("Table info response:", response.data);
-        setTable(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching table information:", error);
-      });
-
-    axios
-      .get(
-        `http://127.0.0.1:8000/restaurants/orders/list/?table_id=${tableId}&${storage.restaurant_id}`
-      )
-      .then((response) => {
-        const ordersForTable = response.data.filter(
-          (order) => order.table === parseInt(tableId)
-        );
-        setOrders(ordersForTable);
-      })
-      .catch((error) => {
-        console.error("Error fetching orders:", error);
-      });
-
-    axios
-      .get(`http://127.0.0.1:8000/restaurants/1/menu_items/list/`)
-      .then((response) => {
-        setMenuItems(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching menu items:", error);
-      });
-
-    getProducts();
-    getCategories();
-  }, [tableId]);
-
-  const getProducts = () => {
-    axios
-      .get(import.meta.env.VITE_API + "/restaurants/1/menu_items/list/")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
+        }/tables/${tableId}/detail/`,
+      };
+      const response = await axios.request(config);
+      setTable(response.data);
+      setLoadingTable(false);
+    } catch (error) {
+      console.error(error);
+      setErrorTable(error);
+      setLoadingTable(false);
+    }
   };
 
-  const getCategories = () => {
-    axios
-      .get("http://127.0.0.1:8000/restaurants/1/categories/list/")
-      .then((response) => {
-        setCategories(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const fetchMenus = async () => {
+    setLoadingTable(true);
+    try {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${import.meta.env.VITE_API}/restaurants/${
+          storage.restaurant_id
+        }/menu_items/list/`,
+      };
+      const response = await axios.request(config);
+      setMenus(response.data);
+      setLoadingMenus(false);
+    } catch (error) {
+      console.error(error);
+      setErrorMenus(error);
+      setLoadingMenus(false);
+    }
   };
 
-  const handleCategoryClick = (categoryId) => {
-    setCategoryId(categoryId);
+  const fetchOrderDetail = async () => {
+    setLoadingTable(true);
+    try {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${import.meta.env.VITE_API}/restaurants/${
+          storage.restaurant_id
+        }/table/${tableId}/latest/`,
+      };
+      const response = await axios.request(config);
+      setOrderDetail(response.data);
+      setLoadingOrderDetail(false);
+    } catch (error) {
+      console.error(error);
+      setErrorOrderDetail(error);
+      setLoadingOrderDetail(false);
+    }
   };
 
-  console.log("status table", tableId);
-  const filteredProducts = categoryId
-    ? products.filter((product) => product.category === categoryId)
-    : products;
+  
 
-  const addToCart = (product) => {
-    const newOrderItem = {
-      id: Date.now(), // Unique ID
-      menu_item: product.id,
-      quantity: 1,
-    };
+  // if (loadingTable) {
+  //   return <div>Loading...</div>;
+  // }
 
-    const updatedOrders = orders.map((order) => {
-      if (order.table === parseInt(tableId)) {
-        return { ...order, order_items: [...order.order_items, newOrderItem] };
-      }
-      return order;
-    });
+  // if (errorTable) {
+  //   return <div>Error loading data</div>;
+  // }
 
-    setOrders(updatedOrders);
+  // if (!orderDetail || !orderDetail.order_items) {
+  //   return <p>No order yet!</p>;
+  // }
 
-    // Using SweetAlert2 for confirmation
-    Swal.fire({
-      icon: "success",
-      title: "Item Added to Cart!",
-      text: `${product.name} has been added to your cart.`,
-      showConfirmButton: false,
-      timer: 1500, // Automatically close after 1.5 seconds
-    });
-  };
+  console.log(orderDetail);
 
-  const addOrder = (menu_id) => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      restaurant: 1,
-      items: [
-        {
-          menu_item: 5,
-          quantity: 2,
-          employee: 1,
-          created_at: "2024-06-06T17:48:25.014029+07:00",
-          updated_at: "2024-06-06T17:48:25.014029+07:00",
-        },
-        {
-          menu_item: 1,
-          quantity: 1,
-          employee: 1,
-          created_at: "2024-06-06T17:48:25.014029+07:00",
-          updated_at: "2024-06-06T17:48:25.014029+07:00",
-        },
-        {
-          menu_item: 2,
-          quantity: 2,
-          employee: 1,
-          created_at: "2024-06-06T17:48:25.014029+07:00",
-          updated_at: "2024-06-06T17:48:25.014029+07:00",
-        },
-      ],
-    });
-
-    const requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch(
-      "http://127.0.0.1:8000/restaurants/1/orders/25/update/",
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
-  };
   return (
     <>
       <Menufooter />
@@ -175,60 +118,83 @@ const Menu = () => {
               Back
             </Link>
           </div>
-          <h2>Table {tableId}</h2>
-
-          {/* <div className="category-selector">
-            {categories.map((category, index) => (
-              <div key={index}>
-                <Link
-                  className="link_categor activeCategory"
-                  onClick={() => handleCategoryClick(category.id)}
-                >
-                  {category.name}
-                </Link>
-              </div>
-            ))}
-          </div> */}
+          <h2>Table {table.number}</h2>
 
           <div className="box_itemFood_container22">
-            {filteredProducts.map((product) => (
-              <Link to="#" className="box_itemFood" key={product.id}>
+            {menus.map((menu, index) => (
+              <Link to="#" className="box_itemFood" key={index}>
                 <div className="box_itemFood_item22">
-                  <img src={product.image} alt="" />
+                  <img src={menu.image} alt="" />
                   <div className="txt_boxDescription">
                     <div className="product-info-hp">
-                      <p className="product-name-hp">{product.name}</p>
+                      <p className="product-name-hp">{menu.name}</p>
                     </div>
                     <div className="product-info-hp">
-                      <p className="product-price-hp">
-                        Price: ${product.price}
-                      </p>
+                      <p className="product-price-hp">Price: {menu.price}</p>
                     </div>
                   </div>
                 </div>
                 <div className="icon_addcartTo">
-                  <IoCartOutline
-                    className="icon_addcartToIN"
-                    onClick={() => addOrder(product.id)}
-                  />
+                  <IoCartOutline className="icon_addcartToIN" />
                 </div>
               </Link>
             ))}
           </div>
         </div>
         <div className="contain-order">
-          {/* <Ordermenu
-            orders={orders}
-            setOrders={setOrders}
-            menuItems={menuItems}
-            tableId={tableId}
-          /> */}
-          <OrderDetail
-            orders={orders}
-            setOrders={setOrders}
-            menuItems={menuItems}
-            tableId={tableId}
-          />
+
+          <div className="container-order-detail">
+            <div className="contain-order-detail">
+              <>
+                {!orderDetail || !orderDetail.order_items ? (
+                  <p>No order!</p>
+                ) : (
+                  <>
+                    <h2>
+                      Order #{orderDetail.id} || <strong>Paid:</strong>{" "} 
+                      {orderDetail.paid ? "Yes" : "No"}
+                    </h2>
+
+                    <p>
+                      <strong>Date:</strong> {new Date(orderDetail.timestamp).toLocaleString()}
+                    </p>
+                    <br />
+
+                    <div className="order-list">
+                      {orderDetail.order_items.map((menu, index) => (
+                        <div className="test-text" key={index}>
+                          <div className="box-txt-dtorder">
+                            <div className="box-textorder">
+                              <p>Name: {menu.menu_item.name}</p>
+                              <p>Price: {menu.menu_item.price}</p>
+                            </div>
+                            <div className="box-txt-quantity">
+                              <div className="right_oflastDetailsFood22">
+                                <div className="icon_DetailsFood22">
+                                  <AiOutlineDelete />
+                                </div>
+                                <div className="boxCount_numfood22">
+                                  <p className="deleteIconCount22">
+                                    <RemoveCircleOutlineIcon />
+                                  </p>
+                                  <p className="countBtn_numberCount">{menu.quantity}</p>
+                                  <p className="addIconCount22">
+                                    <ControlPointIcon />
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <h3>Total Cost: ${orderDetail.total_cost}</h3>
+                  </>
+                )}
+
+              </>
+            </div>
+          </div>
         </div>
       </div>
     </>
