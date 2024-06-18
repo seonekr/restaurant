@@ -316,7 +316,7 @@ const OwnerMenu = () => {
               )}
             </div>
             <div className="boximage_admin">
-              <NavLink to="/account-admin" className="userAdminImage">
+              <NavLink to="#" className="userAdminImage">
                 <p>{storage.email}</p>
                 <img src={storage.image} />
               </NavLink>
