@@ -12,17 +12,16 @@ const Counter = () => {
   const storage = JSON.parse(window.localStorage.getItem("user"));
   const [orderPending, setOrderPending] = useState([]);
 
-  console.log(tables)
+  console.log("Tables: ", tables)
   useEffect(() => {
     fetchData();
-    fetchOrderPending();
   }, []);
 
   const fetchData = () => {
     axios
       .get(
         `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
-        }/tables/list/`
+        }/tables-with-pending-orders/`
       )
       .then((response) => {
         setTables(response.data);
@@ -62,24 +61,6 @@ const Counter = () => {
     const updatedTables = reservedTables.filter((_, i) => i !== index);
     setReservedTables(updatedTables);
   };
-
-  const fetchOrderPending = async () => {
-    try {
-      let config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
-          }/table/1/pending-orders/`,
-      };
-      const response = await axios.request(config);
-      setOrderPending(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-
-  };
-  console.log("11111111111", orderPending);
-
 
   return (
     <>
@@ -126,8 +107,7 @@ const Counter = () => {
                 className={`box-table ${getStatusClass(table)}`}
               >
                 <div className="box-img-table">
-                  <span className="box_numberorder">1</span>
-
+                  <span className="box_numberorder">{table.pending_order_items_count}</span>
                   <Link to={`/restaurant/orders/${table.id}`}>
                     <img src={Table} alt={`Table ${table.id}`} />
                     <h3>{`Table ${table.number}`} </h3>

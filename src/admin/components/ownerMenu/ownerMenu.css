@@ -21,6 +21,14 @@ body {
   justify-content: center;
 }
 
+.go_backPage{
+  display: flex;
+  align-items: center;
+  color: #0e64d2;
+  margin-right: 2rem;
+  gap: 3px;
+}
+
 #dashboard .left .menu .link {
   align-items: center;
   display: flex;

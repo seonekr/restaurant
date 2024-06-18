@@ -42,8 +42,7 @@ const Menu = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
-          }/tables/${tableId}/detail/`,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/tables/${tableId}/detail/`,
       };
       const response = await axios.request(config);
       setTable(response.data);
@@ -61,8 +60,7 @@ const Menu = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
-          }/menu_items/list/`,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/list/`,
       };
       const response = await axios.request(config);
       setMenus(response.data);
@@ -80,8 +78,7 @@ const Menu = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
-          }/table/${tableId}/latest/`,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/table/${tableId}/latest/`,
       };
       const response = await axios.request(config);
       setOrderDetail(response.data);
@@ -109,7 +106,7 @@ const Menu = () => {
           {
             menu_item: menu_id,
             quantity: 1,
-            employee: storage.user_id,
+            employee: null,
           },
         ],
       });
@@ -117,8 +114,7 @@ const Menu = () => {
         method: "post",
         maxBodyLength: Infinity,
         url:
-          import.meta.env.VITE_API +
-          `/restaurants/${storage.restaurant_id}/table/${tableId}/create_or_update/`,
+          import.meta.env.VITE_API+`/restaurants/${storage.restaurant_id}/table/${tableId}/create_or_update/`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -252,8 +248,7 @@ const Menu = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
-          }/table/${tableId}/pending-orders/`,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/table/${tableId}/pending-orders/`,
       };
       const response = await axios.request(config);
       setOrderPending(response.data);

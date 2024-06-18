@@ -22,7 +22,8 @@ import Swal from "sweetalert2";
 import HomeIcon from "@mui/icons-material/Home";
 import no_picture from "../../../img/no-picture-icon.jpg";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-
+import { Link } from "react-router-dom";
+import { HiOutlineLogin } from "react-icons/hi";
 
 const OwnerMenu = () => {
   const [banners, setBanners] = useState([]);
@@ -266,7 +267,8 @@ const OwnerMenu = () => {
 
           <div className="right">
             <div className="box_popupImage_logo">
-              <NavLink to="/restaurant_admin" className="logo22">
+              <NavLink to="/home" className="logo22">
+                <div className="go_backPage"><HiOutlineLogin />Go back</div>
                 <img src={restaurant.logo || no_picture} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
