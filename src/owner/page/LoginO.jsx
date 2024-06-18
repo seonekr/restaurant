@@ -81,7 +81,7 @@ const Login = () => {
             JSON.stringify(user.is_admin)
           );
           navigate("/restaurant_admin", { replace: true });
-        }  else if (user.employee_id) {
+        } else if (user.employee_id) {
           window.localStorage.setItem(
             "restaurant",
             JSON.stringify(user.employee_id)
@@ -110,10 +110,11 @@ const Login = () => {
 
   return (
     <>
-      <Menufooter />
+      {/* <Menufooter /> */}
       <div className="box_container_logino">
         <div className="container-box-logino">
           <div className="box-icon-close">
+            <IoClose />
           </div>
           <div className="contian-box-logino">
             <h3>{login_en}</h3>
@@ -162,7 +163,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Menubar />
+      {/* <Menubar /> */}
     </>
   );
 };
