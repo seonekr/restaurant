@@ -13,12 +13,15 @@ const Category = () => {
   const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
-    // Fetch data from the provided URL
+    fetchData(); // Fetch categories on component mount
+  }, []);
+
+  const fetchData = () => {
     fetch(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/list/`)
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  };
 
   const handleEdit = (category) => {
     setSelectedCategory(category);
@@ -26,8 +29,6 @@ const Category = () => {
   };
 
   const handleSaveEdit = (updatedCategory) => {
-    
-    // Save the updated category
     fetch(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/${updatedCategory.id}/update/`, {
       method: "PUT",
       body: JSON.stringify(updatedCategory),
@@ -36,7 +37,6 @@ const Category = () => {
       },
     }).then((response) => {
       if (response.ok) {
-        // Update the category in the state
         setCategories(
           categories.map((cat) =>
             cat.id === updatedCategory.id ? updatedCategory : cat
@@ -65,7 +65,6 @@ const Category = () => {
           method: "DELETE",
         }).then((response) => {
           if (response.ok) {
-            // Remove the category from the state
             setCategories(categories.filter((cat) => cat.id !== category.id));
             Swal.fire(
               'Deleted!',
@@ -99,8 +98,9 @@ const Category = () => {
   };
 
   const handleSubmitForm = () => {
-    // Handle form submission logic here
+    // After adding a category, close the modal and refresh the category list
     handleClosePopup();
+    fetchData(); // Refresh category list
   };
 
   return (

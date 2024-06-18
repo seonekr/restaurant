@@ -9,10 +9,8 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      e.preventDefault();
       const formdata = new FormData();
       formdata.append("name", categoryName);
-
 
       const requestOptions = {
         method: "POST",
@@ -20,7 +18,10 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
         redirect: "follow",
       };
 
-      const response = await fetch(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/create/`, requestOptions);
+      const response = await fetch(
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/create/`,
+        requestOptions
+      );
 
       if (!response.ok) {
         throw new Error("Failed to add category");
@@ -34,7 +35,8 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
       });
 
       // Clear the input field and close the modal
-      onSubmit();
+      setCategoryName("");
+      onSubmit(); // Notify parent to refresh data
       onClose();
     } catch (error) {
       console.error("Error adding category:", error.message);
@@ -44,7 +46,6 @@ const Addcategory = ({ isOpen, onClose, onSubmit }) => {
         text: "Failed to add category",
       });
     }
-
   };
 
   return (
