@@ -143,9 +143,9 @@ const Menu = () => {
       console.log("Loading finished.");
 
       addNotification({
-        title: 'Order menu',
-        message: 'There are order menu',
-        duration: 4000,
+        title: 'New Order',
+        message: `Restaurant: ${storage.restaurnt_name} from table ${tableId}`,
+        duration: 8000,
         icon: imageicon,
         native: true,
         onClick: () => console.log('Push Notification'),
