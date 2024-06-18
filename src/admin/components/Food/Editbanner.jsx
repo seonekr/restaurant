@@ -31,7 +31,6 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
     }
   };
 
-  
   const handleSave = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -48,24 +47,28 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
       formData.append("banner_image", updatedBanner.banner_image);
     }
 
-    axios
-      .patch(
-        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+    axios.patch(
+      `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to save changes?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          onSave(); // Call onSave to refresh the data and close the modal
+          Swal.fire("Saved!", "Your changes have been saved.", "success");
         }
-      )
-      .then((response) => {
-        onSave(response.data);
-        Swal.fire("Saved!", "Your changes have been saved.", "success").then(
-          () => {
-            // Reload the page after successful save
-            history.go(0); // Reload current page
-          }
-        );
       })
       .catch((error) => {
         console.error("Error updating product:", error);
@@ -166,9 +169,7 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
             />
           )}
           <div className="button-group-edit">
-            <button className="btn-save-edit-res" >
-              Save
-            </button>
+            <button className="btn-save-edit-res">Save</button>
             <button
               className="btn-cancel-edit-res"
               type="button"

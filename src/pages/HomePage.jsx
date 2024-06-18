@@ -8,7 +8,8 @@ import { IoMdTime } from "react-icons/io";
 import { FiMapPin } from "react-icons/fi";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
-
+import Logo from "../img/Logo_1.png";
+import Logo_banner from "../img/Logo_banner.png";
 const HomePage = () => {
   const { restaurantId, table_id } = useParams();
   const [categories, setCategories] = useState([]);
@@ -85,7 +86,7 @@ const HomePage = () => {
       <Menufooter />
       <div className="container_boxHeaderAt_store2-hp">
         <div className="box_logo">
-          <img src={restaurant.logo} alt="logo" />
+          <img src={restaurant.logo || Logo} alt="logo" />
         </div>
         <div className="box_heardOfGrooup">
           <div className="header_box_of_header">
@@ -128,7 +129,7 @@ const HomePage = () => {
 
       <div className="container_boxHeaderAt_store">
         <div className="box_banner_content">
-          <img src={restaurant.banner_image} alt="" />
+          <img src={restaurant.banner_image || Logo_banner} alt="" />
         </div>
       </div>
 

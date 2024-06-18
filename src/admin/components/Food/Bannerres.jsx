@@ -24,10 +24,14 @@ const Bannerres = () => {
   });
 
   useEffect(() => {
+    if (storage && storage.restaurant_id) {
+    } else {
+      console.error("No restaurant ID found in local storage.");
+    }
     getBanners();
   }, []);
 
-  const getBanners = () => {
+  const getBanners =  async () => {
     axios
       .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
       .then((response) => {
@@ -57,9 +61,9 @@ const Bannerres = () => {
     setShowEditModal(true);
   };
 
-  const handleSave = (updatedData) => {
-    setRestaurant(updatedData);
-    setShowEditModal(false);
+  const handleSave = async () => {
+    await getBanners(); // Refresh the data
+    setShowEditModal(false); // Close the modal
   };
 
   return (
@@ -156,8 +160,8 @@ const Bannerres = () => {
           <EditBanner
             banner={selectedFood}
             fieldToEdit={fieldToEdit}
-            onSave={handleSave}
             onCancel={() => setShowEditModal(false)}
+            onSave={handleSave}
           />
         )}
       </div>

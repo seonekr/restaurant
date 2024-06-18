@@ -15,7 +15,6 @@ body {
 
 /* menu */
 #dashboard .left .menu {
-
   margin-top: 7rem;
   display: grid;
   gap: 2.2rem;
@@ -71,40 +70,38 @@ body {
 }
 
 /* form */
+/* Container for the logo */
 .logo22 {
   display: flex;
   align-items: center;
   margin-left: 1.5rem;
 }
 
+/* Logo image styling */
 .logo22 img {
-  width: 100%; /* Adjust size as needed */
-  height: auto; /* Adjust size as needed */
-  object-fit: cover;
+  width: 100%; /* Ensures image fills the container */
+  height: auto; /* Maintains aspect ratio */
+  object-fit: cover; /* Ensures the image covers the container */
   border-radius: 50%; /* Makes the image circular */
 }
 
+/* Heading styling next to the logo */
 .logo22 h3 {
-  display: inline-block; /* Display as inline-block to stay connected with image */
-  padding: 10px; /* Add padding for spacing */
-  margin-left: 10px; /* Adjust spacing between image and text */
-  font-size: 18px; /* Adjust font size as needed */
-  color: #333; /* Text color */
+  display: inline-block; /* Aligns heading with the image */
+  padding: 10px; /* Adds space inside the heading */
+  margin-left: 10px; /* Adds space between the image and the heading */
+  font-size: 18px; /* Sets the font size */
+  color: #333; /* Sets the text color */
 }
 
-.box_popupImage_logo {
-  width: 230px;
-  height: auto;
-  padding: 5px 5px;
-  position: relative;
-  object-fit: cover;
-}
+/* Styling for the image inside a popup box */
 .box_popupImage_logo img {
-  width: 100%;
-  object-fit: cover;
-  overflow: hidden;
-  cursor: pointer;
+  width: 80px; /* Sets a fixed width for the popup image */
+  height: 80px; /* Maintains aspect ratio */
+  padding: 5px; /* Adds padding around the image */
+  object-fit: cover; /* Ensures the image covers the container */
 }
+
 .popup_image_logo {
   position: absolute;
   top: 35px;
