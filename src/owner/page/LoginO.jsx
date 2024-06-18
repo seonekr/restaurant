@@ -53,7 +53,6 @@ const Login = () => {
           user_id: result.user_id,
           is_admin: result.is_admin,
           store_id: result.store_id,
-          is_active: result.is_active,
           user_name: result.user_name,
           origin_store_name: result.origin_store_name,
           email: result.email,
@@ -81,13 +80,7 @@ const Login = () => {
             "restaurant",
             JSON.stringify(user.is_admin)
           );
-          navigate("/home", { replace: true });
-        } else if (user.is_active) {
-          window.localStorage.setItem(
-            "restaurant",
-            JSON.stringify(user.is_active)
-          );
-          navigate("/home", { replace: true });
+          navigate("/restaurant_admin", { replace: true });
         } else {
           navigate("/logino", { replace: true });
         }

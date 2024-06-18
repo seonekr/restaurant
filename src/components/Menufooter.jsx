@@ -33,7 +33,7 @@ function Menufooter() {
             <>
               {is_admin ? (
                 <>
-                  <NavLink to="/" className="linkTomenu">
+                  <NavLink to="#" className="linkTomenu">
                     Home
                   </NavLink>
                   <NavLink to="/board" className="boxcart_header_container">
@@ -42,9 +42,9 @@ function Menufooter() {
                       Dashboard
                     </div>
                   </NavLink>
-                  <NavLink to="/profile" className="linkTomenu">
+                  {/* <NavLink to="/profile" className="linkTomenu">
                     <FaRegUser id="FaRegUser" />
-                  </NavLink>
+                  </NavLink> */}
                 </>
               ) : (
                 <>
@@ -71,9 +71,9 @@ function Menufooter() {
                           Staff
                         </div>
                       </NavLink>
-                      <NavLink to="/profile" className="linkTomenu">
+                      {/* <NavLink to="/profile" className="linkTomenu">
                         <FaRegUser id="FaRegUser" />
-                      </NavLink>
+                      </NavLink> */}
                     </>
                   ) : (
                     <>

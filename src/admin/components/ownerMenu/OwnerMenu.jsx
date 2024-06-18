@@ -20,7 +20,10 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import Swal from "sweetalert2";
 import HomeIcon from "@mui/icons-material/Home";
+import no_picture from "../../../img/no-picture-icon.jpg";
 import StorefrontIcon from "@mui/icons-material/Storefront";
+
+
 const OwnerMenu = () => {
   const [banners, setBanners] = useState([]);
 
@@ -220,10 +223,10 @@ const OwnerMenu = () => {
           <div className="menu">
             {is_admin === true && (
               <>
-                <NavLink to="/board" className="link">
+                {/* <NavLink to="/board" className="link">
                   <RxDashboard />
                   <p>Dashboard</p>
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/restaurant_admin" className="link">
                   <StorefrontIcon />
                   <p>Restaurant</p>
@@ -263,8 +266,8 @@ const OwnerMenu = () => {
 
           <div className="right">
             <div className="box_popupImage_logo">
-              <NavLink to="/home" className="logo22">
-                <img src={restaurant.logo} alt="logo" />
+              <NavLink to="/restaurant_admin" className="logo22">
+                <img src={restaurant.logo || no_picture} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
 

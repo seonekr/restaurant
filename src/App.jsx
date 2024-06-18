@@ -65,7 +65,6 @@ import Counter from "./owner/counter/Counter";
 import Menu from "./owner/counter/Menu";
 import Ordermenu from "./owner/counter/Ordermenu";
 import Orderr from "./owner/counter/Orderr";
-import AllOrder from "./owner/counter/AllOrder";
 import Edit_restaurant from "./admin/components/Restaurant-manage/Edit_restaurant";
 import Add_Restaurant from "./admin/components/Restaurant-manage/Add_Restaurant";
 import History_order from "./admin/components/History_order/History_order";
@@ -217,7 +216,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           {/* --------- Counter ---------- */}
           <Route path="/counter"  element={<Counter/>} />
-          <Route path="/allOrder"  element={<AllOrder/>} />
           <Route path="/restaurant/orders/:tableId" element={<Menu/>}/>
           {/* <Route path="/restaurant/orders/:tableId" element={<OrderDetail/>}/> */}
           {/* <Route path="/restaurant/orders/:tableId" element={<Ordermenu/>}/> */}
