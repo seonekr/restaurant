@@ -92,11 +92,19 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          text: "The email or password do not match.",
-          icon: "error",
-        });
+        if (error.response && error.response.status === 400) {
+          MySwal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message || 'Something went wrong!',
+          });
+        } else {
+          MySwal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          });
+        }
       });
   };
 
