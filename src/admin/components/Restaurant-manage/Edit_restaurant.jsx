@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
 import OwnerMenu from "../ownerMenu/OwnerMenu";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
 import "./css/edit_restaurant.css";
+
 const Edit_restaurant = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Use useNavigate hook
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
-  const [logo, setLogo] = useState(null); // URL for the existing main image
-  const [newImageFile, setNewImageFile] = useState(null); // File for the new main image
-  const [bannerimage, setBannerimage] = useState([]); // URLs for the existing images
-  const [newImageFiles, setNewImageFiles] = useState([]); // Files for the new images
+  const [logo, setLogo] = useState(null);
+  const [newImageFile, setNewImageFile] = useState(null);
+  const [bannerImage, setBannerImage] = useState(null);
+  const [newBannerImageFile, setNewBannerImageFile] = useState(null);
 
   useEffect(() => {
-    let config = {
+    const config = {
       method: "get",
       maxBodyLength: Infinity,
       url: import.meta.env.VITE_API + `/restaurants/${id}/`,
@@ -34,31 +35,27 @@ const Edit_restaurant = () => {
         setTime(response.data.time);
         setDescription(response.data.description);
         setLogo(response.data.logo);
-        setBannerimage(response.data.bannerimage);
+        setBannerImage(response.data.banner_image);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [id]);
 
-  const handleImageChange = (e) => {
+  const handleLogoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setNewImageFile(file); // Set the file for new image
-      setImages(URL.createObjectURL(file)); // Set the preview for the new image
+      setNewImageFile(file); // Set the file for new logo image
+      setLogo(URL.createObjectURL(file)); // Set the preview for the new logo image
     }
   };
 
-  const handleMultipleImagesChange = (e) => {
-    const files = Array.from(e.target.files);
-    const newImages = files.map((file) => URL.createObjectURL(file));
-    setNewImageFiles((prevFiles) => [...prevFiles, ...files]); // Add files of new images
-    setImages((prevImages) => [...prevImages, ...newImages]); // Add previews of new images
-  };
-
-  const removeImage = (index) => {
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
-    setNewImageFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); // Remove the file from the list
+  const handleBannerImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNewBannerImageFile(file); // Set the file for new banner image
+      setBannerImage(URL.createObjectURL(file)); // Set the preview for the new banner image
+    }
   };
 
   const updateRestaurant = async (e) => {
@@ -75,8 +72,8 @@ const Edit_restaurant = () => {
       formData.append("logo", newImageFile); // Append new main image if it exists
     }
 
-    if (newImageFiles) {
-      formData.append("banner_image", newImageFile);  // Append new images
+    if (newBannerImageFile) {
+      formData.append("banner_image", newBannerImageFile); // Append new banner image if it exists
     }
 
     try {
@@ -92,7 +89,7 @@ const Edit_restaurant = () => {
 
       Swal.fire({
         title: "Success!",
-        text: "Hotel updated successfully.",
+        text: "Restaurant updated successfully.",
         icon: "success",
         confirmButtonText: "OK",
       }).then(() => {
@@ -104,8 +101,11 @@ const Edit_restaurant = () => {
         setAddress("");
         setLogo(null);
         setNewImageFile(null);
-        setBannerimage([]);
-        setNewImageFiles([]);
+        setBannerImage(null);
+        setNewBannerImageFile(null);
+
+        // Navigate back to the previous page
+        navigate(-1);
       });
     } catch (error) {
       Swal.fire({
@@ -115,11 +115,12 @@ const Edit_restaurant = () => {
         confirmButtonText: "OK",
       });
       console.error(
-        "There was an error updating the hotel:",
+        "There was an error updating the restaurant:",
         error.response.data
       );
     }
   };
+
   return (
     <>
       <OwnerMenu />
@@ -127,15 +128,14 @@ const Edit_restaurant = () => {
         <div className="box_container_product">
           <h2>Edit Restaurant</h2>
           <div className="submit1">
-            <button type="submit" onClick={updateRestaurant}>Update</button>
+            <button onClick={updateRestaurant}>Update</button>
           </div>
-          <form className="edit-product-forms" >
+          <form className="edit-product-forms" encType="multipart/form-data">
             <div className="input-img">
               <div className="box_description">
                 <h3>Image</h3>
                 <div className="images">
-                  <img src={logo} alt="Selected" />
-
+                  {logo && <img src={logo} alt="Selected" />}
                   <div
                     className="box_chooses_image"
                     onClick={() => document.getElementById("fileInput").click()}
@@ -146,27 +146,27 @@ const Edit_restaurant = () => {
                     type="file"
                     id="fileInput"
                     style={{ display: "none" }}
-                    onChange={handleImageChange}
+                    onChange={handleLogoChange}
                   />
                 </div>
               </div>
-
               <div className="gallery">
-                <h3>BannerImage</h3>
+                <h3>Banner Images</h3>
                 <div className="gallery-box">
-                  <img src={bannerimage} alt="Selected" />
+                  {bannerImage && <img src={bannerImage} alt="Selected" />}
                   <div
                     className="box_chooses_image2"
-                    onClick={() => document.getElementById("fileInput").click()}
+                    onClick={() =>
+                      document.getElementById("fileInput2").click()
+                    }
                   >
                     Choose image
                   </div>
                   <input
                     type="file"
-                    id="fileInputMultiple"
+                    id="fileInput2"
                     style={{ display: "none" }}
-                    onChange={handleMultipleImagesChange}
-                    multiple
+                    onChange={handleBannerImageChange}
                   />
                 </div>
               </div>
@@ -187,7 +187,7 @@ const Edit_restaurant = () => {
               <div className="input">
                 <label htmlFor="phone">Phone</label>
                 <input
-                  type="number"
+                  type="text"
                   name="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -211,8 +211,8 @@ const Edit_restaurant = () => {
                   name="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
-                  placeholder="time..."
-                ></input>
+                  placeholder="Time..."
+                />
               </div>
 
               <div className="input">
