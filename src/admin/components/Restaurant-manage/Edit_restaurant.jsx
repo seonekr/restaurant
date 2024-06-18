@@ -21,7 +21,7 @@ const Edit_restaurant = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API + `/tourapi/hotel/detail/${id}/`,
+      url: import.meta.env.VITE_API + `/restaurants/${id}/`,
       headers: {},
     };
 
@@ -45,7 +45,7 @@ const Edit_restaurant = () => {
     const file = e.target.files[0];
     if (file) {
       setNewImageFile(file); // Set the file for new image
-      setImage(URL.createObjectURL(file)); // Set the preview for the new image
+      setImages(URL.createObjectURL(file)); // Set the preview for the new image
     }
   };
 
@@ -61,7 +61,7 @@ const Edit_restaurant = () => {
     setNewImageFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); // Remove the file from the list
   };
 
-  const updateHotel = async (e) => {
+  const updateRestaurant = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -76,12 +76,12 @@ const Edit_restaurant = () => {
     }
 
     if (newImageFiles) {
-      newImageFiles.forEach((file, i) => formData.append(`bannerimage`, file)); // Append new images
+      formData.append("banner_image", newImageFile);  // Append new images
     }
 
     try {
       await axios.patch(
-        import.meta.env.VITE_API + `/tourapi/hotel/update/${id}/`,
+        import.meta.env.VITE_API + `/restaurants/${id}/`,
         formData,
         {
           headers: {
@@ -110,7 +110,7 @@ const Edit_restaurant = () => {
     } catch (error) {
       Swal.fire({
         title: "Error!",
-        text: "There was an error updating the hotel.",
+        text: "There was an error updating the restaurant.",
         icon: "error",
         confirmButtonText: "OK",
       });
@@ -127,9 +127,9 @@ const Edit_restaurant = () => {
         <div className="box_container_product">
           <h2>Edit Restaurant</h2>
           <div className="submit1">
-            <button type="submit">Update</button>
+            <button type="submit" onClick={updateRestaurant}>Update</button>
           </div>
-          <form className="edit-product-forms" onSubmit={updateHotel}>
+          <form className="edit-product-forms" >
             <div className="input-img">
               <div className="box_description">
                 <h3>Image</h3>
@@ -190,7 +190,7 @@ const Edit_restaurant = () => {
                   type="number"
                   name="phone"
                   value={phone}
-                  onChange={(e) => setPhonr(e.target.value)}
+                  onChange={(e) => setPhone(e.target.value)}
                   placeholder="Phone..."
                 />
               </div>
@@ -207,7 +207,7 @@ const Edit_restaurant = () => {
               <div className="input">
                 <label htmlFor="time">Time</label>
                 <input
-                  type="time"
+                  type="text"
                   name="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}

@@ -96,14 +96,14 @@ const EditEmployee = () => {
             <div className="addAdminForm">
               <div className="boxhead_subminandtitle">
                 <h2 className="titleaddmin">Edit Employee</h2>
-                <div>
-                  <button type="submit" className="btn_submit">
+                <div className="button-updateemp">
+                  <button type="submit" className="btn_submit22">
                     Update
                   </button>
                 </div>
               </div>
 
-              <div className="add-box">
+              {/* <div className="add-box">
                 <label htmlFor="fname" className="titlelabel">
                   Name:
                 </label>
@@ -118,7 +118,7 @@ const EditEmployee = () => {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="add-box">
                 <label htmlFor="email" className="titlelabel">
@@ -136,7 +136,7 @@ const EditEmployee = () => {
                   />
                 </div>
               </div>
-              <div className="add-box">
+              {/* <div className="add-box">
                 <label htmlFor="address" className="titlelabel">
                   Address:
                 </label>
@@ -151,8 +151,8 @@ const EditEmployee = () => {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
-              <div className="add-box">
+              </div> */}
+              {/* <div className="add-box">
                 <label htmlFor="phone" className="titlelabel">
                   Phone number:
                 </label>
@@ -167,7 +167,7 @@ const EditEmployee = () => {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="add-box">
                 <label htmlFor="password" className="titlelabel">
                   Password:

@@ -138,20 +138,20 @@ const Tables = () => {
             {tables.map((table) => (
               <div key={table.id} className="box-table-dash">
                 <div className="box-img-table-dash">
+                  <div
+                    className="deleteBox_productcontent22"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDelete(table.id);
+                    }}
+                  >
+                    <AiOutlineDelete />
+                  </div>
                   <Link
                     to="#"
                     onClick={() => handleTableClick(table.id)}
                     className="Open"
                   >
-                    <div
-                      className="deleteBox_productcontent22"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDelete(table.id);
-                      }}
-                    >
-                      <AiOutlineDelete />
-                    </div>
                     <img src={TableImage} alt={`Table ${table.id}`} />
                     <h3>{`Table ${table.number}`}</h3>
                   </Link>

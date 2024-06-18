@@ -10,6 +10,7 @@ import Editfood from "./Editfood";
 import "./itemfood1.css";
 import Bannerres from "./Bannerres";
 
+
 function Itemfood() {
   const [fieldToEdit, setFieldToEdit] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -19,38 +20,24 @@ function Itemfood() {
 
   useEffect(() => {
     if (storage && storage.restaurant_id) {
-      getProducts(storage.restaurant_id);
+      fetchMenuItems();
     } else {
       console.error("No restaurant ID found in local storage.");
     }
   }, []);
 
-  const getProducts = (restaurant_id) => {
-    axios
-      .get(
-        `${import.meta.env.VITE_API}/restaurants/${restaurant_id}/menu_items/list/`
-      )
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
+  const fetchMenuItems = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/list/`
+      );
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching menu items:", error);
+    }
   };
 
-  const handleEditName = (food, field) => {
-    setSelectedFood({ ...food });
-    setFieldToEdit(field);
-    setShowEditModal(true);
-  };
-
-  const handleEditImage = (food, field) => {
-    setSelectedFood({ ...food });
-    setFieldToEdit(field);
-    setShowEditModal(true);
-  };
-
-  const handleEditPrice = (food, field) => {
+  const handleEdit = (food, field) => {
     setSelectedFood({ ...food });
     setFieldToEdit(field);
     setShowEditModal(true);
@@ -68,7 +55,7 @@ function Itemfood() {
       if (result.isConfirmed) {
         axios
           .delete(
-            `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/${productId}/`
+            `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/${productId}/delete/`
           )
           .then(() => {
             setProducts(products.filter((product) => product.id !== productId));
@@ -81,9 +68,9 @@ function Itemfood() {
     });
   };
 
-  const handleSave = (updatedData) => {
-    setProducts(updatedData);
-    setShowEditModal(false);
+  const handleSave = async () => {
+    await fetchMenuItems(); // Refresh the data
+    setShowEditModal(false); // Close the modal
   };
 
   return (
@@ -124,7 +111,7 @@ function Itemfood() {
                     </div>
                     <div className="icon_cameraDp22">
                       <IoCamera
-                        onClick={() => handleEditImage(product, "image")}
+                        onClick={() => handleEdit(product, "image")}
                       />
                     </div>
                     <div className="txt_boxDescription3">
@@ -132,7 +119,7 @@ function Itemfood() {
                         <p className="product-name">{product.name}</p>
                         <div className="edit-icon-name">
                           <FaPencil
-                            onClick={() => handleEditName(product, "name")} // Specify field to edit
+                            onClick={() => handleEdit(product, "name")}
                           />
                         </div>
                       </div>
@@ -140,7 +127,7 @@ function Itemfood() {
                         <p className="product-price">Price: ${product.price}</p>
                         <div className="edit-icon-price">
                           <FaPencil
-                            onClick={() => handleEditPrice(product, "price")} // Specify field to edit
+                            onClick={() => handleEdit(product, "price")}
                           />
                         </div>
                       </div>

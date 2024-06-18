@@ -5,23 +5,23 @@ import "./editfood.css";
 
 const Editfood = ({ selectedFood, onCancel, fieldToEdit, onSave }) => {
   const storage = JSON.parse(window.localStorage.getItem("user"));
-  const [imagePreview, setImagePreview] = useState(null); // State for previewing image
+  const [imagePreview, setImagePreview] = useState(null);
   const [editedFood, setEditedFood] = useState({
     id: selectedFood.id,
     name: selectedFood.name,
     price: selectedFood.price,
-    image: null, // Initialize image as null
+    image: null,
   });
 
   useEffect(() => {
-    setImagePreview(selectedFood.image); // Set initial image preview
+    setImagePreview(selectedFood.image);
   }, [selectedFood.image]);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     if (type === "file") {
       setEditedFood({ ...editedFood, [name]: e.target.files[0] });
-      setImagePreview(URL.createObjectURL(e.target.files[0])); // Update image preview
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
     } else {
       setEditedFood({ ...editedFood, [name]: value });
     }
@@ -36,9 +36,10 @@ const Editfood = ({ selectedFood, onCancel, fieldToEdit, onSave }) => {
       if (editedFood.image) {
         formData.append("image", editedFood.image);
       }
-  
-      const response = await axios.patch(
-        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/${editedFood.id}/update/`,
+      await axios.patch(
+        `${import.meta.env.VITE_API}/restaurants/${
+          storage.restaurant_id
+        }/menu_items/${editedFood.id}/update/`,
         formData,
         {
           headers: {
@@ -46,20 +47,19 @@ const Editfood = ({ selectedFood, onCancel, fieldToEdit, onSave }) => {
           },
         }
       );
-  
-      // Call onSave to update parent component state
-      onSave(response.data);
-  
-      // Show success message
+
       Swal.fire({
-        icon: "success",
-        title: "Update Successful",
-        text: "Your food item has been updated.",
-      }).then(() => {
-        // Reload the page after a short delay to ensure state update is complete
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000); // Adjust delay as needed
+        title: "Are you sure?",
+        text: "Do you want to save changes?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onSave(); // Call onSave to refresh the data and close the modal
+          Swal.fire("Saved!", "Your changes have been saved.", "success");
+        }
       });
     } catch (error) {
       console.error("Error updating food:", error);
@@ -70,7 +70,6 @@ const Editfood = ({ selectedFood, onCancel, fieldToEdit, onSave }) => {
       });
     }
   };
-  
 
   return (
     <div className="popup-overlay-editfood">
@@ -123,7 +122,7 @@ const Editfood = ({ selectedFood, onCancel, fieldToEdit, onSave }) => {
           )}
 
           <div className="button-group-editfood">
-            <button className="btn-save-editfood">
+            <button className="btn-save-editfood" >
               Save
             </button>
             <button
@@ -141,49 +140,3 @@ const Editfood = ({ selectedFood, onCancel, fieldToEdit, onSave }) => {
 };
 
 export default Editfood;
-
-// <div className="edit-food-form">
-//   <h2>Edit Food</h2>
-//   <form onSubmit={handleSubmit}>
-//     {editMode === "name" && (
-//       <label>
-//         Name:
-//         <input
-//           type="text"
-//           name="name"
-//           value={editedFood.name}
-//           onChange={handleChange}
-//         />
-//       </label>
-//     )}
-//     {editMode === "price" && (
-//       <label>
-//         Price:
-//         <input
-//           type="number"
-//           name="price"
-//           value={editedFood.price}
-//           onChange={handleChange}
-//         />
-//       </label>
-//     )}
-//     {editMode === "image" && (
-//       <label>
-//         Image:
-//         <input type="file" name="image" onChange={handleChange} />
-//       </label>
-//     )}
-//     <div className="form-buttons">
-//       <button type="submit">Save</button>
-//       <button type="button" onClick={handleCancel}>
-//         Cancel
-//       </button>
-//     </div>
-//   </form>
-//   {/* Toggle buttons to switch between editing name, price, and image */}
-//   <div className="toggle-buttons">
-//     <button onClick={() => handleEditClick("name")}>Edit Name</button>
-//     <button onClick={() => handleEditClick("price")}>Edit Price</button>
-//     <button onClick={() => handleEditClick("image")}>Edit Image</button>
-//   </div>
-// </div>

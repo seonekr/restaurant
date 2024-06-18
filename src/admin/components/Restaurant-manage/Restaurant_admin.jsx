@@ -32,9 +32,9 @@ const Restaurant_admin = () => {
   const handleDelete = async (id) => {
     // Modified handleDelete to take id parameter
     try {
-      // await axios.delete(
-      //   `http://43.202.102.25:8000/tourapi/hotel/delete/${id}/`
-      // );
+      await axios.delete(
+        ` ${import.meta.env.VITE_API}/restaurants/${id}/`
+      );
       Swal.fire({
         icon: "success",
         title: "Success",
