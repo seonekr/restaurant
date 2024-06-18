@@ -38,6 +38,17 @@ const Add_Restaurant = () => {
       }));
     }
   };
+  const handleImageChange2 = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+      setAddRestaurantData((prevState) => ({
+        ...prevState,
+        banner_image: file,
+      }));
+    }
+  };
 
   // const handleMultipleImageChange = (e) => {
   //   if (e.target.files) {
@@ -132,7 +143,7 @@ const Add_Restaurant = () => {
         <div className="box_container_add_res">
           <h2>Add Restaurant</h2>
           <div className="submit1">
-            <button type="submit">Post</button>
+            <button>Post</button>
           </div>
           <form className="edit-res-forms" onSubmit={handleSubmit}>
             <div className="input-imggg">
@@ -158,32 +169,14 @@ const Add_Restaurant = () => {
               <div className="gallery2">
                 <h3>BannerImage</h3>
                 <div className="gallery-box2">
-                  {imagePreviews.map((image, index) => (
-                    <div className="gallery-box-view" key={index}>
-                      <img src={image} alt="" />
-                      <div
-                        className="button"
-                        onClick={() => removeImage(index)}
-                      >
-                        <AiOutlineDelete />
-                      </div>
-                    </div>
-                  ))}
                   <div
                     className="add-more"
-                    onClick={() =>
-                      document.getElementById("fileInputMultiple").click()
-                    }
-                  >
-                    +
-                  </div>
-                  {/* Hidden file input for triggering the file selection dialog */}
+                    onClick={() => document.getElementById("fileInput").click()}
+                  ></div>
                   <input
                     type="file"
-                    id="fileInputMultiple"
-                    style={{ display: "none" }}
-                    onChange={handleMultipleImageChange}
-                    multiple // Allow multiple file selection
+                    id="fileInput"
+                    onChange={handleImageChange2}
                   />
                 </div>
               </div>
@@ -196,7 +189,7 @@ const Add_Restaurant = () => {
                   type="text"
                   name="name"
                   placeholder="Name..."
-                  value={addHotelData.name}
+                  value={addRestaurantData.name}
                   onChange={handleChange}
                   required
                 />
@@ -208,7 +201,7 @@ const Add_Restaurant = () => {
                   type="text"
                   name="phone"
                   placeholder="Phone..."
-                  value={addHotelData.phone}
+                  value={addRestaurantData.phone}
                   onChange={handleChange}
                   required
                 />
@@ -219,7 +212,7 @@ const Add_Restaurant = () => {
                   type="text"
                   name="address"
                   placeholder="Address..."
-                  value={addHotelData.address}
+                  value={addRestaurantData.address}
                   onChange={handleChange}
                   required
                 />
@@ -227,10 +220,10 @@ const Add_Restaurant = () => {
               <div className="input">
                 <label htmlFor="time">Time</label>
                 <input
-                  type="time"
+                  type="text"
                   name="time"
                   placeholder="Time..."
-                  value={addHotelData.time}
+                  value={addRestaurantData.time}
                   onChange={handleChange}
                   required
                 />
@@ -242,7 +235,7 @@ const Add_Restaurant = () => {
                   name="description"
                   rows="10"
                   placeholder="Description..."
-                  value={addHotelData.description}
+                  value={addRestaurantData.description}
                   onChange={handleChange}
                   required
                 ></textarea>

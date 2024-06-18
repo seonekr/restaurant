@@ -456,7 +456,7 @@ const AddEmployee = () => {
                 </select>
               </div>
               <div className="button-addemp">
-              <button type="submit" className="btn-add-newemp">Add Employee</button>
+              <button className="btn-add-newemp">Add Employee</button>
               </div>
             </form>
           </div>

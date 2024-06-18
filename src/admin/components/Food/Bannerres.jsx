@@ -7,7 +7,7 @@ import { IoCamera } from "react-icons/io5";
 import { FaPencil } from "react-icons/fa6";
 import axios from "axios";
 import EditBanner from "./Editbanner";
-
+import no_picture from "../../../img/no-picture-icon.jpg";
 const Bannerres = () => {
   const [fieldToEdit, setFieldToEdit] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -72,7 +72,7 @@ const Bannerres = () => {
         <div className="container_boxHeaderAt_mainpage22">
           <div className="box_logo_main">
             <img
-              src={restaurant.logo}
+              src={restaurant.logo || no_picture}
               alt="Restaurant Logo"
               onClick={() => setSelectedFood(restaurant)}
             />
