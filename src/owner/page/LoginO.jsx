@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
     let data = JSON.stringify({
       email: email,
       password: password,
@@ -53,6 +53,7 @@ const Login = () => {
           user_id: result.user_id,
           is_admin: result.is_admin,
           store_id: result.store_id,
+          is_active: result.is_active,
           user_name: result.user_name,
           origin_store_name: result.origin_store_name,
           email: result.email,
@@ -75,15 +76,20 @@ const Login = () => {
             JSON.stringify(user.restaurant_id)
           );
           navigate("/home", { replace: true });
-        }else if (user.is_admin) {
+        } else if (user.is_admin) {
           window.localStorage.setItem(
             "restaurant",
             JSON.stringify(user.is_admin)
           );
           navigate("/home", { replace: true });
-        }else{
-          navigate("/", { replace: true });
-
+        } else if (user.is_active) {
+          window.localStorage.setItem(
+            "restaurant",
+            JSON.stringify(user.is_active)
+          );
+          navigate("/home", { replace: true });
+        } else {
+          navigate("/logino", { replace: true });
         }
       })
       .catch((error) => {
@@ -97,14 +103,12 @@ const Login = () => {
 
   return (
     <>
-      <Menufooter />
+      {/* <Menufooter /> */}
       <div className="box_container_logino">
         <div className="container-box-logino">
-          <div className="box-icon-close">
-            <Link to="/">
-              <IoClose className="icon_closeReviwe" />
-            </Link>
-          </div>
+          <Link to="/" className="box-icon-close">
+            <IoClose />
+          </Link>
           <div className="contian-box-logino">
             <h3>{login_en}</h3>
             <p>Please login to use the service!</p>
@@ -149,15 +153,10 @@ const Login = () => {
                 Join the membership
               </Link>
             </div>
-
-            {/* <a href="https://myaccount.google.com/" className="login_google2">
-              <FcGoogle className="iconnDetails_head" />
-              Login with Google
-            </a> */}
           </div>
         </div>
       </div>
-      <Menubar />
+      {/* <Menubar /> */}
     </>
   );
 };

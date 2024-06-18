@@ -5,24 +5,33 @@ import { IoCartOutline } from "react-icons/io5";
 import axios from "axios";
 
 function FoodItem() {
-  const { restaurant_id, table_id } = useParams();
+  const { restaurantId, table_id } = useParams();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [categoryId, setCategoryId] = useState(null);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  const storage = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     getProducts();
     getCategories();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const getProducts = () => {
     axios
       .get(
-        `${
-          import.meta.env.VITE_API
-        }/restaurants/${restaurant_id}/menu_items/list/`
+        `${import.meta.env.VITE_API}/restaurants/${
+          restaurantId ? restaurantId : storage.restaurant_id
+        }/menu_items/list/`
       )
       .then((response) => {
         setProducts(response.data);
@@ -35,9 +44,9 @@ function FoodItem() {
   const getCategories = () => {
     axios
       .get(
-        `${
-          import.meta.env.VITE_API
-        }/restaurants/${restaurant_id}/categories/list/`
+        `${import.meta.env.VITE_API}/restaurants/${
+          restaurantId ? restaurantId : storage.restaurant_id
+        }/categories/list/`
       )
       .then((response) => {
         setCategories(response.data);
@@ -50,43 +59,25 @@ function FoodItem() {
   const handleCategoryClick = (categoryId) => {
     setCategoryId(categoryId);
   };
-  const addToCart = (product) => {
-    // Clone the current cart state
-    const updatedCart = [...cart];
 
-    // Check if the product already exists in the cart
+  const addToCart = (product) => {
+    const updatedCart = [...cart];
     const existingProduct = updatedCart.find((item) => item.id === product.id);
 
     if (existingProduct) {
-      // Product already exists in cart, show alert and do not add again
       alert("This product is already in your cart!");
     } else {
-      // Product does not exist in cart, add it with quantity 1
       const updatedProduct = {
         ...product,
         quantity: 1,
-        restaurant_id: restaurant_id,
+        restaurant_id: restaurantId,
         table_id: table_id,
       };
       updatedCart.push(updatedProduct);
       setCart(updatedCart);
-
-      // Show alert that product was added to cart
       alert("Product added to cart!");
     }
-
-    // Update local storage with updated cart
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
-
-  const loadCartFromLocalStorage = () => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    }
-  };
-
-  console.log("####*************######", typeof restaurant_id, table_id);
 
   return (
     <>
@@ -108,7 +99,6 @@ function FoodItem() {
         <div className="poster_food">
           <div className="filter2">
             <div></div>
-            {/* Display restaurant name if available */}
             <h3>Restaurant's Food</h3>
           </div>
         </div>

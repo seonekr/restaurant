@@ -2,45 +2,34 @@ import React, { useState, useEffect } from "react";
 import "./css/order.css";
 import Menufooter from "../components/Menufooter";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const Order = () => {
-  const [orderDetails, setOrderDetails] = useState(null); // Initialize as null for single order object
-  const [menuDetails, setMenuDetails] = useState([]); // Initialize as empty array for menu items
+  const { restaurantId, table_id } = useParams();
+
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    const getOrderDetails = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API}/restaurants/1/orders/1/detail/`
-        );
-        setOrderDetails(response.data);
-      } catch (error) {
-        console.error("Error fetching order details:", error);
-      }
+    let data = new FormData();
+
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url:
+        import.meta.env.VITE_API +
+        `/restaurants/${restaurantId}/table/${table_id}/latest/`,
+      data: data,
     };
 
-    getOrderDetails();
-  }, []);
-
-  useEffect(() => {
-    const getMenuDetails = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API}/restaurants/1/menu_items/list/`
-        );
-        setMenuDetails(response.data);
-      } catch (error) {
-        console.error("Error fetching menu details:", error);
-      }
-    };
-
-    getMenuDetails();
-  }, []);
-
-
-
-  console.log("detail order", orderDetails);
-  console.log("detail menu", menuDetails);
+    axios
+      .request(config)
+      .then((response) => {
+        setOrder(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [restaurantId, table_id]);
 
   return (
     <>
@@ -49,34 +38,21 @@ const Order = () => {
         <h3>Your Order</h3>
         <div className="box_firstOrder_content">
           <h4>List menu:</h4>
-          {orderDetails && orderDetails.items && (
-            <>
-              {orderDetails.items.map((item) => {
-                const menuItem = menuDetails.find(
-                  (menu) => menu.id === item.menu_item
-                );
-                return (
-                  <div className="test-text" key={item.id}>
-                    <p>{menuItem ? menuItem.name : "Unknown"}</p>
-                    <p>{menuItem ? `$${menuItem.price}` : "Unknown"}</p>
-                    <p>{item.quantity}</p>
-                  </div>
-                );
-              })}
-            </>
-          )}
-          <div className="box_groupPrice_2">
-            <h4 className="text-dollar">
-              ${orderDetails ? orderDetails.total_cost : "Loading..."}
-            </h4>
-            <h4></h4>
-          </div>
+          {/* <>
+            <div className="test-text">
+            </div>
+          </> */}
+
+          {order &&
+            Array.isArray(order.order_items) &&
+            order.order_items.map((or, index) => (
+              <div className="box_groupPrice_2" key={index}>
+                <h4 className="text-dollar">{or.menu_item.name}</h4>
+                <h4 className="text-dollar">{or.quantity}</h4>
+              </div>
+            ))}
           <div className="boxgroupLastfoot">
-            <p>
-              Current Date:{" "}
-              {orderDetails ? orderDetails.timestamp : "Loading..."}
-            </p>
-            {/* <p>Payment method: BCEL-ONEPAY</p> */}
+            <p>Total: {order.total_cost}</p>
           </div>
         </div>
       </div>

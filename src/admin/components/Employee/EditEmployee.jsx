@@ -23,10 +23,7 @@ const EditEmployee = () => {
     password2: "",
     role: "",
   });
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [address, setAddress] = useState("");
+
   useEffect(() => {
     axios
       .get(import.meta.env.VITE_API + `/restaurants/${storage.restaurant_id}/employees/list/`)

@@ -10,7 +10,7 @@ import Rating from "@mui/material/Rating";
 import axios from "axios";
 
 const HomePage = () => {
-  const { restaurant_id, table_id } = useParams();
+  const { restaurantId, table_id } = useParams();
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState("All");
   const [filter, setFilter] = useState("");
@@ -24,7 +24,9 @@ const HomePage = () => {
     description: "",
     time: "",
   });
+
   const storage = JSON.parse(window.localStorage.getItem("user"));
+
   useEffect(() => {
     getCategories();
     getRestaurantDetails();
@@ -32,7 +34,10 @@ const HomePage = () => {
 
   const getCategories = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/categories/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${restaurantId ? restaurantId : storage.restaurant_id
+        }/categories/list/`
+      )
       .then((response) => {
         setCategories(response.data);
       })
@@ -43,17 +48,13 @@ const HomePage = () => {
 
   const getRestaurantDetails = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${restaurantId ? restaurantId : storage.restaurant_id
+        }/`
+      )
       .then((response) => {
-        const {
-          name,
-          logo,
-          address,
-          banner_image,
-          phone,
-          description,
-          time,
-        } = response.data;
+        const { name, logo, address, banner_image, phone, description, time } =
+          response.data;
 
         // Ensure that if any field is missing or undefined, it defaults to an empty string
         const updatedRestaurant = {
@@ -73,14 +74,11 @@ const HomePage = () => {
       });
   };
 
-
   const handleCategoryClick = (categoryName) => {
     setCategoryName(categoryName);
   };
 
   const [value, setValue] = useState(3);
-
-  console.log("##########", restaurant_id, table_id)
 
   return (
     <>

@@ -1,22 +1,54 @@
 .container-menu {
   width: 95%;
+  height: auto;
   margin: 6rem auto auto auto;
   display: grid;
-  grid-template-columns: 2.5fr 1fr;
+  grid-template-columns: 2fr 1.1fr;
 }
+
+/* Responsive for smartphones */
+@media (max-width: 768px) {
+  .container-menu {
+    grid-template-columns: 1fr;
+  }
+
+  .itle_header_order {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .contain-menu,
+  .contain-order {
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+
+  .box-txt-quantity {
+    width: auto;
+  }
+
+  .box-itemFood_container22 {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+}
+
 .itle_header_order {
   text-align: center;
   margin-top: 5.2rem;
 }
+
 .contain-menu {
   width: 100%;
   background-color: #ffffff;
   padding: 10px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
+
 .contain-menu h2 {
   text-align: center;
 }
+
 .contain-order {
   margin-left: 5px;
   width: 100%;
@@ -48,6 +80,7 @@
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
 }
+
 .box-txt-dtorder {
   display: flex;
   justify-content: space-between;
@@ -68,14 +101,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10%; /* Adjust the width as needed */
+  width: 10%;
+  /* Adjust the width as needed */
 }
 
 .box-txt-quantity p {
   margin: 0;
   padding: 2px 0;
   text-align: center;
-  font-size: 1.2em; /* Adjust the font size as needed */
+  font-size: 1.2em;
+  /* Adjust the font size as needed */
 }
 
 .count_menu_box_content {
@@ -84,10 +119,12 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .box-groupQuantity {
   display: flex;
   align-items: center;
 }
+
 .box-groupPrice2 {
   display: flex;
   align-items: center;
@@ -99,6 +136,7 @@
   margin: 0;
   margin-right: 5px;
 }
+
 .text-quantity {
   font-weight: bold;
   font-size: 20px;
@@ -111,43 +149,62 @@
   margin: 0;
   margin-right: 5px;
 }
+
 .text-dollar2 {
   font-weight: bold;
   font-size: 20px;
   color: #28a745;
 }
+
 .button-checkout {
   margin-top: 25px;
   display: flex;
 }
+
 .btn-checkout {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #28a745; /* Green background color */
-  color: white; /* White text color */
-  font-size: 16px; /* Font size */
-  font-weight: bold; /* Bold text */
-  text-align: center; /* Center the text */
-  border-radius: 5px; /* Rounded corners */
-  border: none; /* No border */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
-  margin: 0 auto; /* Center horizontally */
+  background-color: #28a745;
+  /* Green background color */
+  color: white;
+  /* White text color */
+  font-size: 16px;
+  /* Font size */
+  font-weight: bold;
+  /* Bold text */
+  text-align: center;
+  /* Center the text */
+  border-radius: 5px;
+  /* Rounded corners */
+  border: none;
+  /* No border */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  /* Smooth transition for hover effect */
+  margin: 0 auto;
+  /* Center horizontally */
 }
 
 .btn-checkout:hover {
-  background-color: #218838; /* Darker green on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  background-color: #218838;
+  /* Darker green on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
 }
 
 .btn-checkout:active {
-  background-color: #1e7e34; /* Even darker green on active */
-  transform: scale(1); /* Reset transform on active */
+  background-color: #1e7e34;
+  /* Even darker green on active */
+  transform: scale(1);
+  /* Reset transform on active */
 }
 
 .btn-checkout:focus {
-  outline: none; /* Remove default focus outline */
-  box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.5); /* Add custom focus outline */
+  outline: none;
+  /* Remove default focus outline */
+  box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.5);
+  /* Add custom focus outline */
 }
 
 /*  */
@@ -159,25 +216,82 @@
   gap: 1rem;
 }
 
+.boxCount_numfood22 {
+  align-items: center;
+  justify-content: space-between;
+  z-index: -9999;
+}
+
+.boxCount_numfood22 {
+  display: flex;
+}
+
+.boxCount_numfood22 {
+  display: flex;
+  align-items: center;
+}
+
+.boxCount_numfood22 {
+  margin-top: 2rem;
+  gap: 1.2rem;
+}
+
+/* Responsive for smartphones */
+@media (max-width: 768px) {
+  .box_itemFood_container22 {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    overflow: hidden;
+  }
+
+  .boxCount_numfood22 {
+    display: grid;
+    align-items: unset;
+    justify-content: unset;
+  }
+
+  .box_add_delete_orderitem {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .boxCount_numfood22 {
+    display: grid;
+    align-items: center;
+  }
+
+  .boxCount_numfood22 {
+    margin-top: 2rem;
+    gap: 1.2rem;
+  }
+}
+
 /* CSS for image inside .box_itemFood_item */
 .box_itemFood_item22 img {
-  width: 100%; /* Ensure the image fills its container */
-  height: 200px; /* Set a fixed height */
+  width: 100%;
+  /* Ensure the image fills its container */
+  height: 200px;
+  /* Set a fixed height */
   object-fit: cover;
   overflow: hidden;
-  border-radius: 8px; /* Optionally add border radius */
+  border-radius: 8px;
+  /* Optionally add border radius */
 }
 
 /* CSS for product name and price */
 .txt_boxDescription22 {
-  padding: 5px; /* Add padding around product info */
+  padding: 5px;
+  /* Add padding around product info */
 }
 
 .product-name-hp {
-  font-weight: bold; /* Optionally make product name bold */
+  font-weight: bold;
+  /* Optionally make product name bold */
 }
+
 .product-price-hp {
-  color: #000000; /* Optionally change color of product price */
+  color: #000000;
+  /* Optionally change color of product price */
 }
 
 .box_itemFood_item22 {
@@ -214,6 +328,7 @@
   background-color: #ff7300;
   color: #fff;
 }
+
 /*  */
 .txt_boxDescription22 {
   display: flex;
@@ -221,24 +336,29 @@
   gap: 1px;
   font-size: 17px;
 }
+
 .product-info-hp {
   display: flex;
   align-items: center;
 }
+
 .product-name-hp {
   margin: 0;
   font-size: 16px;
   flex: 1;
   font-weight: bold;
 }
+
 .product-price-hp {
   margin-top: -10px;
   font-size: 16px;
   flex: 1;
 }
+
 .icon_addcartToIN {
   font-size: 30px;
 }
+
 /* Status table */
 .status-table {
   margin-bottom: 20px;
@@ -264,10 +384,9 @@ select {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  width: 150px; /* Adjust the width as needed */
+  width: 150px;
+  /* Adjust the width as needed */
 }
-
-
 
 select:focus {
   outline: none;
@@ -279,4 +398,3 @@ select:focus {
   margin-top: 10px;
   font-size: 15px;
 }
-

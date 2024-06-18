@@ -18,9 +18,13 @@ const Menu = () => {
   const [table, setTable] = useState([]);
   const [menus, setMenus] = useState([]);
   const [orderDetail, setOrderDetail] = useState([]);
+  const [orderPending, setOrderPending] = useState([]);
+  const [loadingOrder, setLoadingOrder] = useState(true);
   const [loadingTable, setLoadingTable] = useState(true);
   const [loadingMenus, setLoadingMenus] = useState(true);
   const [loadingOrderDetail, setLoadingOrderDetail] = useState(true);
+  const [loadingMenuCalcel, setLoadingMenuCalcel] = useState(true);
+
   const [errorTable, setErrorTable] = useState(null);
   const [errorMenus, setErrorMenus] = useState(null);
   const [errorOrderDetail, setErrorOrderDetail] = useState(null);
@@ -29,6 +33,7 @@ const Menu = () => {
     fetchTable();
     fetchMenus();
     fetchOrderDetail();
+    fetchOrderPending();
   }, [storage.restaurant_id, tableId]);
 
   const fetchTable = async () => {
@@ -37,9 +42,8 @@ const Menu = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${
-          storage.restaurant_id
-        }/tables/${tableId}/detail/`,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
+          }/tables/${tableId}/detail/`,
       };
       const response = await axios.request(config);
       setTable(response.data);
@@ -57,9 +61,8 @@ const Menu = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${
-          storage.restaurant_id
-        }/menu_items/list/`,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
+          }/menu_items/list/`,
       };
       const response = await axios.request(config);
       setMenus(response.data);
@@ -77,9 +80,8 @@ const Menu = () => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `${import.meta.env.VITE_API}/restaurants/${
-          storage.restaurant_id
-        }/table/${tableId}/latest/`,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
+          }/table/${tableId}/latest/`,
       };
       const response = await axios.request(config);
       setOrderDetail(response.data);
@@ -91,7 +93,146 @@ const Menu = () => {
     }
   };
 
-  
+  const handleSubmit = async function createOrUpdateOrder(menu_id) {
+    let loadingOrder = true;
+
+    console.log(menu_id);
+
+    try {
+      let data = JSON.stringify({
+        restaurant: storage.restaurant_id,
+        table: tableId,
+        employee: null,
+        status: "PENDING",
+        paid: false,
+        order_items: [
+          {
+            menu_item: menu_id,
+            quantity: 1,
+            employee: storage.user_id,
+          },
+        ],
+      });
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url:
+          import.meta.env.VITE_API +
+          `/restaurants/${storage.restaurant_id}/table/${tableId}/create_or_update/`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      console.log("Loading...");
+
+      const response = await axios.request(config);
+      console.log("Response:", JSON.stringify(response.data));
+      fetchOrderDetail();
+      alert("Success.");
+    } catch (error) {
+      if (error.response) {
+        console.error("Error Response:", error.response.data);
+      } else if (error.request) {
+        console.error("Error Request:", error.request);
+      } else {
+        console.error("Error", error.message);
+      }
+    } finally {
+      loadingOrder = false;
+      console.log("Loading finished.");
+    }
+  };
+
+  const handleMenuCancel = async (id) => {
+    let data = JSON.stringify({
+      "status": "CANCELLED"
+    });
+
+    let config = {
+      method: 'patch',
+      maxBodyLength: Infinity,
+      url: `${import.meta.env.VITE_API}/restaurants/order-items/${id}/status/`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        alert("Success.")
+        fetchOrderDetail();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleMenuIncrease = async (menu_id) => {
+    console.log(menu_id);
+  };
+
+  // const [orderStatus, setOrderStatus] = useState(initialStatus);
+
+  const handleChangeStatus = (id) => {
+    let data = JSON.stringify({
+      "status": "PREPARING"
+    });
+
+    let config = {
+      method: 'patch',
+      maxBodyLength: Infinity,
+      url: `${import.meta.env.VITE_API}/restaurants/order-items/${id}/status/`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        alert("Success.")
+        fetchOrderDetail();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleMenuDecrease = async (menu_id) => {
+    console.log(menu_id);
+  };
+
+  const handlePay = async () => {
+    let data = JSON.stringify({
+      paid: true,
+    });
+
+    let config = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/table/${tableId}/update_paid_status/`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        fetchOrderDetail();
+        alert("Payment successful.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // if (loadingTable) {
   //   return <div>Loading...</div>;
@@ -105,7 +246,22 @@ const Menu = () => {
   //   return <p>No order yet!</p>;
   // }
 
-  console.log(orderDetail);
+  console.log(orderPending);
+  const fetchOrderPending = async () => {
+    try {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
+          }/table/${tableId}/pending-orders/`,
+      };
+      const response = await axios.request(config);
+      setOrderPending(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+
+  };
 
   return (
     <>
@@ -122,7 +278,11 @@ const Menu = () => {
 
           <div className="box_itemFood_container22">
             {menus.map((menu, index) => (
-              <Link to="#" className="box_itemFood" key={index}>
+              <Link
+                onClick={() => handleSubmit(menu.id)}
+                className="box_itemFood"
+                key={index}
+              >
                 <div className="box_itemFood_item22">
                   <img src={menu.image} alt="" />
                   <div className="txt_boxDescription">
@@ -142,21 +302,23 @@ const Menu = () => {
           </div>
         </div>
         <div className="contain-order">
-
           <div className="container-order-detail">
             <div className="contain-order-detail">
               <>
-                {!orderDetail || !orderDetail.order_items ? (
-                  <p>No order!</p>
+                {orderDetail.paid == true ||
+                  !orderDetail ||
+                  !orderDetail.order_items ? (
+                  <h3>This table is vailable now!</h3>
                 ) : (
                   <>
                     <h2>
-                      Order #{orderDetail.id} || <strong>Paid:</strong>{" "} 
+                      Order #{orderDetail.id} || <strong>Paid:</strong>{" "}
                       {orderDetail.paid ? "Yes" : "No"}
                     </h2>
 
                     <p>
-                      <strong>Date:</strong> {new Date(orderDetail.timestamp).toLocaleString()}
+                      <strong>Date:</strong>{" "}
+                      {new Date(orderDetail.timestamp).toLocaleString()}
                     </p>
                     <br />
 
@@ -171,16 +333,25 @@ const Menu = () => {
                             <div className="box-txt-quantity">
                               <div className="right_oflastDetailsFood22">
                                 <div className="icon_DetailsFood22">
-                                  <AiOutlineDelete />
+                                  <AiOutlineDelete
+                                    onClick={() => handleMenuCancel(menu.id)}
+                                  />
                                 </div>
                                 <div className="boxCount_numfood22">
-                                  <p className="deleteIconCount22">
-                                    <RemoveCircleOutlineIcon />
-                                  </p>
-                                  <p className="countBtn_numberCount">{menu.quantity}</p>
-                                  <p className="addIconCount22">
-                                    <ControlPointIcon />
-                                  </p>
+                                  <div className="box_add_delete_orderitem">
+                                    <p className="deleteIconCount22">
+                                      <RemoveCircleOutlineIcon onClick={() => handleMenuDecrease(menu.id)} />
+                                    </p>
+                                    <p className="countBtn_numberCount">
+                                      {menu.quantity}
+                                    </p>
+                                    <p className="addIconCount22">
+                                      <ControlPointIcon onClick={() => handleMenuIncrease(menu.id)} />
+                                    </p>
+                                  </div>
+                                  {/* <button onClick={() => handleChangeStatus(menu.id)} className="btn_status_orderitem">{orderDetail.status}</button> */}
+                                  <button onClick={() => handleChangeStatus(menu.id)} className="btn_status_orderitem">{menu.status}</button>
+
                                 </div>
                               </div>
                             </div>
@@ -191,10 +362,17 @@ const Menu = () => {
                     <h3>Total Cost: ${orderDetail.total_cost}</h3>
                   </>
                 )}
-
               </>
             </div>
           </div>
+          {orderDetail.paid != true && (
+            <button
+              className="btn_payment_forOrder"
+              onClick={() => handlePay(orderDetail.id)}
+            >
+              Check Out
+            </button>
+          )}
         </div>
       </div>
     </>

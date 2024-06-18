@@ -65,6 +65,7 @@ import Counter from "./owner/counter/Counter";
 import Menu from "./owner/counter/Menu";
 import Ordermenu from "./owner/counter/Ordermenu";
 import Orderr from "./owner/counter/Orderr";
+import AllOrder from "./owner/counter/AllOrder";
 import Edit_restaurant from "./admin/components/Restaurant-manage/Edit_restaurant";
 import Add_Restaurant from "./admin/components/Restaurant-manage/Add_Restaurant";
 import History_order from "./admin/components/History_order/History_order";
@@ -149,12 +150,12 @@ function App() {
         <Routes>
           {/* --------- Home Page ---------- */}
           <Route path="/logino" Component={LoginO} />
-          <Route path="/home/:restaurant_id/:table_id" element={<Home />} />
+          <Route path="/home/restaurant/:restaurantId/table/:table_id" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          {/* <Route path="/restaurant" element={<Home />} /> */}
+          <Route path="/restaurant" element={<Home />} />
           <Route path="/orderList" element={<OrderList />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/home/restaurant/:restaurantId/table/:table_id/order" element={<Order />} />
+          <Route path="/home/restaurant/:restaurantId/table/:table_id/cart" element={<Cart />} />
           <Route path="/reviews" element={<Review />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/address" element={<Address />} />
@@ -176,6 +177,7 @@ function App() {
           <Route path="/edit_employee/:id" element={<EditEmployee />} />
 
           {/* --------- Owner Page ---------- */}
+          <Route path="/home/restaurant/:restaurantId/table/:table_id/logino" element={<LoginO />} />
           <Route path="/logino" element={<LoginO />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signup1" element={<Signup1 />} />
@@ -215,6 +217,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           {/* --------- Counter ---------- */}
           <Route path="/counter"  element={<Counter/>} />
+          <Route path="/allOrder"  element={<AllOrder/>} />
           <Route path="/restaurant/orders/:tableId" element={<Menu/>}/>
           {/* <Route path="/restaurant/orders/:tableId" element={<OrderDetail/>}/> */}
           {/* <Route path="/restaurant/orders/:tableId" element={<Ordermenu/>}/> */}
@@ -232,5 +235,3 @@ function App() {
 }
 
 export default App;
-
-

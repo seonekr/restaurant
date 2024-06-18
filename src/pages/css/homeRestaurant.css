@@ -29,6 +29,7 @@
     cursor: pointer;
     overflow: hidden;
     padding: 2px;
+
 }
 .box_containner_restaurant:hover{
     border: none;
@@ -50,86 +51,17 @@
 .filter_restaurant {
     display: flex;
     align-items: center;
-}
+  }
   
-.filter_restaurant h3 {
+  .filter_restaurant h3 {
     font-size: 20px;
     margin: 5px 10px;
-}
+  }
   
-.filter_restaurant div {
+  .filter_restaurant div {
     width: 13px;
     height: 30px;
     background-color: #0e64d2;
     border-radius: 3px;
-}
+  }
 
-/* Responsive for screen sizes between 576px and 768px */
-@media (max-width: 768px) and (min-width: 576px) {
-    .container_restaurant {
-        width: 85%;
-        margin-top: 3rem;
-        padding: 20px;
-    }
-    
-    .box_itemFood_restaurant {
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-    }
-    
-    .box_containner_restaurant {
-        height: 300px;
-    }
-    
-    .box_containner_image img {
-        height: 150px;
-        padding: 5px;
-    }
-    
-    .filter_restaurant h3 {
-        font-size: 18px;
-    }
-    
-    .filter_restaurant div {
-        width: 10px;
-        height: 25px;
-    }
-}
-
-/* Responsive for screen sizes less than 576px */
-@media (max-width: 575px) {
-    .container_restaurant {
-        width: 95%;
-        margin-top: 2rem;
-        padding: 15px;
-    }
-    
-    .box_itemFood_restaurant {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-    
-    .box_containner_restaurant {
-        height: 250px;
-    }
-    
-    .box_containner_image img {
-        height: 120px;
-        padding: 2px;
-    }
-    
-    .filter_restaurant {
-        flex-direction: row;
-        align-items: center;
-    }
-    
-    .filter_restaurant h3 {
-        font-size: 16px;
-        
-    }
-    
-    .filter_restaurant div {
-        width: 8px;
-        height: 20px;
-    }
-}

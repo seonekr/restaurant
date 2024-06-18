@@ -263,7 +263,7 @@ const OwnerMenu = () => {
 
           <div className="right">
             <div className="box_popupImage_logo">
-              <NavLink to="/" className="logo22">
+              <NavLink to="/home" className="logo22">
                 <img src={restaurant.logo} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>

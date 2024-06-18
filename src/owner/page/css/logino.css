@@ -10,17 +10,25 @@
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-  position: relative; /* Ensure the container is positioned relative for absolute positioning */
+  position: relative;
+  /* Ensure the container is positioned relative for absolute positioning */
 }
 
 .box-icon-close {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-size: 30px;
+  transition: all 0.2s ease;
+}
+
+.box-icon-close:hover {
+  font-size: 31px;
 }
 
 .icon_closeReviwe {
   font-size: 24px;
+  /* Adjust the size         as needed */
 }
 
 .contian-box-logino {
@@ -35,6 +43,7 @@
 .contian-box-logino p {
   font-size: 16px;
   color: #666;
+  /* Change the color as needed */
 }
 
 .contian-box-logino {
@@ -57,8 +66,7 @@
 .input_boxForm-login input {
   border: 1px #ddd solid;
   border-radius: 10px;
-  padding: 15px;
-  font-size: 16px;
+  padding: 20px;
 }
 
 .forgot_password2 {
@@ -79,15 +87,16 @@
 }
 
 .login_btn2 {
-  height: 50px;
+  height: 58px;
+  transition: background-color 0.3s;
   text-decoration: none;
   text-align: center;
   background-color: #0e64d2;
   color: #fff;
-  padding: 12px 20px;
+  padding: 13px;
   font-size: 18px;
   border-radius: 15px;
-  transition: background-color 0.3s;
+  transition: 200ms;
 }
 
 .login_btn2:hover {
@@ -96,7 +105,7 @@
 
 .login_google2 {
   border: 1px #ddd solid;
-  padding: 12px 20px;
+  padding: 13px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -105,65 +114,11 @@
 
 .iconnDetails_head {
   justify-content: center;
-  margin-right: 10px;
-  font-size: 24px;
+  margin-right: 20px;
+  font-size: 25px;
 }
 
-/* Responsive for screen sizes between 576px and 768px */
-@media (max-width: 768px) and (min-width: 576px) {
-  .container-box-logino {
-    width: 70%;
-    padding: 20px;
-  }
-
-  .input_boxForm-login input {
-    padding: 12px;
-    font-size: 15px;
-  }
-
-  .login_btn2 {
-    height: 45px;
-    font-size: 16px;
-    padding: 10px 18px;
-  }
-  .forgot_password2 {
-    font-size: 12px;
-    text-align: end;
-  }
-  .dont_account {
-    font-size: 12px;
-    text-align: end;
-  }
-}
-
-/* Responsive for screen sizes less than 576px */
-@media (max-width: 575px) {
-  .box_container_logino {
-    width: 90%;
-    margin: 3rem auto;
-  }
-
-  .container-box-logino {
-    width: 90%;
-    padding: 20px;
-  }
-
-  .input_boxForm-login input {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .login_btn2 {
-    height: 40px;
-    font-size: 16px;
-    padding: 10px 16px;
-  }
-  .forgot_password2 {
-    font-size: 12px;
-    text-align: end;
-  }
-  .dont_account {
-    font-size: 12px;
-    text-align: end;
-  }
+.icon_close {
+  font-size: 30px;
+  margin: 0 100%;
 }
