@@ -63,6 +63,7 @@ import Restaurant_admin from "./admin/components/Restaurant-manage/Restaurant_ad
 // Counter
 import Counter from "./owner/counter/Counter";
 import Menu from "./owner/counter/Menu";
+import Notestfication from "./owner/page/Notestfication";
 import Ordermenu from "./owner/counter/Ordermenu";
 import Orderr from "./owner/counter/Orderr";
 import Edit_restaurant from "./admin/components/Restaurant-manage/Edit_restaurant";
@@ -216,6 +217,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           {/* --------- Counter ---------- */}
           <Route path="/counter"  element={<Counter/>} />
+          <Route path="/notestfication"  element={<Notestfication/>} />
           <Route path="/restaurant/orders/:tableId" element={<Menu/>}/>
           {/* <Route path="/restaurant/orders/:tableId" element={<OrderDetail/>}/> */}
           {/* <Route path="/restaurant/orders/:tableId" element={<Ordermenu/>}/> */}

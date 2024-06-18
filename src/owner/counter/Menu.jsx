@@ -11,6 +11,8 @@ import OrderDetail from "./OrderDetail";
 import { AiOutlineDelete } from "react-icons/ai";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import imageicon from "../../img/imageicon.jpg";
+import addNotification from 'react-push-notification';
 
 const Menu = () => {
   const { tableId } = useParams();
@@ -114,7 +116,7 @@ const Menu = () => {
         method: "post",
         maxBodyLength: Infinity,
         url:
-          import.meta.env.VITE_API+`/restaurants/${storage.restaurant_id}/table/${tableId}/create_or_update/`,
+          import.meta.env.VITE_API + `/restaurants/${storage.restaurant_id}/table/${tableId}/create_or_update/`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -136,9 +138,23 @@ const Menu = () => {
         console.error("Error", error.message);
       }
     } finally {
+
       loadingOrder = false;
       console.log("Loading finished.");
+
+      addNotification({
+        title: 'Order menu',
+        message: 'There are order menu',
+        duration: 4000,
+        icon: imageicon,
+        native: true,
+        onClick: () => console.log('Push Notification'),
+      });
+
     }
+
+
+
   };
 
   const handleMenuCancel = async (id) => {
