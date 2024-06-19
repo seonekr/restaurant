@@ -179,7 +179,6 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
           </button>
         </div>
       </div>
-
   );
 };
 
