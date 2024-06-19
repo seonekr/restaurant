@@ -31,9 +31,49 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
-    onSave(updatedBanner);
+    const formData = new FormData();
+    formData.append("name", updatedBanner.name);
+    formData.append("description", updatedBanner.description);
+    formData.append("phone", updatedBanner.phone);
+    formData.append("time", updatedBanner.time);
+    formData.append("address", updatedBanner.address);
+
+    if (updatedBanner.logo instanceof File) {
+      formData.append("logo", updatedBanner.logo);
+    }
+    if (updatedBanner.banner_image instanceof File) {
+      formData.append("banner_image", updatedBanner.banner_image);
+    }
+
+    axios.patch(
+      `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to save changes?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          onSave(); // Call onSave to refresh the data and close the modal
+          Swal.fire("Saved!", "Your changes have been saved.", "success");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating product:", error);
+        Swal.fire("Error!", "Failed to save changes.", "error");
+      });
   };
 
   return (
@@ -128,15 +168,17 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               onChange={handleChange}
             />
           )}
-        </div>
-        <div className="button-group-edit">
-          <button className="btn-save-edit" onClick={handleSubmit}>
-            Save
-          </button>
-          <button className="btn-cancel-edit" onClick={onCancel}>
-            Cancel
-          </button>
-        </div>
+          <div className="button-group-edit">
+            <button className="btn-save-edit-res">Save</button>
+            <button
+              className="btn-cancel-edit-res"
+              type="button"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

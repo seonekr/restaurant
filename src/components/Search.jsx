@@ -6,31 +6,56 @@ import { CiLogin } from "react-icons/ci";
 import restaurant from "../img/restaurant.jpg";
 // import QRCode from "qrcode.react";
 const Search = () => {
+  const [scanResult, setScanResult] = useState("");
+  const [showScanner, setShowScanner] = useState(false);
+  const handleScan = (data) => {
+    if (data) {
+      console.log("Scanned data:", data.text);
+      setScanResult(data.text);
+      window.location.href = data.text;
+    }
+  };
+
+  const handleError = (err) => {
+    console.error("Error during scan:", err);
+  };
+
+  const previewStyle = {
+    height: 240,
+    width: 320,
+  };
+
+
   return (
     <>
       <div className="navbar_header_search">
-        <div className="headWithBox_search">
-          <div className="head_box_logo">
-            <Link to="/">
+        <form>
+          <div className="headWithBox_search">
+            <div className="head_box_logo">
               <img src={restaurant} alt="Logo" />
-            </Link>
-          </div>
-
-          <div className="Box_containner_form_search">
-            <input type="text" placeholder="Search..." />
-            <button type="submit">
-              <FaMagnifyingGlass />
-            </button>
-          </div>
-
-          <div className="icon_account_login">
-            <div>
-              <Link to="#">Scan</Link>
             </div>
 
-            <Link to="/logino">Login</Link>
+            <div className="Box_containner_form_search">
+              <input type="search" placeholder="Search..." />
+              <button className="btn_submit">
+                <FaMagnifyingGlass id="FaMagnifyingGlass" />
+              </button>
+            </div>
+
+            <Link to="/logino" className="icon_account_login">
+              <div>Login</div>
+              <CiLogin />
+            </Link>
           </div>
-        </div>
+        </form>
+        {showScanner && (
+          <QrScanner
+            delay={300}
+            style={previewStyle}
+            onError={handleError}
+            onScan={handleScan}
+          />
+        )}
       </div>
     </>
   );

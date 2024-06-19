@@ -29,7 +29,11 @@ function FoodItem() {
 
   const getProducts = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${restaurant_id}/menu_items/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${
+          restaurantId ? restaurantId : storage.restaurant_id
+        }/menu_items/list/`
+      )
       .then((response) => {
         setProducts(response.data);
       })
@@ -40,7 +44,11 @@ function FoodItem() {
 
   const getCategories = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/${restaurant_id}/categories/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${
+          restaurantId ? restaurantId : storage.restaurant_id
+        }/categories/list/`
+      )
       .then((response) => {
         setCategories(response.data);
       })
@@ -52,32 +60,33 @@ function FoodItem() {
   const handleCategoryClick = (categoryId) => {
     setCategoryId(categoryId);
   };
+
   const addToCart = (product) => {
-    const existingProductIndex = cart.findIndex(
-      (item) => item.id === product.id
-    );
+    const updatedCart = [...cart];
+    const existingProduct = updatedCart.find((item) => item.id === product.id);
 
-    if (existingProductIndex !== -1) {
-      const updatedCart = [...cart];
-      updatedCart[existingProductIndex].quantity++;
-      setCart(updatedCart);
+    if (existingProduct) {
+      Swal.fire({
+        icon: "question",
+        title: "Error",
+        text: "This product is already in your cart!",
+      });
     } else {
-      const updatedProduct = { ...product, quantity: 1 };
-      setCart([...cart, updatedProduct]);
+      const updatedProduct = {
+        ...product,
+        quantity: 1,
+        restaurant_id: restaurantId,
+        table_id: table_id,
+      };
+      updatedCart.push(updatedProduct);
+      setCart(updatedCart);
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Product added to cart successfully!",
+      });
     }
-
-    // Update local storage with updated cart
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
   };
-
-  const loadCartFromLocalStorage = () => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    }
-  };
-  
 
   return (
     <>

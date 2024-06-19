@@ -15,6 +15,71 @@
   margin-bottom: 1rem;
 }
 
+
+/*============ Reserve ==========*/
+.Reserve {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.colorBox_chContainer {
+  border: 1px solid #ccc;
+  width: 30%;
+  height: auto;
+  padding: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.addcolor_container {
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.Card_boxColor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #1397f0;
+  gap: 10px;
+  color: #000;
+  border-radius: 7px;
+  padding: 0 10px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.spanCancelBox {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.addcolorContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.inputBoxaddcolor {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.btn_addcolorbox {
+  background-color: #3498DB;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 5px;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+
 .container-table1 {
   display: flex;
   justify-content: center;

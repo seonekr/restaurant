@@ -6,8 +6,8 @@ import { IoMdTime, IoIosStar } from "react-icons/io";
 import { IoCamera } from "react-icons/io5";
 import { FaPencil } from "react-icons/fa6";
 import axios from "axios";
-import Swal from "sweetalert2";
-
+import EditBanner from "./Editbanner";
+import no_picture from "../../../img/no-picture-icon.jpg";
 const Bannerres = () => {
   const [fieldToEdit, setFieldToEdit] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -30,7 +30,8 @@ const Bannerres = () => {
     }
     getBanners();
   }, []);
-  const getBanners = () => {
+
+  const getBanners =  async () => {
     axios
       .get(`${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/`)
       .then((response) => {
@@ -59,88 +60,56 @@ const Bannerres = () => {
     setFieldToEdit(field);
     setShowEditModal(true);
   };
-  const handleSave = (updatedBanner) => {
-    const formData = new FormData();
-    formData.append("name", updatedBanner.name);
-    formData.append("description", updatedBanner.description);
-    formData.append("price", updatedBanner.price);
-    formData.append("restaurant", updatedBanner.restaurant);
-    if (updatedBanner.image instanceof File) {
-      formData.append("image", updatedBanner.image);
-    }
 
-    axios
-      .patch(
-        `${import.meta.env.VITE_API}/restaurants/${
-          updatedBanner.id
-        }/`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        setBanners(
-          banners.map((banner) =>
-            banner.id === updatedBanner.id ? response.data : banner
-          )
-        );
-        setShowEditModal(false);
-        Swal.fire("Saved!", "Your changes have been saved.", "success");
-      })
-      .catch((error) => {
-        console.error("Error updating product:", error);
-        Swal.fire("Error!", "Failed to save changes.", "error");
-      });
+  const handleSave = async () => {
+    await getBanners(); // Refresh the data
+    setShowEditModal(false); // Close the modal
   };
 
   return (
     <>
       <div>
-        {/* {banners.map((banner) => ( */}
-          <div>
-            <div className="container_boxHeaderAt_mainpage22" >
-              <div className="box_logo_main">
-                <img
-                src={restaurant.logo} 
-                  onClick={() => setSelectedFood(restaurant)}
-                />
-                <div className="iconnChangeImagelogo">
-                  <IoCamera onClick={() => handleEdit(restaurant, "logo")} />
+        <div className="container_boxHeaderAt_mainpage22">
+          <div className="box_logo_main">
+            <img
+              src={restaurant.logo || no_picture}
+              alt="Restaurant Logo"
+              onClick={() => setSelectedFood(restaurant)}
+            />
+            <div className="iconnChangeImagelogo">
+              <IoCamera onClick={() => handleEdit(restaurant, "logo")} />
+            </div>
+          </div>
+          <div className="box_heardOfGrooup_main">
+            <div className="header_box_of_header-main">
+              <div className="description_header-main">
+                <h3>{restaurant.name}</h3>
+                <p>{restaurant.description}</p>
+                <div className="iconnChangeImageEditname">
+                  <FaPencil
+                    onClick={() =>
+                      handleEdit(restaurant, "name", "description")
+                    }
+                  />
                 </div>
-              </div>
-              <div className="box_heardOfGrooup_main">
-                <div className="header_box_of_header-main">
-                  <div className="description_header-main">
-                    <h3>{restaurant.name}</h3>
-                    <p>{restaurant.description}</p>
-                    <div className="iconnChangeImageEditname">
+                <div className="contact_head_Boxdetails-tel">
+                  <div className="contact_head_Boxdetails2">
+                    <div className="iconnDetails_head">
+                      <FiPhone />
+                    </div>
+                    <p>{restaurant.phone}</p>
+                  </div>
+                  <div className="contact_head_Boxdetails3">
+                    <IoMdTime className="iconnDetails_head" />
+                    <p>{restaurant.time}</p>
+                    <div className="iconEdit_time">
                       <FaPencil
-                        onClick={() =>
-                          handleEdit(restaurant, "name", "description")
-                        }
+                        onClick={() => handleEdit(restaurant, "phone", "time")}
                       />
                     </div>
-                    <div className="contact_head_Boxdetails-tel">
-                      <div className="contact_head_Boxdetails2">
-                        <div className="iconnDetails_head">
-                          <FiPhone />
-                        </div>
-                        <p>{restaurant.phone}</p>
-                      </div>
-                      <div className="contact_head_Boxdetails2">
-                        <IoMdTime className="iconnDetails_head" />
-                        <p>{restaurant.time}</p>
-                        <div className="iconEdit_time">
-                          <FaPencil
-                            onClick={() => handleEdit(restaurant, "phone", "time")}
-                          />
-                        </div>
-                      </div>
-                    </div>
                   </div>
+                </div>
+              </div>
 
               <div className="header_contact_details-main22">
                 <div className="contact_head_Boxdetails2">

@@ -35,7 +35,10 @@ const HomePage = () => {
 
   const getCategories = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/1/categories/list/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${restaurantId ? restaurantId : storage.restaurant_id
+        }/categories/list/`
+      )
       .then((response) => {
         setCategories(response.data);
       })
@@ -46,7 +49,10 @@ const HomePage = () => {
 
   const getRestaurantDetails = () => {
     axios
-      .get(`${import.meta.env.VITE_API}/restaurants/1/`)
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${restaurantId ? restaurantId : storage.restaurant_id
+        }/`
+      )
       .then((response) => {
         const { name, logo, address, banner_image, phone, description, time } =
           response.data;
@@ -68,8 +74,7 @@ const HomePage = () => {
         console.error("Error fetching restaurant details:", error);
       });
   };
-  
-  console.log("restaurantttt", restaurant,"meooo");
+
   const handleCategoryClick = (categoryName) => {
     setCategoryName(categoryName);
   };
