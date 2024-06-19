@@ -113,9 +113,9 @@ const Login = () => {
       {/* <Menufooter /> */}
       <div className="box_container_logino">
         <div className="container-box-logino">
-          <div className="box-icon-close">
+          <Link to="/" className="box-icon-close">
             <IoClose />
-          </div>
+          </Link>
           <div className="contian-box-logino">
             <h3>{login_en}</h3>
             <p>Please login to use the service!</p>

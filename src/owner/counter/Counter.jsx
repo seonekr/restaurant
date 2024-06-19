@@ -8,8 +8,8 @@ import axios from "axios";
 import "./css/counter.css";
 
 import addNotification from "react-push-notification";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import imageicon from "../../img/imageicon.jpg";
 
 const Counter = () => {
@@ -25,8 +25,7 @@ const Counter = () => {
   const fetchData = () => {
     axios
       .get(
-        `${import.meta.env.VITE_API}/restaurants/${
-          storage.restaurant_id
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id
         }/tables-with-pending-orders/`
       )
       .then((response) => {
