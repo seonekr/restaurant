@@ -50,9 +50,9 @@ const Add_Restaurant = () => {
         bannerimage: prevState.bannerimage.concat(filesArray),
       }));
 
-  //     e.target.value = null;
-  //   }
-  // };
+      e.target.value = null;
+    }
+  };
 
   const removeImage = (index) => {
     const newImages = addRestaurantData.logo.filter((_, i) => i !== index);

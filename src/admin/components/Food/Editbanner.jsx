@@ -128,7 +128,7 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               onChange={handleChange}
             />
           )}
-        </div>
+        </form>
         <div className="button-group-edit">
           <button className="btn-save-edit" onClick={handleSubmit}>
             Save
