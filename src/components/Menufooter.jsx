@@ -24,88 +24,127 @@ function Menufooter() {
   if (localStorage.getItem("user")) {
     is_admin = JSON.parse(window.localStorage.getItem("user")).is_admin;
   }
-
+  console.log(user);
   return (
     <>
       <div className="menufooter_contentHeader">
         <div className="box_content_header">
           <div className="menu_header_box">
+            <NavLink to="/" className="linkTomenu">
+              Home
+            </NavLink>
+            <NavLink to="/order" className="linkTomenu">
+              Order
+            </NavLink>
+            <NavLink to="/cart" className="boxcart_header_container">
+              <p className="linkTomenu">Cart</p>
+            </NavLink>
+
+            <NavLink to="/dashboard" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <HiOutlineBuildingStorefront className="icon_cart_header" />
+                Dashboard
+              </div>
+            </NavLink>
+            <NavLink to="/counter" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <MdDashboardCustomize className="icon_cart_header" />
+                Staff
+              </div>
+            </NavLink>
+            <NavLink to="/profile" className="linkTomenu">
+              <FaRegUser id="FaRegUser" />
+            </NavLink>
+            <NavLink to="/logino" className="boxcart_header_container">
+              Login
+            </NavLink>
+            {/*           
+              <NavLink to="/" className="linkTomenu">
+                Home
+              </NavLink>
+              <NavLink to="/counter" className="boxcart_header_container">
+                <div className="boxcart_header">
+                  <MdDashboardCustomize className="icon_cart_header" />
+                  Dashboard
+                </div>
+              </NavLink>
+         
+
+            <NavLink to="/dashboard" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <HiOutlineBuildingStorefront className="icon_cart_header" />
+                Dashboard
+              </div>
+            </NavLink>
+            <NavLink to="/counter" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <MdDashboardCustomize className="icon_cart_header" />
+                Dashboard
+              </div>
+            </NavLink>
+            <NavLink to="/order" className="linkTomenu">
+              Order
+            </NavLink>
+            <NavLink to="/cart" className="boxcart_header_container">
+              <p className="linkTomenu">Cart</p>
+            </NavLink>
+
+            <NavLink to="/profile" className="linkTomenu">
+              <FaRegUser id="FaRegUser" />
+            </NavLink>
+
+            <NavLink to="/mainpage" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <HiOutlineBuildingStorefront className="icon_cart_header" />
+              </div>
+            </NavLink>
+
+            <NavLink to="/dashboard" className="boxcart_header_container">
+              <div className="boxcart_header">
+                <HiOutlineBuildingStorefront className="icon_cart_header" />
+              </div>
+            </NavLink>
+
+            <NavLink to="/logino" className="boxcart_header_container">
+              Login
+            </NavLink>
+
             <>
-              {is_admin ? (
-                <>
-                  <NavLink to="#" className="linkTomenu">
-                    Home
-                  </NavLink>
-                  <NavLink to="/board" className="boxcart_header_container">
-                    <div className="boxcart_header">
-                      <HiOutlineBuildingStorefront className="icon_cart_header" />
-                      Dashboard
-                    </div>
-                  </NavLink>
-                  {/* <NavLink to="/profile" className="linkTomenu">
-                    <FaRegUser id="FaRegUser" />
-                  </NavLink> */}
-                </>
-              ) : (
-                <>
-                  {restaurant_id ? (
-                    <>
-                      <NavLink to={`/home`} className="linkTomenu">
-                        Home
-                      </NavLink>
-                      <NavLink
-                        to="/dashboard"
-                        className="boxcart_header_container"
-                      >
-                        <div className="boxcart_header">
-                          <HiOutlineBuildingStorefront className="icon_cart_header" />
-                          Dashboard
-                        </div>
-                      </NavLink>
-                      <NavLink
-                        to="/counter"
-                        className="boxcart_header_container"
-                      >
-                        <div className="boxcart_header">
-                          <MdDashboardCustomize className="icon_cart_header" />
-                          Staff
-                        </div>
-                      </NavLink>
-                      {/* <NavLink to="/profile" className="linkTomenu">
-                        <FaRegUser id="FaRegUser" />
-                      </NavLink> */}
-                    </>
-                  ) : (
-                    <>
-                      <NavLink
-                        to={`/home/restaurant/${restaurantId}/table/${table_id}`}
-                        className="linkTomenu"
-                      >
-                        Home
-                      </NavLink>
-                      <NavLink
-                        to={`/home/restaurant/${restaurantId}/table/${table_id}/order/`}
-                        className="linkTomenu"
-                      >
-                        Order
-                      </NavLink>
-                      <NavLink
-                        to={`/home/restaurant/${restaurantId}/table/${table_id}/cart`}
-                        className="boxcart_header_container"
-                      >
-                        <p className="linkTomenu">Cart</p>
-                      </NavLink>
-                      <NavLink
-                        to={`/home/restaurant/${restaurantId}/table/${table_id}/logino`}
-                        className="boxcart_header_container"
-                      >
-                        <p className="linkTomenu">Login</p>
-                      </NavLink>
-                    </>
-                  )}
-                </>
-              )}
-            </>
+              <NavLink to="/" className="linkTomenu">
+                Home
+              </NavLink>
+              <NavLink to="/dashboard" className="boxcart_header_container">
+                <div className="boxcart_header">
+                  <HiOutlineBuildingStorefront className="icon_cart_header" />
+                  Dashboard
+                </div>
+              </NavLink>
+
+              <NavLink to={token ? "/" : "logino"} className="linkTomenu">
+                Home
+              </NavLink>
+              <NavLink
+                to={token ? "/orderList" : "logino"}
+                className="linkTomenu"
+              >
+                Order
+              </NavLink>
+              <NavLink
+                to={token ? "/cart" : "logino"}
+                className="boxcart_header_container"
+              >
+                <p className="linkTomenu">Cart</p>
+              </NavLink>
+              <NavLink
+                to={token ? "/profile" : "logino"}
+                className="linkTomenu"
+              >
+                <FaRegUser id="FaRegUser" />
+              </NavLink>
+              <NavLink to="/logino" className="boxcart_header_container">
+                Login
+              </NavLink>
+            </> */}
           </div>
         </div>
       </div>

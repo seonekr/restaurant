@@ -26,21 +26,35 @@ function Itemfood() {
     }
   }, []);
 
-  const fetchMenuItems = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/list/`
-      );
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching menu items:", error);
-    }
+  const getProducts = (restaurant_id) => {
+    axios
+      .get(
+        `${
+          import.meta.env.VITE_API
+        }/restaurants/${restaurant_id}/menu_items/list/`
+      )
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
   };
 
-  const handleEdit = (food, field) => {
-    setSelectedFood({ ...food });
-    setFieldToEdit(field);
-    setShowEditModal(true);
+  const handleEditName = (food, field) => {
+    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
+  };
+  const handleEditImage = (food, field) => {
+    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
+  };
+  const handleEditPrice = (food, field) => {
+    setSelectedFood({ ...food, field }); // Set selectedFood with both food data and the field to edit
+  };
+
+  const handleCloseEdit = () => {
+    setSelectedFood(null);
+    // Optionally reload products after editing
+    // getProducts(storage.restaurant_id);
   };
 
   const handleDelete = (productId) => {
@@ -55,7 +69,9 @@ function Itemfood() {
       if (result.isConfirmed) {
         axios
           .delete(
-            `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/${productId}/delete/`
+            `
+            ${import.meta.env.VITE_API}
+              /restaurants/${storage.restaurant_id}/menu_items/${productId}/`
           )
           .then(() => {
             setProducts(products.filter((product) => product.id !== productId));
@@ -66,11 +82,6 @@ function Itemfood() {
           });
       }
     });
-  };
-
-  const handleSave = async () => {
-    await fetchMenuItems(); // Refresh the data
-    setShowEditModal(false); // Close the modal
   };
 
   return (
