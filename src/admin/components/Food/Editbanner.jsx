@@ -168,6 +168,7 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               onChange={handleChange}
             />
           )}
+          </form>
         </div>
         <div className="button-group-edit">
           <button className="btn-save-edit" onClick={handleSubmit}>
@@ -178,7 +179,7 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
           </button>
         </div>
       </div>
-    </div>
+
   );
 };
 
