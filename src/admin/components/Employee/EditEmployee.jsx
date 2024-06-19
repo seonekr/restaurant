@@ -25,15 +25,27 @@ const EditEmployee = () => {
   });
 
   useEffect(() => {
-    axios
-      .get(import.meta.env.VITE_API + `/restaurants/${storage.restaurant_id}/employees/list/`)
-      .then((response) => {
-        setEmployee(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [id]);
+    const fetchEmployee = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/employees/${id}/detail/`
+        );
+        const { name, email, address, phone, role } = response.data;
+        setEmployee({
+          name,
+          email,
+          address,
+          phone,
+          password: "", // Assuming you do not receive password information from the API
+          role,
+        });
+      } catch (error) {
+        console.error("Error fetching employee:", error);
+      }
+    };
+
+    fetchEmployee();
+  }, [id, storage.restaurant_id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,49 +55,23 @@ const EditEmployee = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Your update logic here
-
-    const FormData = require("form-data");
-    let data = new FormData();
-    data.append("name", name);
-    data.append("email", email);
-    data.append("address", address);
-    data.append("phone", phone);
-    data.append("password", password);
-    data.append("password2", password2);
-    data.append("role", role);
-
-    let config = {
-      method: "patch",
-      maxBodyLength: Infinity,
-      url: import.meta.env.VITE_API +  `/restaurants/${storage.restaurant_id}/employees/${id}/update/`,
-      headers: {
-        ...data.getHeaders(),
-      },
-      data: data,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        // console.log(JSON.stringify(response.data));
-        setEmployee(response.data)
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Employee updated successfully!",
-        });
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to update employee data. Please try again later.",
-        });
-      });
+    try {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/employees/${id}/update/`,
+        employee
+      );
+      console.log("Employee updated:", response.data);
+      // Optionally, show a success message
+      Swal.fire("Success!", "Employee updated successfully!", "success");
+    } catch (error) {
+      console.error("Error updating employee:", error);
+      // Show an error message
+      Swal.fire("Error!", "Failed to update employee.", "error");
+    }
   };
+
 
   return (
     <>
@@ -103,22 +89,24 @@ const EditEmployee = () => {
                 </div>
               </div>
 
-              {/* <div className="add-box">
+              <div className="add-box">
                 <label htmlFor="fname" className="titlelabel">
                   Name:
                 </label>
                 <div className="boxiconnandinput">
                   <LuUser className="iconinput" />
                   <input
-                    type="fname"
-                    id="fname"
+                    
+                    type="name"
+                    id="name"
                     className="input"
                     placeholder="Name..."
                     value={employee.name}
                     onChange={handleChange}
+                    name="name"
                   />
                 </div>
-              </div> */}
+              </div>
 
               <div className="add-box">
                 <label htmlFor="email" className="titlelabel">
@@ -133,26 +121,28 @@ const EditEmployee = () => {
                     placeholder="Email address..."
                     value={employee.email}
                     onChange={handleChange}
+                    name="email"
                   />
                 </div>
               </div>
-              {/* <div className="add-box">
+              <div className="add-box">
                 <label htmlFor="address" className="titlelabel">
                   Address:
                 </label>
                 <div className="boxiconnandinput">
                   <MdOutlineEmail className="iconinput" />
                   <input
-                    type="address"
-                    id="address"
-                    className="input"
-                    placeholder="Address..."
-                    value={employee.address}
-                    onChange={handleChange}
+                   type="address"
+                   id="address"
+                   className="input"
+                   placeholder="Address..."
+                   value={employee.address}
+                   onChange={handleChange}
+                   name="address"
                   />
                 </div>
-              </div> */}
-              {/* <div className="add-box">
+              </div>
+              <div className="add-box">
                 <label htmlFor="phone" className="titlelabel">
                   Phone number:
                 </label>
@@ -165,9 +155,10 @@ const EditEmployee = () => {
                     placeholder="Phone number..."
                     value={employee.phone}
                     onChange={handleChange}
+                    name="phone"
                   />
                 </div>
-              </div> */}
+              </div>
               <div className="add-box">
                 <label htmlFor="password" className="titlelabel">
                   Password:
@@ -175,12 +166,13 @@ const EditEmployee = () => {
                 <div className="boxiconnandinput">
                   <IoKeySharp className="iconinput" />
                   <input
-                    type="password"
-                    id="password"
-                    className="input"
-                    placeholder="Password..."
-                    value={employee.password}
-                    onChange={handleChange}
+                     type="password"
+                     id="password"
+                     className="input"
+                     placeholder="Password..."
+                     value={employee.password}
+                     onChange={handleChange}
+                     name="password"
                   />
                 </div>
               </div>
@@ -218,15 +210,6 @@ const EditEmployee = () => {
                   </select>
                 </div>
               </div>
-              {/* <div className="add-box">
-                <label htmlFor="adminImage" className="titlelabel">
-                  Profile image:
-                </label>
-                <div className="boxiconnandinput">
-                  <CiImageOn className="iconinput" />
-                  <input type="file" className="input" />
-                </div>
-              </div> */}
             </div>
           </form>
         </div>

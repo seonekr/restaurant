@@ -33,45 +33,19 @@ const Employee = () => {
   };
 
   const handleDelete = (employeeId) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do you really want to delete this employee?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const requestOptions = {
-          method: "DELETE",
-          redirect: "follow",
-        };
-
-        fetch(
-          `${import.meta.env.VITE_API}restaurants/${
-            storage.restaurant_id
-          }/employees/${employeeId}/delete/`,
-          requestOptions
-        )
-          .then((response) => {
-            if (response.ok) {
-              Swal.fire("Deleted!", "Employee has been deleted.", "success");
-              fetchEmployees(); // Refresh employee list after deletion
-            } else {
-              throw new Error("Failed to delete employee");
-            }
-          })
-          .catch((error) => {
-            Swal.fire(
-              "Error!",
-              "There was an error deleting the employee.",
-              "error"
-            );
-            console.error("Error deleting employee:", error);
-          });
-      }
-    });
+    axios
+      .delete(
+        import.meta.env.VITE_API + `/restaurants/${storage.restaurant_id}/employees/${employeeId}/delete/`
+      )
+      .then((response) => {
+        // If successful, you might want to refetch employees or update the state differently
+        fetchEmployees(); // Example: Refetch employees after deletion
+        Swal.fire("Deleted!", "Employee has been deleted.", "success");
+      })
+      .catch((error) => {
+        console.error("Error deleting employee:", error);
+        Swal.fire("Error!", "Failed to delete employee.", "error");
+      });
   };
 
   return (
@@ -89,36 +63,41 @@ const Employee = () => {
             </div>
           </div>
 
-          {employees.map((user, userIndex) => (
-            <div key={userIndex} className="box_users_user">
-              <div className="box_dp_txtandiamge">
-                <div className="box_user_img">
-                  <img src={user.employee.profile_image || userimage} alt="" />
+          {employees && employees.length > 0 ? (
+            employees.map((user, userIndex) => (
+              <div key={userIndex} className="box_users_user">
+                <div className="box_dp_txtandiamge">
+                  <div className="box_user_img">
+                    <img
+                      src={user.employee.profile_image || userimage}
+                      alt=""
+                    />
+                  </div>
+                  <div className="box_user_text">
+                    <p>{user.employee.nickname}</p>
+                    <p>{user.employee.email}</p>
+                  </div>
                 </div>
-                <div className="box_user_text">
-                  <p>{user.employee.nickname}</p>
-                  <p>{user.employee.email}</p>
-                </div>
-              </div>
-              <div className="btn_box_Cont">
-                {user.employee && (
+                <div className="btn_box_Cont">
                   <button
                     className="delete_storeDetails"
                     onClick={() => handleDelete(user.id)}
                   >
                     Delete
                   </button>
-                )}
 
-                <Link
-                  to={`/edit_employee/${user.employee.id}`}
-                  className="viewMore_storeDetails"
-                >
-                  Edit
-                </Link>
+                  <Link
+                    to={`/edit_employee/${user.id}`}
+                    className="viewMore_storeDetails"
+                  >
+                    Edit
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No employees found.</p>
+          )}
         </div>
       </div>
     </>
