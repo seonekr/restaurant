@@ -38,28 +38,17 @@ const Add_Restaurant = () => {
       }));
     }
   };
-  const handleImageChange2 = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-      setAddRestaurantData((prevState) => ({
+
+  const handleMultipleImageChange = (e) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files);
+      const previewsArray = filesArray.map((file) => URL.createObjectURL(file));
+
+      setImagePreviews((prevPreviews) => prevPreviews.concat(previewsArray));
+      setAddHotelData((prevState) => ({
         ...prevState,
-        banner_image: file,
+        bannerimage: prevState.bannerimage.concat(filesArray),
       }));
-    }
-  };
-
-  // const handleMultipleImageChange = (e) => {
-  //   if (e.target.files) {
-  //     const filesArray = Array.from(e.target.files);
-  //     const previewsArray = filesArray.map((file) => URL.createObjectURL(file));
-
-  //     setImagePreviews((prevPreviews) => prevPreviews.concat(previewsArray));
-  //     setAddRestaurantData((prevState) => ({
-  //       ...prevState,
-  //       logo: prevState.logo.concat(filesArray),
-  //     }));
 
   //     e.target.value = null;
   //   }

@@ -236,29 +236,52 @@ const OwnerMenu = () => {
             )}
             {restaurant_id && (
               <>
-                <NavLink to="/dashboard" className="link">
+                {/* <NavLink to="/dashboard" className="link">
                   <HomeIcon />
                   <p>Home</p>
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/board" className="link">
                   <RxDashboard />
                   <p>Dashboard</p>
                 </NavLink>
-                <NavLink to="/table" className="link">
+                {/* <NavLink to="/table" className="link">
                   <TableRestaurantIcon />
                   <p>Table</p>
-                </NavLink>
-                <NavLink to="/category" className="link">
+                </NavLink> */}
+                {/* <NavLink to="/category" className="link">
                   <MenuBookIcon />
                   <p>Category</p>
-                </NavLink>
-                <NavLink to="/employee" className="link">
+                </NavLink> */}
+                {/* <NavLink to="/employee" className="link">
                   <LiaUserCogSolid />
                   <p>Employee</p>
                 </NavLink>
+                <NavLink to="/restaurant_admin" className="link">
+                  <StorefrontIcon />
+                  <p>Restaurant</p>
+                </NavLink>
               </>
             )}
-
+            <NavLink to="/dashboard" className="link">
+              <HomeIcon />
+              <p>Home</p>
+            </NavLink>
+            <NavLink to="/board" className="link">
+              <RxDashboard />
+              <p>Dashboard</p>
+            </NavLink>
+            <NavLink to="/table" className="link">
+              <TableRestaurantIcon />
+              <p>Table</p>
+            </NavLink>
+            <NavLink to="/category" className="link">
+              <MenuBookIcon />
+              <p>Category</p>
+            </NavLink>
+            <NavLink to="/employee" className="link">
+              <LiaUserCogSolid />
+              <p>Employee</p>
+            </NavLink>
             <div onClick={handleLogout} className="link">
               <IoLogOutOutline />
               <p>Log Out</p>
@@ -267,9 +290,15 @@ const OwnerMenu = () => {
 
           <div className="right">
             <div className="box_popupImage_logo">
-              <NavLink to="/home" className="logo22">
-                <div className="go_backPage"><HiOutlineLogin />Go back</div>
-                <img src={restaurant.logo || no_picture} alt="logo" />
+              {/* {banners.map((banner) => (
+                <NavLink to="/" className="logo22" key={banner.id}>
+                  <img src={banner.logo} alt="" />
+                  <h3>{banner.name}</h3>
+                </NavLink>
+              ))} */}
+
+              <NavLink to="/" className="logo22">
+                <img src={restaurant.logo} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
 

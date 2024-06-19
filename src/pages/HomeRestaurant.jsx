@@ -6,30 +6,6 @@ import Search from "../components/Search";
 import axios from "axios";
 
 function HomeRestaurant() {
-  // const [restaurants, setRestaurants] = useState([]);
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = () => {
-  //   let config = {
-  //     method: "get",
-  //     maxBodyLength: Infinity,
-  //     url: import.meta.env.VITE_API + " /restaurants/?search=restaurant01",
-  //     headers: {},
-  //   };
-
-  //   axios
-  //     .request(config)
-  //     .then((response) => {
-  //       setRestaurants(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   return (
     <>
       <Search />
