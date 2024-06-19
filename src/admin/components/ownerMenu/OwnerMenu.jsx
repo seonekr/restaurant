@@ -180,7 +180,7 @@ const OwnerMenu = () => {
       redirect: "follow",
     };
 
-    fetch(import.meta.env.VITE_API + `/store/web-info/2`, requestOptions)
+    fetch(`import.meta.env.VITE_API + /store/web-info/2, requestOptions`)
       .then((response) => response.text())
       .then((result) => {
         console.log(result);

@@ -61,9 +61,9 @@ const Add_Restaurant = () => {
   //       logo: prevState.logo.concat(filesArray),
   //     }));
 
-  //     e.target.value = null;
-  //   }
-  // };
+      e.target.value = null;
+    }
+  };
 
   const removeImage = (index) => {
     const newImages = addRestaurantData.logo.filter((_, i) => i !== index);

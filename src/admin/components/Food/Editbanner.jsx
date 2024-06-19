@@ -168,17 +168,15 @@ const EditBanner = ({ banner, fieldToEdit, onSave, onCancel }) => {
               onChange={handleChange}
             />
           )}
-          <div className="button-group-edit">
-            <button className="btn-save-edit-res">Save</button>
-            <button
-              className="btn-cancel-edit-res"
-              type="button"
-              onClick={onCancel}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+        </div>
+        <div className="button-group-edit">
+          <button className="btn-save-edit" onClick={handleSubmit}>
+            Save
+          </button>
+          <button className="btn-cancel-edit" onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
