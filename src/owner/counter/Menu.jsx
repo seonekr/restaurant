@@ -351,6 +351,7 @@ const Menu = () => {
             </Link>
           </div>
           <h2>Table {table.number}</h2>
+
           <div className="box_itemFood_container22">
             {menus.map((menu, index) => (
               <Link
@@ -376,80 +377,74 @@ const Menu = () => {
             ))}
           </div>
         </div>
-        <div className="contain-order">
+        <div className="contain-order2">
           <div className="container-order-detail">
-            <div className="contain-order-detail">
-              <>
-                {orderDetail.paid == true ||
-                !orderDetail ||
-                !orderDetail.order_items ? (
-                  <h3>This table is available now!</h3>
-                ) : (
-                  <>
-                    <h2>
-                      Order #{orderDetail.id} || <strong>Paid:</strong>{" "}
-                      {orderDetail.paid ? "Yes" : "No"}
-                    </h2>
+            <>
+              {orderDetail.paid == true ||
+              !orderDetail ||
+              !orderDetail.order_items ? (
+                <h3>This table is vailable now!</h3>
+              ) : (
+                <>
+                  <h2>
+                    Order #{orderDetail.id} || <strong>Paid:</strong>{" "}
+                    {orderDetail.paid ? "Yes" : "No"}
+                  </h2>
 
-                    <p>
-                      <strong>Date:</strong>{" "}
-                      {new Date(orderDetail.timestamp).toLocaleString()}
-                    </p>
-                    <br />
+                  <p>
+                    <strong>Date:</strong>{" "}
+                    {new Date(orderDetail.timestamp).toLocaleString()}
+                  </p>
+                  <br />
 
-                    <div className="order-list">
-                      {orderDetail.order_items.map((menu, index) => (
-                        <div className="test-text" key={index}>
-                          <div className="box-txt-dtorder">
-                            <div className="box-textorder">
-                              <p>Name: {menu.menu_item.name}</p>
-                              <p>Price: {menu.menu_item.price}</p>
+                  <div className="order-list">
+                    {orderDetail.order_items.map((menu, index) => (
+                      <div className="test-text" key={index}>
+                        <div className="box-txt-dtorder22">
+                          <div className="box-textorder">
+                            <p>Name: {menu.menu_item.name}</p>
+                            <p>Price: {menu.menu_item.price}</p>
+                          </div>
+
+                          <div className="box_add_delete_orderitem">
+                            <p className="deleteIconCount22">
+                              <RemoveCircleOutlineIcon
+                                onClick={() => handleMenuDecrease(menu.id)}
+                              />
+                            </p>
+                            <p className="countBtn_numberCount">
+                              {menu.quantity}
+                            </p>
+                            <p className="addIconCount22">
+                              <ControlPointIcon
+                                onClick={() => handleMenuIncrease(menu.id)}
+                              />
+                            </p>
+                          </div>
+                          <div className="right_oflastDetailsFood229">
+                            <div className="icon_DetailsFood229">
+                              <AiOutlineDelete
+                                className="icon-del"
+                                onClick={() => handleMenuCancel(menu.id)}
+                              />
                             </div>
-                            <div className="box-txt-quantity">
-                              <div className="right_oflastDetailsFood22">
-                                <div className="icon_DetailsFood22">
-                                  <AiOutlineDelete
-                                    onClick={() => handleMenuCancel(menu.id)}
-                                  />
-                                </div>
-                                <div className="boxCount_numfood22">
-                                  <div className="box_add_delete_orderitem">
-                                    <p className="deleteIconCount22">
-                                      <RemoveCircleOutlineIcon
-                                        onClick={() =>
-                                          handleMenuDecrease(menu.id)
-                                        }
-                                      />
-                                    </p>
-                                    <p className="countBtn_numberCount">
-                                      {menu.quantity}
-                                    </p>
-                                    <p className="addIconCount22">
-                                      <ControlPointIcon
-                                        onClick={() =>
-                                          handleMenuIncrease(menu.id)
-                                        }
-                                      />
-                                    </p>
-                                  </div>
-                                  <button
-                                    onClick={() => handleChangeStatus(menu.id)}
-                                    className="btn_status_orderitem"
-                                  >
-                                    {menu.status}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
+                            <button
+                              onClick={() => handleChangeStatus(menu.id)}
+                              className={`btn_status_orderitem ${menu.status.toLowerCase()}`}
+                            >
+                              {menu.status}
+                            </button>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                    <h3>Total Cost: ${orderDetail.total_cost}</h3>
-                  </>
-                )}
-              </>
-            </div>
+                      </div>
+                    ))}
+                  </div>
+                  <h3 className="text-quantity2">
+                    Total Cost: ${orderDetail.total_cost}
+                  </h3>
+                </>
+              )}
+            </>
           </div>
           {orderDetail.paid != true && (
             <button
