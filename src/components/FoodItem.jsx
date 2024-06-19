@@ -3,6 +3,7 @@ import "./css/foodItem.css";
 import { Link, useParams } from "react-router-dom";
 import { IoCartOutline } from "react-icons/io5";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function FoodItem() {
   const { restaurantId, table_id } = useParams();
@@ -65,7 +66,11 @@ function FoodItem() {
     const existingProduct = updatedCart.find((item) => item.id === product.id);
 
     if (existingProduct) {
-      alert("This product is already in your cart!");
+      Swal.fire({
+        icon: "question",
+        title: "Error",
+        text: "This product is already in your cart!",
+      });
     } else {
       const updatedProduct = {
         ...product,
@@ -75,7 +80,11 @@ function FoodItem() {
       };
       updatedCart.push(updatedProduct);
       setCart(updatedCart);
-      alert("Product added to cart!");
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Product added to cart successfully!",
+      });
     }
   };
 

@@ -94,13 +94,13 @@ const Login = () => {
       .catch((error) => {
         if (error.response && error.response.status === 400) {
           MySwal.fire({
-            icon: 'error',
+            icon: 'question',
             title: 'Oops...',
             text: error.response.data.message || 'Something went wrong!',
           });
         } else {
           MySwal.fire({
-            icon: 'error',
+            icon: 'question',
             title: 'Oops...',
             text: 'Something went wrong!',
           });

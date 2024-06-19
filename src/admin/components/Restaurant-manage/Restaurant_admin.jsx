@@ -12,7 +12,7 @@ import no_picture from "../../../img/no-picture-icon.jpg";
 const Restaurant_admin = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [datas, setDatas] = useState([]);
-  const [idToDelete, setIdToDelete] = useState(null); // Added state to hold ID of hotel to delete
+  const [idToDelete, setIdToDelete] = useState(null); // Added state to hold ID of restaurant to delete
 
   useEffect(() => {
     fetchData();
@@ -38,17 +38,17 @@ const Restaurant_admin = () => {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Hotel deleted successfully!",
+        text: "Restaurant deleted successfully!",
       });
       // After successful delete, refetch data
       fetchData();
       setShowConfirm(false); // Close confirmation dialog
     } catch (error) {
-      console.error("Error deleting hotel:", error);
+      console.error("Error deleting restaurant:", error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Failed to delete hotel. Please try again later.",
+        text: "Failed to delete restaurant. Please try again later.",
       });
     }
   };
