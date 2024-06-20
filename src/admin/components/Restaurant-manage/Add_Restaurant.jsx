@@ -50,31 +50,6 @@ const Add_Restaurant = () => {
     }
   };
 
-  // const handleMultipleImageChange = (e) => {
-  //   if (e.target.files) {
-  //     const filesArray = Array.from(e.target.files);
-  //     const previewsArray = filesArray.map((file) => URL.createObjectURL(file));
-
-  //     setImagePreviews((prevPreviews) => prevPreviews.concat(previewsArray));
-  //     setAddRestaurantData((prevState) => ({
-  //       ...prevState,
-  //       logo: prevState.logo.concat(filesArray),
-  //     }));
-
-      e.target.value = null;
-    }
-  };
-
-  const removeImage = (index) => {
-    const newImages = addRestaurantData.logo.filter((_, i) => i !== index);
-    const newPreviews = imagePreviews.filter((_, i) => i !== index);
-
-    setAddRestaurantData((prevState) => ({
-      ...prevState,
-      logo: newImages,
-    }));
-    setImagePreviews(newPreviews);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
