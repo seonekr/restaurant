@@ -317,7 +317,7 @@ const Menu = () => {
     };
 
     fetch(
-      "http://43.201.166.195:8000/restaurants/1/menu_items/1/update/?quantity=4",
+      `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/${id}/update/?quantity=4`,
       requestOptions
     )
       .then((response) => response.text())
