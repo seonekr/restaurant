@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 import "./css/signup1.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";
@@ -17,14 +18,26 @@ const Signup1 = () => {
     setSignup(id);
   };
 
-
   function onChange(e) {
     set_user_type(e.target.value);
   }
 
+  const handleNextClick = () => {
+    if (user_type.length > 0) {
+      navigate("/signup2", { state: user_type });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "No user type selected",
+        text: "Please select the type you wish to sign up for.",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
   return (
     <>
-    <Menufooter/>
+      <Menufooter />
       <div className="signup_page">
         <div className="signup_page">
           <div className="box_back">
@@ -57,23 +70,12 @@ const Signup1 = () => {
                   />
                   <label htmlFor="seller" className="user_type02">
                     <FaUsers id="icon_user_sell" />
-                    owner
+                    Owner
                   </label>
                 </li>
               </ul>
             </div>
-            <button
-              onClick={() => {
-                if (user_type.length > 0) {
-                  navigate("/signup2", { state: user_type });
-                } else {
-                  window.alert(
-                    "Please select the type you wish to sign up for."
-                  );
-                }
-              }}
-              className="btn_register_next"
-            >
+            <button onClick={handleNextClick} className="btn_register_next">
               Next
             </button>
           </div>

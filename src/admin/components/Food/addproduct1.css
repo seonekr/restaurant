@@ -99,7 +99,7 @@
   padding: 20px 0;
 }
 
-.deleteBox_productconotent {
+.deleteBox_productconotent2 {
   background-color: red;
   font-size: 20px;
   color: #fff;
@@ -110,8 +110,10 @@
   margin: 7px;
   cursor: pointer;
   position: absolute;
- 
+  z-index: 9;
 }
+
+
 .box_input-img-add input {
   display: none;
 }
@@ -228,25 +230,30 @@
   overflow: hidden;
   color: #af6363;
 }
-
-.edit_images {
+.edit_images2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 5px;
+  border: 1px solid #ff0000;
+  top: 10px;
   right: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 4px 4px 0 4px;
-  font-size: 25px;
-  margin: 3px;
+  background-color: rgba(255, 255, 255, 0.8); /* Light background color with opacity */
+  padding: 3px 5px 5px 5px;
+  border-radius: 5px; /* Rounded shape */
 }
-.trigger_popup_fricc {
-  cursor: pointer;
-  position: relative;
-}
+
 #icon_ci_camera {
-  position: relative;
-  color: #f46738;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
 }
+
+
+
+
+
 
 /* Submit button */
 
@@ -256,15 +263,14 @@
   justify-content: center;
   cursor: pointer; /* Show pointer cursor on hover */
 }
-.btn_submit_add2 .button22{
-    background-color: #0e64d2; /* Blue background color */
-    color: white;              /* White text color */
-    border: none;              /* Remove button border */
-    padding: 10px 50px;       /* Padding inside the button */
-    border-radius: 5px;       /* Rounded corners */
-    font-size: 16px;          /* Font size */
-    cursor: pointer;          /* Show pointer cursor on hover */
-
+.btn_submit_add2 .button22 {
+  background-color: #0e64d2; /* Blue background color */
+  color: white; /* White text color */
+  border: none; /* Remove button border */
+  padding: 10px 50px; /* Padding inside the button */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Show pointer cursor on hover */
 }
 .button22:hover {
   background-color: #084c90; /* Darker blue background color on hover */

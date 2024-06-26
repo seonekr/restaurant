@@ -11,7 +11,6 @@
   padding: 30px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   position: relative;
-  /* Ensure the container is positioned relative for absolute positioning */
 }
 
 .box-icon-close {
@@ -28,7 +27,6 @@
 
 .icon_closeReviwe {
   font-size: 24px;
-  /* Adjust the size         as needed */
 }
 
 .contian-box-logino {
@@ -43,7 +41,6 @@
 .contian-box-logino p {
   font-size: 16px;
   color: #666;
-  /* Change the color as needed */
 }
 
 .contian-box-logino {
@@ -121,4 +118,56 @@
 .icon_close {
   font-size: 30px;
   margin: 0 100%;
+}
+
+/* Responsive styles for max-width: 431px */
+@media (max-width: 431px) {
+  .box_container_logino {
+    width: 95%;
+    margin: 2rem auto;
+  }
+
+  .container-box-logino {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .box-icon-close {
+    font-size: 25px;
+  }
+
+  .icon_closeReviwe {
+    font-size: 20px;
+  }
+
+  .contian-box-logino h3 {
+    font-size: 20px;
+  }
+
+  .contian-box-logino p {
+    font-size: 14px;
+  }
+
+  .input_boxForm-login input {
+    padding: 15px;
+  }
+
+  .login_btn2 {
+    height: 50px;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .login_google2 {
+    padding: 10px;
+  }
+
+  .iconnDetails_head {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+
+  .icon_close {
+    font-size: 25px;
+  }
 }

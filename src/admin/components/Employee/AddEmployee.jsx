@@ -60,19 +60,21 @@ const AddEmployee = () => {
     });
 
     let config = {
-      method: 'post',
+      method: "post",
       maxBodyLength: Infinity,
       url: import.meta.env.VITE_API + `/user/signup-employee`,
-      headers: { 
-        'Content-Type': 'application/json'
+      headers: {
+        "Content-Type": "application/json",
       },
-      data: data
+      data: data,
     };
 
-    axios.request(config)
+    axios
+      .request(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-       
+
+        // Reset form fields
         setAddEmployee({
           restaurant: addEmployee.restaurant,
           email: "",
@@ -111,7 +113,7 @@ const AddEmployee = () => {
               <div className="add-employee-form">
                 <label htmlFor="name">Name:</label>
                 <input
-                  // type="text"
+                 
                   id="name"
                   name="name"
                   placeholder="Name..."
@@ -135,7 +137,7 @@ const AddEmployee = () => {
               <div className="add-employee-form">
                 <label htmlFor="address">Address:</label>
                 <input
-                  // type="text"
+                 
                   id="address"
                   name="address"
                   placeholder="Address..."
@@ -168,7 +170,6 @@ const AddEmployee = () => {
                   required
                 />
               </div>
-
               <div className="add-employee-form">
                 <label htmlFor="password2">Confirm password:</label>
                 <input
@@ -194,7 +195,7 @@ const AddEmployee = () => {
                   <option value="waiter">Waiter</option>
                 </select>
               </div>
-              <button type="submit">Add Employee</button>
+              <button>Add Employee</button>
             </form>
           </div>
         </div>
@@ -204,7 +205,6 @@ const AddEmployee = () => {
 };
 
 export default AddEmployee;
-
 
 // // const { name, email, address, phone, password, password2, role } = formData;
 
@@ -262,13 +262,7 @@ export default AddEmployee;
 // //   });
 // // }
 
-
-
-
-
-
-
-// New 
+// New
 // import React, { useState, useEffect } from "react";
 // import axios from "axios";
 // import "./addemployee.css";
@@ -334,7 +328,7 @@ export default AddEmployee;
 //       method: 'post',
 //       maxBodyLength: Infinity,
 //       url: import.meta.env.VITE_API + `/user/signup-employee`,
-//       headers: { 
+//       headers: {
 //         'Content-Type': 'application/json'
 //       },
 //       data: data
@@ -377,7 +371,7 @@ export default AddEmployee;
 //           <div className="add-employee-containers">
 //             <h2>Add Employee</h2>
 //             <form className="add-employee-form" onSubmit={handleSubmit}>
-              
+
 //               <div className="add-employee-form">
 //                 <label htmlFor="email">Email:</label>
 //                 <input
@@ -440,6 +434,3 @@ export default AddEmployee;
 // };
 
 // export default AddEmployee;
-
-
-

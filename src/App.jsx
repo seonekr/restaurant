@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./main.css";
-
+import { FaArrowUp } from "react-icons/fa";
 // Import your pages/components here
 import Home from "./pages/HomePage";
 import Order from "./pages/Order";
@@ -12,8 +12,6 @@ import Payment from "./pages/Payment";
 import Address from "./pages/Address";
 import HomeRestaurant from "./pages/HomeRestaurant";
 import Search from "./components/Search";
-
-
 
 import HomeSeller2 from "./seller/homeSeller copy";
 import HomeSeller from "./seller/homeSeller";
@@ -33,7 +31,6 @@ import Dashborardpc from "./owner/page/Dashboardpc";
 import History from "./owner/page/History";
 import Orderhistory from "./owner/page/Orderhistory";
 import Detailorder2 from "./owner/page/Detailorder2";
-
 
 import Homepage2 from "./webs/Homepage2";
 import Order2 from "./webs/Order2";
@@ -77,8 +74,6 @@ import OrderDetail from "./owner/counter/OrderDetail";
 // import Menu2 from "./owner/counter copy/Menu2";
 // import Ordermenu2 from "./owner/counter copy/Ordermenu2";
 function App() {
-
-
   ////
   useEffect(() => {
     const script = document.createElement("script");
@@ -132,9 +127,9 @@ function App() {
     return (
       <div className="scroll-to-top">
         {isVisible && (
-          <button onClick={scrollToTop}>
-            <i>Click to top</i>
-          </button>
+          <div onClick={scrollToTop} className="scroll-to-top-button">
+            <FaArrowUp />
+          </div>
         )}
       </div>
     );
@@ -149,25 +144,34 @@ function App() {
         <Routes>
           {/* --------- Home Page ---------- */}
           <Route path="/logino" Component={LoginO} />
-          <Route path="/home/restaurant/:restaurantId/table/:table_id" element={<Home />} />
+          <Route
+            path="/home/restaurant/:restaurantId/table/:table_id"
+            element={<Home />}
+          />
           <Route path="/home" element={<Home />} />
           <Route path="/restaurant" element={<Home />} />
           <Route path="/orderList" element={<OrderList />} />
-          <Route path="/home/restaurant/:restaurantId/table/:table_id/order" element={<Order />} />
-          <Route path="/home/restaurant/:restaurantId/table/:table_id/cart" element={<Cart />} />
+          <Route
+            path="/home/restaurant/:restaurantId/table/:table_id/order"
+            element={<Order />}
+          />
+          <Route
+            path="/home/restaurant/:restaurantId/table/:table_id/cart"
+            element={<Cart />}
+          />
           <Route path="/reviews" element={<Review />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/address" element={<Address />} />
           <Route path="/" element={<HomeRestaurant />} />
           <Route path="/search" element={<Search />} />
-         {/* ? <Route path="/scanqr" element={<ScanQR />} /> */}
+          {/* ? <Route path="/scanqr" element={<ScanQR />} /> */}
 
           {/* --------- Seller Page ---------- */}
           {/* <Route path="/homeSeller2" element={<HomeSeller2 />} />
           <Route path="/homeSeller" element={<HomeSeller />} /> */}
           <Route path="/addfood" element={<Addfood />} />
           <Route path="/dashborard" element={<Dashborard />} />
-         {/* Admin */}
+          {/* Admin */}
           <Route path="/restaurant_admin" element={<Restaurant_admin />} />
           <Route path="/edit_restaurant/:id" element={<Edit_restaurant />} />
           <Route path="/add_restaurant" element={<Add_Restaurant />} />
@@ -176,7 +180,10 @@ function App() {
           <Route path="/edit_employee/:id" element={<EditEmployee />} />
 
           {/* --------- Owner Page ---------- */}
-          <Route path="/home/restaurant/:restaurantId/table/:table_id/logino" element={<LoginO />} />
+          <Route
+            path="/home/restaurant/:restaurantId/table/:table_id/logino"
+            element={<LoginO />}
+          />
           <Route path="/logino" element={<LoginO />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signup1" element={<Signup1 />} />
@@ -198,9 +205,9 @@ function App() {
           <Route path="/employee" element={<Employee />} />
           <Route path="/table" element={<Tables />} />
           <Route path="/addtable" element={<Addtable />} />
-         
+
           <Route path="/add-employee" element={<AddEmployee />} />
-          
+
           {/* --------- Web delivery ---------- */}
           <Route path="/homepage2" element={<Homepage2 />} />
           <Route path="/orderList2" element={<OrderList2 />} />
@@ -215,9 +222,9 @@ function App() {
           {/* --------- Web delivery ---------- */}
           <Route path="/dashboard" element={<Dashboard />} />
           {/* --------- Counter ---------- */}
-          <Route path="/counter"  element={<Counter/>} />
+          <Route path="/counter" element={<Counter />} />
           {/* <Route path="/notestfication"  element={<Notestfication/>} /> */}
-          <Route path="/restaurant/orders/:tableId" element={<Menu/>}/>
+          <Route path="/restaurant/orders/:tableId" element={<Menu />} />
           {/* <Route path="/restaurant/orders/:tableId" element={<OrderDetail/>}/> */}
           {/* <Route path="/restaurant/orders/:tableId" element={<Ordermenu/>}/> */}
           <Route path="/orderr/:orderId" element={<Orderr />} />
