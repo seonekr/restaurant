@@ -55,7 +55,6 @@ import Category from "./admin/components/Category/Category";
 import Employee from "./admin/components/Employee/Employee";
 import Tables from "./admin/components/Table/Tables";
 import Addtable from "./admin/components/Table/Addtable";
-import TableDetails from "./admin/components/Table/TableDetails";
 import AddEmployee from "./admin/components/Employee/AddEmployee";
 import EditEmployee from "./admin/components/Employee/EditEmployee";
 import Restaurant_admin from "./admin/components/Restaurant-manage/Restaurant_admin";
@@ -199,7 +198,7 @@ function App() {
           <Route path="/employee" element={<Employee />} />
           <Route path="/table" element={<Tables />} />
           <Route path="/addtable" element={<Addtable />} />
-          <Route path="/restaurant/tables/:id" component={TableDetails} />
+         
           <Route path="/add-employee" element={<AddEmployee />} />
           
           {/* --------- Web delivery ---------- */}

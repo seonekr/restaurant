@@ -86,13 +86,37 @@
 
 // New Add Tables
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import "./addtable.css";
 
 const AddTable = ({ show, onClose, onSave, fetchData }) => {
   const [tableCount, setTableCount] = useState("");
+  const [highestTableNumber, setHighestTableNumber] = useState(0);
+
+  useEffect(() => {
+    const storage = JSON.parse(window.localStorage.getItem("user"));
+    const restaurant_id = storage.restaurant_id;
+
+    fetchData(restaurant_id); // Fetch initial data including table list
+
+    // Fetch tables and determine the highest table number
+    axios
+      .get(
+        `${import.meta.env.VITE_API}/restaurants/${restaurant_id}/tables/list/`
+      )
+      .then((response) => {
+        const tables = response.data;
+        if (tables.length > 0) {
+          const maxNumber = Math.max(...tables.map((table) => table.number));
+          setHighestTableNumber(maxNumber);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching tables:", error);
+      });
+  }, [fetchData]);
 
   const handleSave = async () => {
     const storage = JSON.parse(window.localStorage.getItem("user"));
@@ -112,8 +136,8 @@ const AddTable = ({ show, onClose, onSave, fetchData }) => {
       const promises = [];
       for (let i = 0; i < count; i++) {
         const data = new FormData();
-        // Assuming you want to start table numbering from 1 up to count
-        data.append("number", i + 1);
+        const newTableNumber = highestTableNumber + i + 1;
+        data.append("number", newTableNumber);
 
         let config = {
           method: "post",

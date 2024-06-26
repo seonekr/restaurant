@@ -127,10 +127,10 @@ const Edit_restaurant = () => {
       <section id="post">
         <div className="box_container_product">
           <h2>Edit Restaurant</h2>
-          <div className="submit1">
+          <div className="submit-update">
             <button onClick={updateRestaurant}>Update</button>
           </div>
-          <form className="edit-product-forms" encType="multipart/form-data">
+          <div className="edit-product-forms">
             <div className="input-img">
               <div className="box_description">
                 <h3>Image</h3>
@@ -155,7 +155,7 @@ const Edit_restaurant = () => {
                 <div className="gallery-box">
                   {bannerImage && <img src={bannerImage} alt="Selected" />}
                   <div
-                    className="box_chooses_image2"
+                    className="box_chooses_image22"
                     onClick={() =>
                       document.getElementById("fileInput2").click()
                     }
@@ -171,12 +171,10 @@ const Edit_restaurant = () => {
                 </div>
               </div>
             </div>
-
             <div className="form_input_box">
               <div className="input">
                 <label htmlFor="name">Name</label>
                 <input
-                  type="text"
                   name="name"
                   placeholder="Name..."
                   value={name}
@@ -187,7 +185,6 @@ const Edit_restaurant = () => {
               <div className="input">
                 <label htmlFor="phone">Phone</label>
                 <input
-                  type="text"
                   name="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -197,7 +194,6 @@ const Edit_restaurant = () => {
               <div className="input">
                 <label htmlFor="address">Address</label>
                 <input
-                  type="text"
                   name="address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
@@ -207,7 +203,6 @@ const Edit_restaurant = () => {
               <div className="input">
                 <label htmlFor="time">Time</label>
                 <input
-                  type="text"
                   name="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
@@ -218,7 +213,6 @@ const Edit_restaurant = () => {
               <div className="input">
                 <label htmlFor="description">Description</label>
                 <textarea
-                  type="text"
                   rows="10"
                   name="description"
                   value={description}
@@ -227,7 +221,7 @@ const Edit_restaurant = () => {
                 ></textarea>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </section>
     </>
