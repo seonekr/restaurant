@@ -50,7 +50,6 @@ const Add_Restaurant = () => {
     }
   };
 
-<<<<<<< HEAD
   const handleMultipleImageChange = (e) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
@@ -76,8 +75,6 @@ const Add_Restaurant = () => {
     }));
     setImagePreviews(newPreviews);
   };
-=======
->>>>>>> 95f78f555efc10cae01e772702e48bb4bbb7c4df
 
   const handleSubmit = (e) => {
     e.preventDefault();

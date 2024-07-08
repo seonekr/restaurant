@@ -9,7 +9,7 @@ import axios from "axios";
 import Editfood from "./Editfood";
 import "./itemfood1.css";
 import Bannerres from "./Bannerres";
-import Skeleton from "react-loading-skeleton"; // Import Skeleton
+// import Skeleton from "react-loading-skeleton"; // Import Skeleton
 
 function Itemfood() {
   const [fieldToEdit, setFieldToEdit] = useState(null);

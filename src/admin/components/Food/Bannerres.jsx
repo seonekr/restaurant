@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+// import Skeleton from "react-loading-skeleton";
+// import "react-loading-skeleton/dist/skeleton.css";
 import "./bannerres.css";
 import { Link } from "react-router-dom";
 import { FiPhone, FiMapPin } from "react-icons/fi";
