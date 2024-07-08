@@ -268,7 +268,10 @@ const OwnerMenu = () => {
           <div className="right">
             <div className="box_popupImage_logo">
               <NavLink to="/home" className="logo22">
-                <div className="go_backPage"><HiOutlineLogin />Go back</div>
+                <div className="go_backPage">
+                  <HiOutlineLogin />
+                  Go back
+                </div>
                 <img src={restaurant.logo || no_picture} alt="logo" />
                 <h3>{restaurant.name}</h3>
               </NavLink>
@@ -320,7 +323,11 @@ const OwnerMenu = () => {
             <div className="boximage_admin">
               <NavLink to="#" className="userAdminImage">
                 <p>{storage.email}</p>
-                <img src={storage.image} />
+                <img
+                  className="restaurant-logo"
+                  src={storage.image}
+                  alt="User Image"
+                />
               </NavLink>
             </div>
           </div>

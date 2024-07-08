@@ -83,7 +83,7 @@ const EditEmployee = () => {
               <div className="boxhead_subminandtitle">
                 <h2 className="titleaddmin">Edit Employee</h2>
                 <div className="button-updateemp">
-                  <button type="submit" className="btn_submit22">
+                  <button className="btn_submit22">
                     Update
                   </button>
                 </div>

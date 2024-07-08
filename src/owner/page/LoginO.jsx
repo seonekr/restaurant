@@ -28,6 +28,25 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
+    if (!email) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please enter your email!',
+      });
+      return;
+    }
+
+    if (!password) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please enter your password!',
+      });
+      return;
+    }
+
     let data = JSON.stringify({
       email: email,
       password: password,

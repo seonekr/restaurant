@@ -9,7 +9,7 @@ import axios from "axios";
 import Editfood from "./Editfood";
 import "./itemfood1.css";
 import Bannerres from "./Bannerres";
-
+import Skeleton from "react-loading-skeleton"; // Import Skeleton
 
 function Itemfood() {
   const [fieldToEdit, setFieldToEdit] = useState(null);
@@ -17,6 +17,7 @@ function Itemfood() {
   const [selectedFood, setSelectedFood] = useState(null);
   const [products, setProducts] = useState([]);
   const storage = JSON.parse(window.localStorage.getItem("user"));
+  const [loading, setLoading] = useState(true); // State for loading indicator
 
   useEffect(() => {
     if (storage && storage.restaurant_id) {
@@ -32,6 +33,7 @@ function Itemfood() {
         `${import.meta.env.VITE_API}/restaurants/${storage.restaurant_id}/menu_items/list/`
       );
       setProducts(response.data);
+      setLoading(false); // Set loading to false once data is fetched
     } catch (error) {
       console.error("Error fetching menu items:", error);
     }
@@ -94,47 +96,52 @@ function Itemfood() {
           </div>
           <div className="box_itemFood_container_main11">
             <div className="container">
-              {products.map((product) => (
-                <div className="box_itemFood-main" key={product.id}>
-                  <div className="box_itemFood_item_main">
-                    <img
-                      className="image-pv-item"
-                      src={product.image}
-                      alt={product.name}
-                      onClick={() => setSelectedFood(product)}
-                    />
-                    <div
-                      className="deleteBox_productcontent"
-                      onClick={() => handleDelete(product.id)}
-                    >
-                      <AiOutlineDelete />
+              {loading ? (
+                // Skeleton loading for products
+                Array.from({ length: 5 }).map((_, index) => (
+                  <div className="box_itemFood-main" key={index}>
+                    <div className="box_itemFood_item_main">
+                      <Skeleton height={150} />
                     </div>
-                    <div className="icon_cameraDp22">
-                      <IoCamera
-                        onClick={() => handleEdit(product, "image")}
+                  </div>
+                ))
+              ) : (
+                products.map((product) => (
+                  <div className="box_itemFood-main" key={product.id}>
+                    <div className="box_itemFood_item_main">
+                      <img
+                        className="image-pv-item"
+                        src={product.image}
+                        alt={product.name}
+                        onClick={() => setSelectedFood(product)}
                       />
-                    </div>
-                    <div className="txt_boxDescription3">
-                      <div className="product-info">
-                        <p className="product-name">{product.name}</p>
-                        <div className="edit-icon-name">
-                          <FaPencil
-                            onClick={() => handleEdit(product, "name")}
-                          />
-                        </div>
+                      <div
+                        className="deleteBox_productcontent"
+                        onClick={() => handleDelete(product.id)}
+                      >
+                        <AiOutlineDelete />
                       </div>
-                      <div className="product-info">
-                        <p className="product-price">Price: ${product.price}</p>
-                        <div className="edit-icon-price">
-                          <FaPencil
-                            onClick={() => handleEdit(product, "price")}
-                          />
+                      <div className="icon_cameraDp22">
+                        <IoCamera onClick={() => handleEdit(product, "image")} />
+                      </div>
+                      <div className="txt_boxDescription3">
+                        <div className="product-info">
+                          <p className="product-name">{product.name}</p>
+                          <div className="edit-icon-name">
+                            <FaPencil onClick={() => handleEdit(product, "name")} />
+                          </div>
+                        </div>
+                        <div className="product-info">
+                          <p className="product-price">Price: ${product.price}</p>
+                          <div className="edit-icon-price">
+                            <FaPencil onClick={() => handleEdit(product, "price")} />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>

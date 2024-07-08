@@ -22,18 +22,7 @@ const Editcategory = ({ category, onSave, onCancel }) => {
   };
 
   const handleCancel = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to cancel editing?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        onCancel();
-      }
-    });
+    onCancel();
   };
 
   return (

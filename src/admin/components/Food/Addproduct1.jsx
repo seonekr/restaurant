@@ -198,7 +198,7 @@ const Addproduct1 = () => {
               <div key={index}>
                 <div className="addProduct_box_content_afterThat">
                   <div
-                    className="deleteBox_productconotent"
+                    className="deleteBox_productconotent2"
                     onClick={() => handleDelete(index)}
                   >
                     <AiOutlineDelete />
@@ -216,7 +216,7 @@ const Addproduct1 = () => {
                       required
                     />
                   </div>
-                  <div className="edit_images">
+                  <div className="edit_images2">
                     <label
                       htmlFor={`img-${index}`}
                       className="trigger_popup_fricc"
